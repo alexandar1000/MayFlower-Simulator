@@ -734,6 +734,7 @@ GameObject:
   - component: {fileID: 2046149539}
   - component: {fileID: 2046149538}
   - component: {fileID: 2046149541}
+  - component: {fileID: 2046149542}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -799,13 +800,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046149537}
-  m_LocalRotation: {x: 0.0118261175, y: 0.35710853, z: 0.004521746, w: 0.9339771}
-  m_LocalPosition: {x: 1.6, y: 6.26, z: -10}
+  m_LocalRotation: {x: 0.009496097, y: 0.0074121263, z: 0.00837599, w: 0.99989235}
+  m_LocalPosition: {x: 8.21, y: 4.14, z: -8.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.0810001, y: 41.858, z: 0.96800005}
+  m_LocalEulerAnglesHint: {x: 1.0810001, y: 0.85858, z: 0.96800005}
 --- !u!114 &2046149541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,6 +838,20 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &2046149542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046149537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eefdfd82bd042a3ad381c835b2e8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boat: {fileID: 446700235}
+  target: {fileID: 0}
 --- !u!1 &2071943998
 GameObject:
   m_ObjectHideFlags: 0
