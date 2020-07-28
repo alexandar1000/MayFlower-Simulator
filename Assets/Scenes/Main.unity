@@ -5571,6 +5571,11 @@ PrefabInstance:
       propertyPath: TemperatureAnomalies.Array.data[1]
       value: 
       objectReference: {fileID: 1250718104}
+    - target: {fileID: 2725561291531423873, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: Topic
+      value: /temperature_reading
+      objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423878, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
       propertyPath: m_Name
