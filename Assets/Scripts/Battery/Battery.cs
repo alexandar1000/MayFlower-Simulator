@@ -35,6 +35,7 @@ public class Battery : MonoBehaviour
         }
         else if (boatStatus <= 1)
         {
+            power = MIN_POWER;
             boatStatus++;
         }
 
