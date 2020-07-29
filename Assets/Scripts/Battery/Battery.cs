@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +44,10 @@ public class Battery : MonoBehaviour
         if (boatStatus == 1)
         {
             UnityEngine.Debug.Log("The battery runs out off power, boat stopped.");
+            //Change Boat color to red. 
+            GameObject boat = GameObject.Find("Boat");
+            var boatRenderer = boat.GetComponent<Renderer>();
+            boatRenderer.material.SetColor("_BaseColor", Color.red);
         }
         if (boatStatus == 0)
         {
