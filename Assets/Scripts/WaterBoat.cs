@@ -52,7 +52,7 @@ public class WaterBoat : MonoBehaviour
         var forward = Vector3.Scale(new Vector3(1,0,1), transform.forward);
         var targetVel = Vector3.zero;
 
-        //forward/backward poewr
+        //forward/backward power
         if (Input.GetKey(KeyCode.W))
             PhysicsHelper.ApplyForceToReachVelocity(Rigidbody, forward * MaxSpeed, Power);
         if (Input.GetKey(KeyCode.S))

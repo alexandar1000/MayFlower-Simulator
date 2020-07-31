@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AirDrag: 1
-  WaterDrag: 10
+  WaterDrag: 5
   AffectDirection: 1
   AttachToSurface: 0
   FloatPoints:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Motor: {fileID: 701069742}
-  SteerPower: 15
+  SteerPower: 5
   Power: 15
   MaxSpeed: 10
   Drag: 0
@@ -762,13 +762,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046149537}
-  m_LocalRotation: {x: 0.17854463, y: 0, z: 0, w: 0.98393184}
-  m_LocalPosition: {x: 5.51, y: 21.93, z: -22.69}
+  m_LocalRotation: {x: 0.21616222, y: 0.060934525, z: -0.013518347, w: 0.9743604}
+  m_LocalPosition: {x: -4.53, y: 33.64, z: -31.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20.570002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.017002, y: 7.1570005, z: 0}
 --- !u!114 &2046149541
 MonoBehaviour:
   m_ObjectHideFlags: 0
