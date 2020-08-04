@@ -2,36 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class Laser
 {
     private static 
     int LaserCounter;
-    // private int _laserId;
-    public float LaserLength = 25f;
+    private int _laserId;
+    private float _laserLength = 25f;
     // private Ray _ray;
     // private RaycastHit _raycastHit;
-    // private Vector3 _startingPosition;
-    // private Vector3 _direction;
 
-    private void Update() {
-        ShootLaser();
+    public Laser(float laserLength)
+    {
+        this._laserId = LaserCounter++;
+        this._laserLength = laserLength;
     }
 
-    public void ShootLaser()
+    public void ShootLaser(Vector3 startPosition, Vector3 direction)
     {
-        // this._laserId = LaserCounter++;
-        // this._laserLength = laserLength;
-        // this._startingPosition = transform.position;
-            // private float _laserLength;
         RaycastHit raycastHit;
-        Vector3 startingPosition = transform.position;
-        // Vector3 _direction;
-        
+        Debug.Log("Here");
 
-        if(Physics.Raycast(startingPosition, transform.forward, out raycastHit, this.LaserLength)) {
-
+        if(Physics.Raycast(startPosition, direction, out raycastHit, this._laserLength)) {
+            
+            Debug.DrawLine(startPosition, raycastHit.point, Color.red);
         }
-        Debug.DrawLine(startingPosition, raycastHit.point);
     }
 
 }

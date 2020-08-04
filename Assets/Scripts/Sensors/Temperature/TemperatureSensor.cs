@@ -54,7 +54,6 @@ namespace RosSharp.RosBridgeClient
                     temperatureReading += change;
                 }
             }
-            Debug.Log(temperatureReading);
             Publish(PrepareMessage(temperatureReading));
         }
 
