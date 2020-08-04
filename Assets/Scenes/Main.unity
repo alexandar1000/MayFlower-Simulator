@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06edaa0f6702174ca19a5714f85890e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserLength: 25
-  RotationSpeed: 1
+  LaserLength: 100
+  RotationFrequency: 0.1
+  ShowLasers: 1
 --- !u!65 &117543480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -836,8 +837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06edaa0f6702174ca19a5714f85890e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserLength: 25
-  RotationSpeed: 1
+  LaserLength: 100
+  RotationFrequency: 1
+  ShowLasers: 1
 --- !u!1 &2046149537
 GameObject:
   m_ObjectHideFlags: 0
