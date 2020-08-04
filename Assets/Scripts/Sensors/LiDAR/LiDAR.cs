@@ -6,6 +6,7 @@ public class LiDAR : MonoBehaviour
 {
     private Laser _laser; 
     public float LaserLength = 25f;
+    public float RotationFrequency;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class LiDAR : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(0, RotationFrequency * 360 * Time.deltaTime, 0);
         Vector3 startingPosition = transform.position;
         Vector3 direction = transform.forward;
         _laser.ShootLaser(transform.position, transform.forward);

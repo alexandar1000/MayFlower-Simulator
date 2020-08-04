@@ -17,11 +17,12 @@ public class Laser
         this._laserLength = laserLength;
     }
 
+    /*
+        Fires a laser with the specified starting position and direction.
+    */
     public void ShootLaser(Vector3 startPosition, Vector3 direction)
     {
         RaycastHit raycastHit;
-        Debug.Log("Here");
-
         if(Physics.Raycast(startPosition, direction, out raycastHit, this._laserLength)) {
             
             Debug.DrawLine(startPosition, raycastHit.point, Color.red);
