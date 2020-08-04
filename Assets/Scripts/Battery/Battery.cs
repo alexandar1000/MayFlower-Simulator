@@ -10,7 +10,7 @@ public class Battery : MonoBehaviour
     public static float power;
     public float consumeRate = 1f;
     public bool boatCanMove;
-    private int boatStatus = 0;     
+    private int boatStatus = 0;
 
     /* public bool isCharging;
      public int chargeRate = 3;
@@ -61,7 +61,6 @@ public class Battery : MonoBehaviour
         //battery recharge
         /*if (isCharging)
        {
-
        }*/
 
     }

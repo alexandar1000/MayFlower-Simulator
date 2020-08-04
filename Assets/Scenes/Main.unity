@@ -275,6 +275,18 @@ MonoBehaviour:
   Power: 15
   MaxSpeed: 10
   Drag: 0
+--- !u!114 &446700241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446700235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb006fd4c2a96241aef85edce05e2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &462300869
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +630,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Topic: /batteryPower
   MeasurementFrequency: 2
+--- !u!114 &1137387535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137387530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de28c8317724968428361d2cee37e689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /pitchAngle
+  MeasurementFrequency: 2
+--- !u!114 &1137387536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137387530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12630ed12b408946bd55942020e18c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /rollAngle
+  MeasurementFrequency: 2
 --- !u!1 &1250718104
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,9 +710,53 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_Name
       value: boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -775,6 +859,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1584761760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584761755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd5dd9135d0b2c47aa2953482419dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotate_X: 0
+  Rotate_Y: 0
+  Rotate_Z: 0
+--- !u!114 &1584761761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584761755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb006fd4c2a96241aef85edce05e2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2046149537
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +5762,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 446700239}
     m_Modifications:
+    - target: {fileID: 2725561291531423872, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: RosBridgeServerUrl
+      value: ws://192.168.56.102:9090
+      objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423873, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
       propertyPath: TemperatureAnomalies.Array.data[0]
@@ -5661,10 +5777,20 @@ PrefabInstance:
       propertyPath: TemperatureAnomalies.Array.data[1]
       value: 
       objectReference: {fileID: 1250718104}
+    - target: {fileID: 2725561291531423873, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423878, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
       propertyPath: m_Name
       value: SensorHub
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725561291531423878, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423879, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
