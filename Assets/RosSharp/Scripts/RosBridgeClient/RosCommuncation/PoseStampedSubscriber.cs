@@ -17,12 +17,12 @@ using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
 {
-    public class PoseStampedSubscriber : UnitySubscriber<MessageTypes.Geometry.PoseStamped>
+    public class PoseStampedSubscriber : UnitySubscriber<MessageTypes.Geometry.Pose>
     {
-        public Transform PublishedTransform;
+        //public Transform PublishedTransform;
 
-        private Vector3 position;
-        private Quaternion rotation;
+        public Vector3 position;
+        public Quaternion rotation;
         private bool isMessageReceived;
 
         protected override void Start()
@@ -36,7 +36,7 @@ namespace RosSharp.RosBridgeClient
                 ProcessMessage();
         }
 
-        protected override void ReceiveMessage(MessageTypes.Geometry.PoseStamped message)
+        protected override void ReceiveMessage(MessageTypes.Geometry.Pose message)
         {
             position = GetPosition(message).Ros2Unity();
             rotation = GetRotation(message).Ros2Unity();
@@ -45,25 +45,31 @@ namespace RosSharp.RosBridgeClient
 
         private void ProcessMessage()
         {
-            PublishedTransform.position = position;
-            PublishedTransform.rotation = rotation;
+            //PublishedTransform.position = position;
+            //PublishedTransform.rotation = rotation;
         }
 
-        private Vector3 GetPosition(MessageTypes.Geometry.PoseStamped message)
+        private Vector3 GetPosition(MessageTypes.Geometry.Pose message)
         {
             return new Vector3(
-                (float)message.pose.position.x,
-                (float)message.pose.position.y,
-                (float)message.pose.position.z);
+                (float)message.position.x,
+                (float)message.position.y,
+                (float)message.position.z);
         }
 
-        private Quaternion GetRotation(MessageTypes.Geometry.PoseStamped message)
+        public Vector3 ReturnPosition()
+        {
+            return position;
+        }
+
+
+        private Quaternion GetRotation(MessageTypes.Geometry.Pose message)
         {
             return new Quaternion(
-                (float)message.pose.orientation.x,
-                (float)message.pose.orientation.y,
-                (float)message.pose.orientation.z,
-                (float)message.pose.orientation.w);
+                (float)message.orientation.x,
+                (float)message.orientation.y,
+                (float)message.orientation.z,
+                (float)message.orientation.w);
         }
     }
 }

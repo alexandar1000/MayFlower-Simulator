@@ -424,17 +424,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 446700235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d12835e15ac42848fdbe2ba4021b35, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b1646965141685429d5e70ebb9848e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: 
-  boat: {fileID: 0}
-  canal: {fileID: 0}
+  boat: {fileID: 446700235}
+  canal: {fileID: 2092768065}
   distance: 0
   sensorLength: 5
   frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
   frontSideSensorPosition: 0.2
   frontSensorAngle: 30
+  backSensorPosition: 0.2
 --- !u!114 &446700242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.46
+      value: 6.63
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6018,6 +6019,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072697048}
   m_CullTransparentMesh: 1
+--- !u!1 &2092768065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1553102993528923762, guid: d78316f1064cd934c841846722fb09f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3257871231600861393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2129075295
 GameObject:
   m_ObjectHideFlags: 0
