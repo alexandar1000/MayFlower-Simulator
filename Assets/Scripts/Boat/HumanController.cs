@@ -25,7 +25,7 @@ namespace BoatAttack
             _controls.BoatControls.Steering.performed += context => _steering = context.ReadValue<float>();
             _controls.BoatControls.Steering.canceled += context => _steering = 0f;
 
-            _controls.BoatControls.Reset.performed += ResetBoat;
+            // _controls.BoatControls.Reset.performed += ResetBoat;
             _controls.BoatControls.Freeze.performed += FreezeBoat;
 
             _controls.BoatControls.Time.performed += SelectTime;
@@ -42,10 +42,10 @@ namespace BoatAttack
             _controls.BoatControls.Disable();
         }
 
-        private void ResetBoat(InputAction.CallbackContext context)
-        {
-            controller.ResetPosition();
-        }
+        // private void ResetBoat(InputAction.CallbackContext context)
+        // {
+        //     controller.ResetPosition();
+        // }
 
         private void FreezeBoat(InputAction.CallbackContext context)
         {
