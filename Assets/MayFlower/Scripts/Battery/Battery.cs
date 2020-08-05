@@ -14,7 +14,8 @@ public class Battery : MonoBehaviour
     private int boatStatus = 0;
 
     public PowerBar PowerBar;
-    public Text PowerText;
+    
+    // public Text PowerText;
 
 
     /* public bool isCharging;
@@ -28,20 +29,21 @@ public class Battery : MonoBehaviour
         GameObject battery = GameObject.Find("Battery");
         power = MAX_POWER;
         PowerBar.setMaxPower(MAX_POWER);
-        PowerText.text = Math.Round(power).ToString() + "%";
-        UnityEngine.Debug.Log("Battery start, and power is " + power);
+        // PowerText.text = Math.Round(power).ToString() + "%";
+        Debug.Log("Battery start, and power is " + power);
     }
 
     // Update is called once per frame
     void Update()
     {
         PowerBar.setPower(power);
-        PowerText.text = Math.Round(power).ToString() + "%";
+        // PowerText.text = Math.Round(power).ToString() + "%";
         //update boat status
         if (power > 0)
         {
             boatStatus = 0;
             power = MAX_POWER - Time.time * consumeRate; //Time.time: number of seconds from the start of game
+            Debug.Log(power);
         }
         else if (boatStatus <= 1)
         {
@@ -52,7 +54,7 @@ public class Battery : MonoBehaviour
         //boat stop condition
         if (boatStatus == 1)
         {
-            UnityEngine.Debug.Log("The battery runs out off power, boat stopped.");
+            Debug.Log("The battery runs out off power, boat stopped.");
             //Change Boat color to red. 
             /*GameObject boatHull = GameObject.Find("BoatHull");
             var boatRenderer = boatHull.GetComponent<Renderer>();

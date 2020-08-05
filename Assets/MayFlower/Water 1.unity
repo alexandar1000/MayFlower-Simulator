@@ -879,41 +879,6 @@ Transform:
   m_Father: {fileID: 1700378019}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 11.203, z: 0}
---- !u!84 &586298139
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &611899539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,9 +1218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b133824570250404b84a847c1ea6dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeRate: 1
-  PowerBar: {fileID: 0}
-  PowerText: {fileID: 0}
+  consumeRate: 20
+  PowerBar: {fileID: 1893679376}
 --- !u!4 &833370220
 Transform:
   m_ObjectHideFlags: 0
@@ -2137,7 +2101,7 @@ PrefabInstance:
     - target: {fileID: 5566958750610191849, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: steeringTorque
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5566958750610191849, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -2157,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000005606562
+      value: 0.000000603497
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -2187,7 +2151,7 @@ PrefabInstance:
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -2238,6 +2202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: _Renegade
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572136798535523618, guid: 70d78230a0527e74dabc4f14906eef98,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8603238620720130158, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -3434,8 +3403,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641348386}
-  m_LocalRotation: {x: 0.01712519, y: 0.98223835, z: -0.11307555, w: 0.14875647}
-  m_LocalPosition: {x: 432.0517, y: 2.42, z: 56.815475}
+  m_LocalRotation: {x: 0.01712523, y: 0.98223835, z: -0.11307554, w: 0.14875647}
+  m_LocalPosition: {x: 432.0517, y: 1.32, z: 56.815475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4042,6 +4011,41 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!84 &1898452199
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &2012933807
 GameObject:
   m_ObjectHideFlags: 0
