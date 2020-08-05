@@ -19,6 +19,8 @@ namespace BoatAttack
         public Renderer engineRenderer; // The renderer for the boat mesh
         public Engine engine;
         private Matrix4x4 _spawnPosition;
+        
+        private Rigidbody rb;
 
         // RaceStats
         [NonSerialized] public int Place = 0;

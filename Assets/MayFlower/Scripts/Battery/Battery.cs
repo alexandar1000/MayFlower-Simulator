@@ -15,7 +15,7 @@ public class Battery : MonoBehaviour
 
     public PowerBar PowerBar;
     
-    // public Text PowerText;
+    public Text PowerText;
 
 
     /* public bool isCharging;
@@ -29,7 +29,7 @@ public class Battery : MonoBehaviour
         GameObject battery = GameObject.Find("Battery");
         power = MAX_POWER;
         PowerBar.setMaxPower(MAX_POWER);
-        // PowerText.text = Math.Round(power).ToString() + "%";
+        PowerText.text = Math.Round(power).ToString() + "%";
         Debug.Log("Battery start, and power is " + power);
     }
 
@@ -37,7 +37,7 @@ public class Battery : MonoBehaviour
     void Update()
     {
         PowerBar.setPower(power);
-        // PowerText.text = Math.Round(power).ToString() + "%";
+        PowerText.text = Math.Round(power).ToString() + "%";
         //update boat status
         if (power > 0)
         {
