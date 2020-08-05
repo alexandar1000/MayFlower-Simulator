@@ -41,7 +41,6 @@ namespace BoatAttack
         // Wind
         public bool inWindZone = false;
         public GameObject windZone;
-        private Rigidbody rb; 
         // Shader Props
         private static readonly int LiveryPrimary = Shader.PropertyToID("_Color1");
         private static readonly int LiveryTrim = Shader.PropertyToID("_Color2");
@@ -89,6 +88,13 @@ namespace BoatAttack
             {
                 RaceUi.UpdatePlaceCounter(Place);
                 RaceUi.UpdateSpeed(engine.VelocityMag);
+            }
+            
+        }
+
+        private void FixedUpdate() {
+            if(inWindZone){
+                rb.AddForce(windZone.GetComponent<WindArea>().direction * windZone.GetComponent<WindArea>().strength);
             }
             
         }
