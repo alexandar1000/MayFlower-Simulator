@@ -36,21 +36,17 @@ namespace BoatAttack
         [NonSerialized] public RaceUI RaceUi;
         private Object _controller;
         private int _playerIndex;
-
+        
+        // Modified Content
+        // Wind
+        public bool inWindZone = false;
+        public GameObject windZone;
+        private Rigidbody rb; 
         // Shader Props
         private static readonly int LiveryPrimary = Shader.PropertyToID("_Color1");
         private static readonly int LiveryTrim = Shader.PropertyToID("_Color2");
 
-        // battery
-        public int maxPower = 100;
-        public int currentPower;
-
-        public Battery battery;
-
-        void Start() { 
-
-            currentPower = maxPower;           
-        }
+        
         private void Awake()
 		{
             _spawnPosition = transform.localToWorldMatrix;
@@ -80,25 +76,23 @@ namespace BoatAttack
                 _controller = gameObject.AddComponent(controllerType);
             }
         }
+        void Start() { 
+            rb = GetComponent<Rigidbody >();
+
+        }
 
         private void Update()
         {
-            UpdateLaps();
+            // UpdateLaps();
 
             if (RaceUi)
             {
                 RaceUi.UpdatePlaceCounter(Place);
                 RaceUi.UpdateSpeed(engine.VelocityMag);
             }
-            // if(Input.GetKeyDown(KeyCode.Space)){
-            //     TakeDamage(20);
-            // }
+            
         }
 
-        // void TakeDamage(int damage){
-        //     currentPower -= damage;
-        //     battery.setBattery(currentPower);
-        // }
 
         private void LateUpdate()
         {
@@ -109,74 +103,79 @@ namespace BoatAttack
             }
         }
 
-        private void FixedUpdate()
+        // private void FixedUpdate()
+        // {
+        //     // if (!RaceManager.RaceStarted)
+        //     // {
+        //     //     // race not started, make sure to keep boat fairly aligned.
+        //     //     // var target = WaypointGroup.Instance.StartingPositions[_playerIndex];
+        //     //     // Vector3 targetPosition = target.GetColumn(3);
+        //     //     // Vector3 targetForward = target.GetColumn(2);
+        //     //     // var t = transform;
+        //     //     // var currentPosition = t.position;
+        //     //     // var currentForward = t.forward;
+
+        //     //     // targetPosition.y = currentPosition.y;
+        //     //     // engine.RB.AddForce((currentPosition - targetPosition) * 0.25f);
+
+        //     //     // engine.RB.MoveRotation(Quaternion.LookRotation(Vector3.Slerp(currentForward, targetForward, 0.1f * Time.fixedDeltaTime)));
+
+        //     // }
+        // }
+
+        // private void UpdateLaps()
+        // {
+        //     LapPercentage = WaypointGroup.Instance.GetPercentageAroundTrack(transform.position);
+        //     var lowPercentage = _lastCheckpoint?.normalizedDistance ?? 0f;
+        //     var highPercentage = _nextCheckpoint?.normalizedDistance ?? 1f;
+        //     LapPercentage = Mathf.Clamp(LapPercentage, lowPercentage, highPercentage <= 0.001f ? 1f : highPercentage);
+
+        //     if (RaceUi)
+        //     {
+        //         RaceUi.UpdateLapCounter(LapCount);
+        //     }
+        // }
+
+        private void OnTriggerEnter(Collider coll)
         {
-            if (!RaceManager.RaceStarted)
-            {
-                // race not started, make sure to keep boat fairly aligned.
-                var target = WaypointGroup.Instance.StartingPositions[_playerIndex];
-                Vector3 targetPosition = target.GetColumn(3);
-                Vector3 targetForward = target.GetColumn(2);
-                var t = transform;
-                var currentPosition = t.position;
-                var currentForward = t.forward;
+            // if (!other.CompareTag("waypoint") || MatchComplete) return;
 
-                targetPosition.y = currentPosition.y;
-                engine.RB.AddForce((currentPosition - targetPosition) * 0.25f);
+            // var wp = WaypointGroup.Instance.GetTriggersWaypoint(other as BoxCollider);
+            // var wpIndex = WaypointGroup.Instance.GetWaypointIndex(wp);
+            // if (wp.isCheckpoint || wpIndex == 0)
+            // {
+            //     _lastCheckpoint = wp;
+            //     _nextCheckpoint = WaypointGroup.Instance.GetNextCheckpoint(wpIndex);
+            // }
 
-                engine.RB.MoveRotation(Quaternion.LookRotation(Vector3.Slerp(currentForward, targetForward, 0.1f * Time.fixedDeltaTime)));
-
+            // EnteredWaypoint(wpIndex, wp.isCheckpoint);
+            if(coll.gameObject.tag == "WindArea"){
+                windZone = coll.gameObject;
+                inWindZone = true;
             }
         }
 
-        private void UpdateLaps()
-        {
-            LapPercentage = WaypointGroup.Instance.GetPercentageAroundTrack(transform.position);
-            var lowPercentage = _lastCheckpoint?.normalizedDistance ?? 0f;
-            var highPercentage = _nextCheckpoint?.normalizedDistance ?? 1f;
-            LapPercentage = Mathf.Clamp(LapPercentage, lowPercentage, highPercentage <= 0.001f ? 1f : highPercentage);
 
-            if (RaceUi)
-            {
-                RaceUi.UpdateLapCounter(LapCount);
-            }
-        }
+        // private void EnteredWaypoint(int index, bool checkpoint)
+        // {
+        //     var count = WaypointGroup.Instance.WPs.Count;
+        //     var nextWp = (int) Mathf.Repeat(_wpCount + 1, count);
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!other.CompareTag("waypoint") || MatchComplete) return;
+        //     if (nextWp != index) return;
+        //     _wpCount = nextWp;
 
-            var wp = WaypointGroup.Instance.GetTriggersWaypoint(other as BoxCollider);
-            var wpIndex = WaypointGroup.Instance.GetWaypointIndex(wp);
-            if (wp.isCheckpoint || wpIndex == 0)
-            {
-                _lastCheckpoint = wp;
-                _nextCheckpoint = WaypointGroup.Instance.GetNextCheckpoint(wpIndex);
-            }
+        //     if (index != 0) return;
+        //     LapCount++;
+        //     SplitTimes.Add(RaceManager.RaceTime);
 
-            EnteredWaypoint(wpIndex, wp.isCheckpoint);
-        }
+        //     if (LapCount > RaceManager.GetLapCount())
+        //     {
+        //         Debug.Log($"Boat {name} finished {RaceUI.OrdinalNumber(Place)} with time:{RaceUI.FormatRaceTime(SplitTimes.Last())}");
+        //         RaceManager.BoatFinished(_playerIndex);
+        //         MatchComplete = true;
+        //     }
 
-        private void EnteredWaypoint(int index, bool checkpoint)
-        {
-            var count = WaypointGroup.Instance.WPs.Count;
-            var nextWp = (int) Mathf.Repeat(_wpCount + 1, count);
-
-            if (nextWp != index) return;
-            _wpCount = nextWp;
-
-            if (index != 0) return;
-            LapCount++;
-            SplitTimes.Add(RaceManager.RaceTime);
-
-            if (LapCount > RaceManager.GetLapCount())
-            {
-                Debug.Log($"Boat {name} finished {RaceUI.OrdinalNumber(Place)} with time:{RaceUI.FormatRaceTime(SplitTimes.Last())}");
-                RaceManager.BoatFinished(_playerIndex);
-                MatchComplete = true;
-            }
-
-        }
+        // }
 
         [ContextMenu("Randomize")]
         private void ColorizeInvoke()
@@ -205,19 +204,19 @@ namespace BoatAttack
             engineRenderer?.material?.SetColor(LiveryTrim, livery.trimColor);
         }
 
-        public void ResetPosition()
-        {
-            if (WaypointGroup.Instance)
-            {
-                var resetMatrix = WaypointGroup.Instance.GetClosestPointOnWaypoint(transform.position);
-                var resetPoint = resetMatrix.GetColumn(3);
-                resetPoint.y = _spawnPosition.GetColumn(3).y;
-                engine.RB.velocity = Vector3.zero;
-                engine.RB.angularVelocity = Vector3.zero;
-                engine.RB.position = resetPoint;
-                engine.RB.rotation = resetMatrix.rotation;
-            }
-        }
+        // public void ResetPosition()
+        // {
+        //     if (WaypointGroup.Instance)
+        //     {
+        //         var resetMatrix = WaypointGroup.Instance.GetClosestPointOnWaypoint(transform.position);
+        //         var resetPoint = resetMatrix.GetColumn(3);
+        //         resetPoint.y = _spawnPosition.GetColumn(3).y;
+        //         engine.RB.velocity = Vector3.zero;
+        //         engine.RB.angularVelocity = Vector3.zero;
+        //         engine.RB.position = resetPoint;
+        //         engine.RB.rotation = resetMatrix.rotation;
+        //     }
+        // }
     }
 
     [Serializable]
