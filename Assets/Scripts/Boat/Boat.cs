@@ -63,7 +63,7 @@ namespace BoatAttack
 
         void SetupController(bool isHuman)
         {
-            var controllerType = isHuman ? typeof(HumanController) : typeof(AiController);
+            var controllerType = typeof(HumanController);
             // If controller exists then make sure it's teh right one, if not add it
             if (_controller)
             {
@@ -109,6 +109,13 @@ namespace BoatAttack
                 windZone = coll.gameObject;
                 inWindZone = true;
             }
+        }
+
+        private void OnTriggerExit(Collider coll) {
+            if(coll.gameObject.tag == "WindArea"){
+                inWindZone = false;
+            }
+            
         }
 
         [ContextMenu("Randomize")]
