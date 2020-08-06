@@ -427,14 +427,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d12835e15ac42848fdbe2ba4021b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: 
-  boat: {fileID: 0}
-  canal: {fileID: 0}
+  Topic: /testtt
+  boat: {fileID: 446700235}
+  canal: {fileID: 727845607}
   distance: 0
-  sensorLength: 5
+  sensorLength: 50
   frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
   frontSideSensorPosition: 0.2
   frontSensorAngle: 30
+  backSensorPosition: 0.2
 --- !u!114 &446700242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,7 +451,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 0
-  RosBridgeServerUrl: ws://192.168.0.1:9090
+  RosBridgeServerUrl: ws://localhost:9090
 --- !u!1 &589517063
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +514,12 @@ Transform:
   m_Father: {fileID: 446700239}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727845607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1553102993528923762, guid: d78316f1064cd934c841846722fb09f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3257871231600861393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &790640675
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,11 +897,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.54
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.73
+      value: 5.7
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalRotation.x
