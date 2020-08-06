@@ -19,17 +19,18 @@ public class Laser
     /*
         Fires a laser with the specified starting position and direction.
     */
-    public void ShootLaser(Vector3 startPosition, Vector3 direction, bool showLaser=true)
+    public float ShootLaser(Vector3 startPosition, Vector3 direction, bool showLaser=true)
     {
         RaycastHit raycastHit;
         if(Physics.Raycast(startPosition, direction, out raycastHit, this._laserLength)) {
             GetHitPoint();
-            Debug.Log(Vector3.Distance(startPosition, raycastHit.point));
             if(showLaser) 
             {
-                Debug.DrawLine(startPosition, raycastHit.point, Color.red);
+                // Debug.DrawLine(startPosition, raycastHit.point, Color.red);
             }
+            return Vector3.Distance(startPosition, raycastHit.point);
         }
+        return 0f;
     }
 
     private void GetHitPoint()

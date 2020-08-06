@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 117543482}
   - component: {fileID: 117543481}
   - component: {fileID: 117543480}
+  - component: {fileID: 117543483}
   - component: {fileID: 117543479}
   m_Layer: 0
   m_Name: Cube
@@ -167,9 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06edaa0f6702174ca19a5714f85890e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Topic: /scan
   LaserLength: 100
-  RotationFrequency: 0.1
+  RotationPerMinute: 60
+  ScanningFrequency: 100
   ShowLasers: 1
+  FrameId: Unity
 --- !u!65 &117543480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -230,6 +234,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117543477}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &117543483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117543477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://localhost:9090
 --- !u!1 &172842723
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,13 +891,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046149537}
-  m_LocalRotation: {x: 0.21616222, y: 0.060934525, z: -0.013518347, w: 0.9743604}
-  m_LocalPosition: {x: -4.53, y: 33.64, z: -31.63}
+  m_LocalRotation: {x: 0.2165845, y: 0, z: 0, w: 0.9762639}
+  m_LocalPosition: {x: 8.4, y: 5.8, z: -5.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.017002, y: 7.1570005, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.017002, y: 0, z: 0}
 --- !u!114 &2046149541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5685,10 +5705,20 @@ PrefabInstance:
       propertyPath: Topic
       value: /temperature_reading
       objectReference: {fileID: 0}
+    - target: {fileID: 2725561291531423873, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423878, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
       propertyPath: m_Name
       value: SensorHub
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725561291531423878, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2725561291531423879, guid: 5dc8a8cdaafea1f7b91fcfe9022332a6,
         type: 3}
