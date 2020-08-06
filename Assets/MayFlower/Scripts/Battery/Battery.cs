@@ -34,10 +34,15 @@ public class Battery : MonoBehaviour
     {
         powerBar.setPower(power);
         powerText.text = Math.Round(power).ToString() + "%";
+        Debug.Log("at home: " + atHomeArea);
 
         if (atHomeArea){
             boatStatus = 0;
             power += Time.deltaTime * consumeRate;
+            if (power > MAX_POWER)
+            {
+                power = MAX_POWER;
+            }
         }
 
         else{
@@ -46,6 +51,7 @@ public class Battery : MonoBehaviour
                 boatStatus = 0;
                 power -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game
                 Debug.Log(power);
+                
             }
             else{
                 boatStatus++;
