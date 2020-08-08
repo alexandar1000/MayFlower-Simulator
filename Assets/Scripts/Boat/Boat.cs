@@ -18,7 +18,7 @@ namespace BoatAttack
         public Renderer boatRenderer; // The renderer for the boat mesh
         public Renderer engineRenderer; // The renderer for the boat mesh
         public Engine engine;
-        public Battery battery;
+        //public Battery battery;
         private Matrix4x4 _spawnPosition;
         
         private Rigidbody rb;
@@ -81,7 +81,7 @@ namespace BoatAttack
         }
         private void Update()
         {
-            if (battery.boatStatus == 1)
+            if (Battery.boatStatus == 1)
             {
                 ResetPosition();
             }
@@ -161,6 +161,10 @@ namespace BoatAttack
             engine.RB.velocity = Vector3.zero;
             engine.RB.angularVelocity = Vector3.zero;
             engine.RB.position = _spawnPosition.GetColumn(3);
+            Battery.power = 100;
+            Battery.boatStatus = 0;
+
+
             //engine.RB.rotation = resetMatrix.rotation;
 
         }

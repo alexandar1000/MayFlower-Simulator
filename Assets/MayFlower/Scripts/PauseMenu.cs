@@ -21,10 +21,6 @@ public class PauseMenu : MonoBehaviour
         }
         
     }
-    private void OnApplicationPause(bool pause)
-    {
-        
-    }
     
     public void Resume()
     {

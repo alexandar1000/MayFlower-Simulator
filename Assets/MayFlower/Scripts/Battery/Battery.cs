@@ -10,7 +10,7 @@ public class Battery : MonoBehaviour
     private const float MAX_POWER = 100;
     public static float power;
     public float consumeRate = 1f;
-    public int boatStatus = 0;
+    public static int boatStatus = 0;
 
     public PowerBar powerBar;
     
@@ -54,7 +54,7 @@ public class Battery : MonoBehaviour
                 
             }
             else{
-                boatStatus++;
+                boatStatus = 1;
             }
 
             //boat stop condition
