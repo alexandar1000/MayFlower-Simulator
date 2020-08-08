@@ -10,7 +10,7 @@ public class Battery : MonoBehaviour
     private const float MAX_POWER = 100;
     public static float power;
     public float consumeRate = 1f;
-    private int boatStatus = 0;
+    public int boatStatus = 0;
 
     public PowerBar powerBar;
     

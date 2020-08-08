@@ -18,6 +18,7 @@ namespace BoatAttack
         public Renderer boatRenderer; // The renderer for the boat mesh
         public Renderer engineRenderer; // The renderer for the boat mesh
         public Engine engine;
+        public Battery battery;
         private Matrix4x4 _spawnPosition;
         
         private Rigidbody rb;
@@ -76,6 +77,14 @@ namespace BoatAttack
         }
         void Start() { 
             rb = GetComponent<Rigidbody >();
+
+        }
+        private void Update()
+        {
+            if (battery.boatStatus == 1)
+            {
+                ResetPosition();
+            }
 
         }
 
