@@ -31,7 +31,6 @@ namespace BoatAttack
 
         public CinemachineVirtualCamera cam;
         private float _camFovVel;
-        [NonSerialized] public RaceUI RaceUi;
         private Object _controller;
         private int _playerIndex;
         
@@ -152,7 +151,7 @@ namespace BoatAttack
 
             engine.RB.velocity = Vector3.zero;
             engine.RB.angularVelocity = Vector3.zero;
-            //engine.RB.position = _spawnPosition.position;
+            engine.RB.position = _spawnPosition.GetColumn(3);
             //engine.RB.rotation = resetMatrix.rotation;
 
         }
