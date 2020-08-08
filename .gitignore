@@ -67,6 +67,10 @@ Packages/packages-lock.json
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Video
+*.mp4
+/Recordings
+
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
