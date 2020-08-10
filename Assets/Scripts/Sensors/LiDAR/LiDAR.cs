@@ -11,7 +11,9 @@ namespace RosSharp.RosBridgeClient
         public float LaserLength;
         public float RotationPerMinute;
         public int ScanningFrequency;
+        private float _rotationStep;
         private float _rotationDuratuion;
+        private Vector3 _rotationAxis;
         private int _scansPerRotation;
         public bool ShowLasers = true;
         public string FrameId = "Unity";
@@ -19,36 +21,31 @@ namespace RosSharp.RosBridgeClient
         Timer myTimer;
         int scanCounter = 0;
 
+        private Vector3 _initialAngle;
+
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            // _laser = new Laser(LaserLength);
-            _rotationDuratuion = 1 / (RotationPerMinute / 60);
-            // _scansPerRotation = (int) (_rotationDuratuion * ScanningFrequency);
-            _scansPerRotation = 1000;
+
+            _rotationStep = RotationPerMinute / 60;
+            _rotationDuratuion = 1 / _rotationStep;
+            _rotationAxis = transform.up;
+            Debug.Log(_rotationDuratuion);
+            _scansPerRotation = (int) (_rotationDuratuion * ScanningFrequency);
             _rotationScan = new RotationScan(_scansPerRotation, LaserLength);
-            // Debug.Log((float) 1 / ScanningFrequency);
-            // Debug.Log(_rotationDuratuion);
-            // Debug.Log(_scansPerRotation);
+            _initialAngle = transform.forward;
             InitializeMessage();
-            // Time.fixedDeltaTime = 1 / ScanningFrequency;
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
 
         // Update is called once per frame
         void Update()
         {
-            // transform.Rotate(0, _rotationDuratuion * 360 * Time.deltaTime, 0);
-            // Vector3 startingPosition = transform.position;
-            // Vector3 direction = transform.forward;
-            // _laser.ShootLaser(transform.position, transform.forward, ShowLasers);
+            transform.Rotate(0, _rotationStep * 360 * Time.deltaTime, 0);
+            Vector3 startingPosition = transform.position;
+            Vector3 direction = transform.forward;
         }
-
-        // void FixedUpdate() {
-            // Debug.Log("Now");
-            // UpdateMessage();
-        // }
 
         private void InitializeMessage()
         {
@@ -66,24 +63,26 @@ namespace RosSharp.RosBridgeClient
 
         private void UpdateMessage()
         {
+
+            Debug.Log("Here");
+            // Update the header
             message.header.Update();
             Vector3 startingPosition = transform.position;
             Vector3 direction = transform.forward;
+
+            // Update the starting angle
+            // message.angle_min = Vector3.Angle(_initialAngle, direction);
+            float offsetAngleDegrees = Vector3.SignedAngle(_initialAngle, direction, _rotationAxis);
+            float offsetAngleRadians = offsetAngleDegrees * Mathf.Deg2Rad;
+            Debug.Log(offsetAngleRadians);
+            message.angle_min = offsetAngleRadians;
+            message.angle_max = 6.28f - offsetAngleRadians;
+
+            // Scan the points and create the point cloud
             float[] pointsCloud =_rotationScan.Scan(startingPosition, direction);
             message.ranges = pointsCloud;
-            // message.ranges[scanCounter] = _laser.ShootLaser(startingPosition, direction, ShowLasers);
 
-            // Timer myTimer = new Timer();
-            // myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
-            // myTimer.Interval = 1000; // 1000 ms is one second
-            // myTimer.Start();
-
-            // scanCounter++;
-            // if(scanCounter == _scansPerRotation) {
             Publish(message);
-                // scanCounter = 0;
-            // }
-            // Debug.Log(pointsCloud);
         }
     }
 }
