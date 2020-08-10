@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Laser
 {
-    private static 
-    int LaserCounter;
-    private int _laserId;
     private float _laserLength = 25f;
     
 
     public Laser(float laserLength)
     {
-        this._laserId = LaserCounter++;
         this._laserLength = laserLength;
     }
 
@@ -22,20 +18,14 @@ public class Laser
     public float ShootLaser(Vector3 startPosition, Vector3 direction, bool showLaser=true)
     {
         RaycastHit raycastHit;
+        if(showLaser) 
+        {
+            Debug.DrawRay(startPosition, direction * 40, Color.red);
+        }
         if(Physics.Raycast(startPosition, direction, out raycastHit, this._laserLength)) {
-            GetHitPoint();
-            if(showLaser) 
-            {
-                // Debug.DrawLine(startPosition, raycastHit.point, Color.red);
-            }
+            // Returns a float distance to the hit point
             return Vector3.Distance(startPosition, raycastHit.point);
         }
         return 0f;
     }
-
-    private void GetHitPoint()
-    {
-        // retrieve the position for the ROS
-    }
-
 }
