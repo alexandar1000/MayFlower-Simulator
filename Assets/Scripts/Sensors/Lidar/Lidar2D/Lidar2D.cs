@@ -1,24 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
+using RosSharp.RosBridgeClient;
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
 {
-    public class LiDAR3D : LiDAR
+    public class Lidar2D : UnityPublisher<SensorMessages::LaserScan>
     {
-        private RotationScan _rotationScan;
+         public float LaserLength;
+        public float RotationPerMinute;
+        public int ScanningFrequency;
+        protected float RotationStep;
+        protected float RotationDuratuion;
+        protected Vector3 RotationAxis;
+        protected int ScansPerRotation;
+        public bool ShowLasers = true;
+        public string FrameId = "Unity";
+        protected Vector3 BoatDirection;
+        protected Vector3 InitialAngle;
+        private RotationScan2D _rotationScan;
+        protected SensorMessages.LaserScan Message;
+
+
         // Start is called before the first frame update
         protected override void Start()
         {
+
             base.Start();
-            _rotationScan = new RotationScan(ScansPerRotation, LaserLength);
+            RotationStep = RotationPerMinute / 60;
+            RotationDuratuion = 1 / RotationStep;
+            RotationAxis = transform.up;
+            ScansPerRotation = (int) (RotationDuratuion * ScanningFrequency);
+            InitialAngle = transform.forward;
+            BoatDirection = transform.parent.forward;
+            _rotationScan = new RotationScan2D(ScansPerRotation, LaserLength);
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
 
-        protected override void InitialiseMessage()
+        void Update()
         {
-            Message = new MessageTypes.Sensor.LaserScan();
+            transform.Rotate(0, RotationStep * 360 * Time.deltaTime, 0);
+            BoatDirection = transform.parent.forward;
+        }
+
+        protected void InitialiseMessage()
+        {
+            Message = new SensorMessages::LaserScan();
             Message.header.frame_id = FrameId;
             Message.angle_min = 0f;
             Message.angle_max = 6.28f; // Full circle/rotation
@@ -30,7 +59,7 @@ namespace RosSharp.RosBridgeClient
             Message.ranges = new float[ScansPerRotation];
         }
 
-        protected override void UpdateMessage()
+        protected void UpdateMessage()
         {
             // Update the header
             Message.header.Update();
@@ -49,6 +78,5 @@ namespace RosSharp.RosBridgeClient
 
             Publish(Message);
         }
-
     }
 }
