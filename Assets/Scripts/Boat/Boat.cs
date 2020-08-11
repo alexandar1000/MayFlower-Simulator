@@ -18,17 +18,9 @@ namespace BoatAttack
         public Renderer boatRenderer; // The renderer for the boat mesh
         public Renderer engineRenderer; // The renderer for the boat mesh
         public Engine engine;
-        //public Battery battery;
         private Matrix4x4 _spawnPosition;
         
         private Rigidbody rb;
-
-        // RaceStats
-        [NonSerialized] public int Place = 0;
-        [NonSerialized] public bool MatchComplete;
-
-
-        [NonSerialized] public readonly List<float> SplitTimes = new List<float>();
 
         public CinemachineVirtualCamera cam;
         private float _camFovVel;
