@@ -38,5 +38,8 @@ namespace RosSharp.RosBridgeClient
             transform.Rotate(0, RotationStep * 360 * Time.deltaTime, 0);
             BoatDirection = transform.parent.forward;
         }
+
+        protected abstract void InitialiseMessage();
+        protected abstract void UpdateMessage();
     }
 }

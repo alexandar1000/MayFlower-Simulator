@@ -14,11 +14,11 @@ namespace RosSharp.RosBridgeClient
         {
             base.Start();
             _rotationScan = new RotationScan(ScansPerRotation, LaserLength);
-            InitializeMessage();
+            InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
 
-    private void InitializeMessage()
+        protected override void InitialiseMessage()
         {
             Message = new MessageTypes.Sensor.LaserScan();
             Message.header.frame_id = FrameId;
@@ -32,7 +32,7 @@ namespace RosSharp.RosBridgeClient
             Message.ranges = new float[ScansPerRotation];
         }
 
-        private void UpdateMessage()
+        protected override void UpdateMessage()
         {
             // Update the header
             Message.header.Update();
