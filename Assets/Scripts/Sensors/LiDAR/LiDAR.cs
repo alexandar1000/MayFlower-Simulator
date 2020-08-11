@@ -20,6 +20,7 @@ namespace RosSharp.RosBridgeClient
         private MessageTypes.Sensor.LaserScan message;
         Timer myTimer;
         int scanCounter = 0;
+        private Vector3 _boatDirection;
 
         private Vector3 _initialAngle;
 
@@ -31,10 +32,10 @@ namespace RosSharp.RosBridgeClient
             _rotationStep = RotationPerMinute / 60;
             _rotationDuratuion = 1 / _rotationStep;
             _rotationAxis = transform.up;
-            Debug.Log(_rotationDuratuion);
             _scansPerRotation = (int) (_rotationDuratuion * ScanningFrequency);
             _rotationScan = new RotationScan(_scansPerRotation, LaserLength);
             _initialAngle = transform.forward;
+            _boatDirection = transform.parent.forward;
             InitializeMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
@@ -43,8 +44,7 @@ namespace RosSharp.RosBridgeClient
         void Update()
         {
             transform.Rotate(0, _rotationStep * 360 * Time.deltaTime, 0);
-            Vector3 startingPosition = transform.position;
-            Vector3 direction = transform.forward;
+            _boatDirection = transform.parent.forward;
         }
 
         private void InitializeMessage()
@@ -63,18 +63,14 @@ namespace RosSharp.RosBridgeClient
 
         private void UpdateMessage()
         {
-
-            Debug.Log("Here");
             // Update the header
             message.header.Update();
             Vector3 startingPosition = transform.position;
             Vector3 direction = transform.forward;
 
             // Update the starting angle
-            // message.angle_min = Vector3.Angle(_initialAngle, direction);
             float offsetAngleDegrees = Vector3.SignedAngle(_initialAngle, direction, _rotationAxis);
             float offsetAngleRadians = offsetAngleDegrees * Mathf.Deg2Rad;
-            Debug.Log(offsetAngleRadians);
             message.angle_min = offsetAngleRadians;
             message.angle_max = 6.28f - offsetAngleRadians;
 
