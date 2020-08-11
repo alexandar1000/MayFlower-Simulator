@@ -170,6 +170,7 @@ MonoBehaviour:
   frontSideSensorPosition: 1.3
   frontSensorAngle: 30
   backSensorPosition: 0.2
+  period: 0.1
 --- !u!114 &517129154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 0
-  RosBridgeServerUrl: ws://192.168.56.101:9090
+  RosBridgeServerUrl: ws://192.168.56.103:9090
 --- !u!64 &517129155
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796406791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.31, y: 1.29, z: 15.4}
+  m_LocalPosition: {x: 6.4, y: 1.29, z: 15.4}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -694,7 +695,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 0
-  RosBridgeServerUrl: ws://192.168.56.101:9090
+  RosBridgeServerUrl: ws://192.168.56.103:9090
 --- !u!4 &1352059444
 Transform:
   m_ObjectHideFlags: 0
@@ -790,15 +791,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cfac36f1468dae4eb63714c65986e43, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cfac36f1468dae4eb63714c65986e43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cfac36f1468dae4eb63714c65986e43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.46
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cfac36f1468dae4eb63714c65986e43, type: 3}
       propertyPath: m_LocalRotation.x
