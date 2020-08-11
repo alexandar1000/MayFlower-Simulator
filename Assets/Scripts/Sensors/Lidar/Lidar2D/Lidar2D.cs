@@ -34,7 +34,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             ScansPerRotation = (int) (RotationDuratuion * ScanningFrequency);
             InitialAngle = transform.forward;
             BoatDirection = transform.parent.forward;
-            _rotationScan = new RotationScan2D(ScansPerRotation, LaserLength);
+            _rotationScan = new RotationScan2D(ScansPerRotation, LaserLength, ShowLasers);
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }

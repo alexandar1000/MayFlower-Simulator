@@ -1,54 +1,53 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
+using RosSharp.RosBridgeClient;
 
-// namespace RosSharp.RosBridgeClient
-// {
-//     public class LiDAR3D : LiDAR
-//     {
-//         private RotationScan _rotationScan;
-//         // Start is called before the first frame update
-//         protected override void Start()
-//         {
-//             base.Start();
-//             _rotationScan = new RotationScan(ScansPerRotation, LaserLength);
-//             InitialiseMessage();
-//             InvokeRepeating("UpdateMessage", 1f, 1f);
-//         }
+namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
+{
+    public class Lidar3D : UnityPublisher<SensorMessages::PointCloud2>
+    
+    {
+        public float LaserLength;
+        public float RotationPerMinute;
+        public int ScanningFrequency;
+        public float UpperAngleBound;
+        public float LowerAngleBound;
+        protected float RotationStep;
+        protected float RotationDuratuion;
+        protected Vector3 RotationAxis;
+        protected int ScansPerRotation;
+        public bool ShowLasers = true;
+        public string FrameId = "Unity";
+        protected Vector3 BoatDirection;
+        protected Vector3 InitialAngle;
+        private RotationScan3D _rotationScan;
+        protected SensorMessages.PointCloud2 Message;
+        // Start is called before the first frame update
+        protected override void Start()
+        {
+            base.Start();
+            _rotationScan = new RotationScan3D(ScansPerRotation, LaserLength, UpperAngleBound, LowerAngleBound, ShowLasers);
+            InitialiseMessage();
+            InvokeRepeating("UpdateMessage", 1f, 1f);
+        }
 
-//         protected override void InitialiseMessage()
-//         {
-//             Message = new MessageTypes.Sensor.LaserScan();
-//             Message.header.frame_id = FrameId;
-//             Message.angle_min = 0f;
-//             Message.angle_max = 6.28f; // Full circle/rotation
-//             Message.angle_increment = 6.28f / ScansPerRotation;
-//             Message.time_increment = 0;
-//             Message.scan_time = 0.1f;
-//             Message.range_min = 0.1f;
-//             Message.range_max = 40f;
-//             Message.ranges = new float[ScansPerRotation];
-//         }
+        void Update()
+        {
+            transform.Rotate(0, RotationStep * 360 * Time.deltaTime, 0);
+            BoatDirection = transform.parent.forward;
+        }
 
-//         protected override void UpdateMessage()
-//         {
-//             // Update the header
-//             Message.header.Update();
-//             Vector3 startingPosition = transform.position;
-//             Vector3 direction = transform.forward;
+        protected void InitialiseMessage()
+        {
 
-//             // Update the starting angle
-//             float offsetAngleDegrees = Vector3.SignedAngle(InitialAngle, direction, RotationAxis);
-//             float offsetAngleRadians = offsetAngleDegrees * Mathf.Deg2Rad;
-//             Message.angle_min = offsetAngleRadians;
-//             Message.angle_max = 6.28f - offsetAngleRadians;
+        }
 
-//             // Scan the points and create the point cloud
-//             float[] pointsCloud =_rotationScan.Scan(startingPosition, direction);
-//             Message.ranges = pointsCloud;
+        protected void UpdateMessage()
+        {
 
-//             Publish(Message);
-//         }
+        }
 
-//     }
-// }
+    }
+}
