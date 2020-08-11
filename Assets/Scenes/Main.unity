@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 117543480}
   - component: {fileID: 117543483}
   - component: {fileID: 117543484}
+  - component: {fileID: 117543479}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -156,6 +157,27 @@ Transform:
   m_Father: {fileID: 446700239}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &117543479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117543477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ac56683e642b0b3a0946e31f122f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /pcl_ros
+  LaserLength: 100
+  RotationPerMinute: 60
+  ScanningFrequency: 100
+  ScansPerColumn: 10
+  UpperAngleBound: 10
+  LowerAngleBound: -10
+  FrameId: Unity
+  ShowLasers: 1
 --- !u!65 &117543480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -239,7 +261,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117543477}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a219972eb4595a26eac21a54b8f334c9, type: 3}
   m_Name: 
