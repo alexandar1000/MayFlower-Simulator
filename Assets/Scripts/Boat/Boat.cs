@@ -38,7 +38,7 @@ namespace BoatAttack
         // Modified Content
         // Wind
         public bool inWindZone = false;
-        public GameObject windZone;
+        [NonSerialized] public GameObject windZone;
         // Shader Props
         private static readonly int LiveryPrimary = Shader.PropertyToID("_Color1");
         private static readonly int LiveryTrim = Shader.PropertyToID("_Color2");
@@ -48,7 +48,6 @@ namespace BoatAttack
 		{
             //Matrix that transforms a point from local space into world space(Read Only)
            _spawnPosition = transform.localToWorldMatrix;
-            Debug.Log("spawnposition"+_spawnPosition);
             TryGetComponent(out engine.RB);
         }
 

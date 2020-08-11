@@ -70,7 +70,7 @@ namespace RosSharp.RosBridgeClient
         }
 
 
-        Debug.Log(sensorReading);
+        Debug.Log("compass"+sensorReading);
         Publish(PrepareMessage(sensorReading));
 
     }

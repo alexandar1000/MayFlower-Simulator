@@ -75,7 +75,7 @@ namespace RosSharp.RosBridgeClient
 
             }
             
-         Debug.Log(distance);
+         Debug.Log("distance"+distance);
          Publish(PrepareMessage(distance));
             
       }

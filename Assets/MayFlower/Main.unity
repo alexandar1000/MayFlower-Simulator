@@ -714,6 +714,8 @@ GameObject:
   - component: {fileID: 284812970}
   - component: {fileID: 284812969}
   - component: {fileID: 284812972}
+  - component: {fileID: 284812974}
+  - component: {fileID: 284812973}
   m_Layer: 0
   m_Name: RosConnectors
   m_TagString: Untagged
@@ -782,6 +784,46 @@ MonoBehaviour:
   resolutionWidth: 640
   resolutionHeight: 480
   qualityLevel: 69
+--- !u!114 &284812973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284812968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ad6c9ba13614f8493e808ca9aa6fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  boat: {fileID: 0}
+  canal: {fileID: 0}
+  distance: 0
+  sensorLength: 5
+  frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
+  frontSideSensorPosition: 0.2
+  frontSensorAngle: 30
+  backSensorPosition: 0.2
+--- !u!114 &284812974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284812968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fb461163ed54feb8371b5963018d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  NorthDirection: {x: 0, y: 0, z: 0}
+  Player: {fileID: 985613209}
+  MissionDirection: {x: 0, y: 0, z: 0, w: 0}
+  Northlayer: {fileID: 0}
+  MissionLayer: {fileID: 0}
+  missionplace: {fileID: 0}
 --- !u!1 &400417702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,11 +2223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b133824570250404b84a847c1ea6dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeRate: 20
+  consumeRate: 1
   powerBar: {fileID: 1893679376}
   powerText: {fileID: 2093505586}
   atHomeArea: 0
-  homeZone: {fileID: 0}
 --- !u!4 &833370220
 Transform:
   m_ObjectHideFlags: 0
@@ -3465,41 +3506,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 985613208}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1040310778
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1173002065 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8572136798535523618, guid: 70d78230a0527e74dabc4f14906eef98,
@@ -5840,6 +5846,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!84 &1869788011
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1893679374
 GameObject:
   m_ObjectHideFlags: 0
