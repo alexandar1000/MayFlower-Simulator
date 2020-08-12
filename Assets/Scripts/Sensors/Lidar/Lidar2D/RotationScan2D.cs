@@ -32,7 +32,6 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             for (int i = 0; i < NumberOfLasers; i++)
             {
                 distances[i] = Laser.ShootLaserForDistance(localTransform, CurrDir, true);
-                // TODO: This Vector3.up might not work always; check it out
                 Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifference, localTransform.up);
                 CurrDir =  offsetAngle * CurrDir;
             }

@@ -56,7 +56,6 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                 {
                     Vector3 globalPoint = Laser.ShootLaserForPoint(startPosition, CurrDir, true);
                     points[i, j] = globalPoint;
-                    // TODO: This Vector3.up might not work always; check it out
                     Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifferenceHorizontal, localTransform.up);
                     CurrDir =  offsetAngle * CurrDir;
                 }

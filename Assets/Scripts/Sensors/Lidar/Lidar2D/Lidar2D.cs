@@ -61,7 +61,6 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
 
         protected void UpdateMessage()
         {
-            // TODO check if direction needs updating to local
             Vector3 startPosition = transform.position;
             Vector3 direction = transform.forward;
 
@@ -69,7 +68,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             Message.header.Update();
 
             // Update the starting angle
-            float offsetAngleDegrees = Vector3.SignedAngle(InitialAngle, direction, RotationAxis);
+            float offsetAngleDegrees = Vector3.SignedAngle(BoatDirection, direction, RotationAxis);
             float offsetAngleRadians = offsetAngleDegrees * Mathf.Deg2Rad;
             Message.angle_min = offsetAngleRadians;
             Message.angle_max = 6.28f - offsetAngleRadians;
