@@ -8,16 +8,12 @@ using UnityEngine;
 public class LaserSensor : MonoBehaviour
 {
     [Header("Laser Sensor")]
-    public GameObject env;
     public GameObject frontCenterLaser;
     public GameObject frontRightLaser;
     public GameObject frontLeftLaser;
     public GameObject rightLaser;
     public GameObject leftLaser;
-    
-
     //public GameObject backLaser;
-    //public float distance;
 
     [Header("Laser Settings")]
     public float sensorLength = 5f;
@@ -69,9 +65,6 @@ public class LaserSensor : MonoBehaviour
         {
             Debug.Log("left angle laser" + hit.transform.name);
         }
-
-
-        //Publish(Util.PrepareMessage(distance));
 
     }
 
