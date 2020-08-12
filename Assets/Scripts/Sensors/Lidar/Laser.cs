@@ -17,8 +17,9 @@ namespace MayflowerSimulator.Sensors.Lidar
         /*
             Fires a laser with the specified starting position and direction.
         */
-        public float ShootLaserForDistance(Vector3 startPosition, Vector3 direction, bool showLaser=true)
+        public float ShootLaserForDistance(Transform localTransform, Vector3 direction, bool showLaser=true)
         {
+            Vector3 startPosition = localTransform.position;
             RaycastHit raycastHit;
             if(showLaser) 
             {

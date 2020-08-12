@@ -37,16 +37,19 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
 
 
         // Scan all the points at once instead of invoking the method really frequently
-        public Vector3[ , ] Scan(Vector3 startPosition, Vector3 direction) 
+        public Vector3[ , ] Scan(Transform localTransform) 
         {
+            Vector3 startPosition = localTransform.position;
+            Vector3 direction = localTransform.forward;
+
             Vector3[ , ] points = new Vector3[NumberOfLasersVertically, NumberOfLasersHorizontally];
             CurrDir = direction;
-            Quaternion offsetAngleVertiacally = Quaternion.AngleAxis(UpperAngleBound, Vector3.forward);
+            Quaternion offsetAngleVertiacally = Quaternion.AngleAxis(UpperAngleBound, localTransform.right);
             CurrDir =  offsetAngleVertiacally * CurrDir;
 
             for (int i = 0; i < NumberOfLasersVertically; i++)
             {
-                Quaternion AngleDecrementVertiacally = Quaternion.AngleAxis(-AngleDifferenceVertical, Vector3.forward);
+                Quaternion AngleDecrementVertiacally = Quaternion.AngleAxis(-AngleDifferenceVertical, localTransform.right);
                 CurrDir =  AngleDecrementVertiacally * CurrDir;
                         
                 for (int j = 0; j < NumberOfLasersHorizontally; j++)
@@ -54,7 +57,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                     Vector3 globalPoint = Laser.ShootLaserForPoint(startPosition, CurrDir, true);
                     points[i, j] = globalPoint;
                     // TODO: This Vector3.up might not work always; check it out
-                    Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifferenceHorizontal, Vector3.up);
+                    Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifferenceHorizontal, localTransform.up);
                     CurrDir =  offsetAngle * CurrDir;
                 }
             }

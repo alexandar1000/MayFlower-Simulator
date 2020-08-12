@@ -103,9 +103,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
             Message.header.Update();
             Message.data = new byte[0];
 
-            Vector3 startingPosition = transform.position;
-            Vector3 direction = transform.forward;
-            Vector3[ , ] points = _rotationScan.Scan(startingPosition, direction);
+            Vector3[ , ] points = _rotationScan.Scan(transform);
 
             TransformGlobalPointsToLocal(points);
 
@@ -124,6 +122,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                         .ToArray();
                 }
             }
+
 
             Publish(Message);
         }

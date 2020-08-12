@@ -62,11 +62,11 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
         protected void UpdateMessage()
         {
             // TODO check if direction needs updating to local
-            
+            Vector3 startPosition = transform.position;
+            Vector3 direction = transform.forward;
+
             // Update the header
             Message.header.Update();
-            Vector3 startingPosition = transform.position;
-            Vector3 direction = transform.forward;
 
             // Update the starting angle
             float offsetAngleDegrees = Vector3.SignedAngle(InitialAngle, direction, RotationAxis);
@@ -75,7 +75,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             Message.angle_max = 6.28f - offsetAngleRadians;
 
             // Scan the points and create the point cloud
-            float[] pointsCloud =_rotationScan.Scan(startingPosition, direction);
+            float[] pointsCloud =_rotationScan.Scan(transform);
             Message.ranges = pointsCloud;
 
             Publish(Message);

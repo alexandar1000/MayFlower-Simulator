@@ -172,12 +172,12 @@ MonoBehaviour:
   Topic: /pcl_ros
   LaserLength: 100
   RotationPerMinute: 60
-  ScanningFrequency: 100
-  ScansPerColumn: 10
-  UpperAngleBound: 10
-  LowerAngleBound: -10
+  ScanningFrequency: 1000
+  ScansPerColumn: 40
+  UpperAngleBound: 20
+  LowerAngleBound: -20
   FrameId: Unity
-  ShowLasers: 1
+  ShowLasers: 0
 --- !u!65 &117543480
 BoxCollider:
   m_ObjectHideFlags: 0
