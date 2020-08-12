@@ -36,20 +36,21 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
 
 
         // Scan all the points at once instead of invoking the method really frequently
-        public float[] Scan(Vector3 startPosition, Vector3 direction) 
+        public Vector3[] Scan(Vector3 startPosition, Vector3 direction) 
         {
-            float[] distances = new float[NumberOfLasersHorizontally];
+            Vector3[] points = new Vector3[NumberOfLasersHorizontally];
             CurrDir = direction;
 
             for (int i = 0; i < NumberOfLasersHorizontally; i++)
             {
-                distances[i] = Laser.ShootLaser(startPosition, CurrDir, true);
+                Vector3 globalPoint = Laser.ShootLaserForPoint(startPosition, CurrDir, true);
+                points[i] = globalPoint;
                 // TODO: This Vector3.up might not work always; check it out
                 Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifferenceHorizontal, Vector3.up);
                 CurrDir =  offsetAngle * CurrDir;
             }
 
-            return distances;
+            return points;
             
         }
 }

@@ -61,6 +61,8 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
 
         protected void UpdateMessage()
         {
+            // TODO check if direction needs updating to local
+            
             // Update the header
             Message.header.Update();
             Vector3 startingPosition = transform.position;

@@ -17,7 +17,7 @@ namespace MayflowerSimulator.Sensors.Lidar
         /*
             Fires a laser with the specified starting position and direction.
         */
-        public float ShootLaser(Vector3 startPosition, Vector3 direction, bool showLaser=true)
+        public float ShootLaserForDistance(Vector3 startPosition, Vector3 direction, bool showLaser=true)
         {
             RaycastHit raycastHit;
             if(showLaser) 
@@ -29,6 +29,21 @@ namespace MayflowerSimulator.Sensors.Lidar
                 return Vector3.Distance(startPosition, raycastHit.point);
             }
             return 0f;
+        }
+
+        public Vector3 ShootLaserForPoint(Vector3 startPosition, Vector3 direction, bool showLaser=true)
+        {
+            RaycastHit raycastHit;
+            if(showLaser) 
+            {
+                Debug.DrawRay(startPosition, direction * 40, Color.red);
+            }
+            if(Physics.Raycast(startPosition, direction, out raycastHit, this._laserLength))
+            {
+                // Returns a float distance to the hit point
+                return raycastHit.point;
+            }
+            return Vector3.zero;
         }
     }
 }
