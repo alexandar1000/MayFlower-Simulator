@@ -16,17 +16,10 @@ namespace RosSharp.RosBridgeClient
             InvokeRepeating("MeasurePower", MeasurementFrequency, MeasurementFrequency);  //1s delay, repeat every 1s
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         // Get the current battery power
         private void MeasurePower()
         {
             power = Battery.power;
-            UnityEngine.Debug.Log(power);
             Publish(PrepareMessage(power));
         }
 

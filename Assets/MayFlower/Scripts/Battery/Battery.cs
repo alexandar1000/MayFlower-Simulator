@@ -17,7 +17,7 @@ public class Battery : MonoBehaviour
     public Text powerText;
 
     public bool atHomeArea = false;
-    public GameObject homeZone;
+    [NonSerialized] public GameObject homeZone;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,6 @@ public class Battery : MonoBehaviour
         power = MAX_POWER;
         powerBar.setMaxPower(MAX_POWER);
         powerText.text = Math.Round(power).ToString() + "%";
-        Debug.Log("Battery start, and power is " + power);
     }
 
     // Update is called once per frame
@@ -34,7 +33,6 @@ public class Battery : MonoBehaviour
     {
         powerBar.setPower(power);
         powerText.text = Math.Round(power).ToString() + "%";
-        Debug.Log("at home: " + atHomeArea);
 
         if (atHomeArea){
             boatStatus = 0;
@@ -49,9 +47,7 @@ public class Battery : MonoBehaviour
             //update boat status
             if (power > 0) {
                 boatStatus = 0;
-                power -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game
-                Debug.Log(power);
-                
+                power -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game                
             }
             else{
                 boatStatus = 1;
