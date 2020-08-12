@@ -51,8 +51,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
         protected void InitialiseMessage()
         {
             Message = new SensorMessages::PointCloud2();
-            Message.width = (uint) ScansPerRotation;
-            Message.height = 1; // (uint) ScansPerColumn;
+            Message.height = 1;//(uint) ScansPerColumn;
             Message.fields = new SensorMessages.PointField[3];
             StdMessages::Header header = new StdMessages.Header();
             header.frame_id = FrameId;
@@ -93,8 +92,9 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
 
             Message.is_bigendian = false;
             int pointFieldsSize = pfSizes.Sum();
+            Message.width = (uint) ScansPerRotation * (uint) ScansPerColumn;
             Message.point_step = (uint) pointFieldsSize;
-            Message.row_step = (uint) pointFieldsSize * (uint) ScansPerRotation;
+            Message.row_step = (uint) pointFieldsSize * (uint) ScansPerRotation * (uint) ScansPerColumn;
             Message.is_dense = false;
         }
 
@@ -105,31 +105,37 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
 
             Vector3 startingPosition = transform.position;
             Vector3 direction = transform.forward;
-            Vector3[] points = _rotationScan.Scan(startingPosition, direction);
+            Vector3[ , ] points = _rotationScan.Scan(startingPosition, direction);
 
             TransformGlobalPointsToLocal(points);
 
-            for (int i = 0; i < points.Length; i++)
+            for (int i = 0; i < points.GetLength(0); i++)
             {
-                byte[] xArr = System.BitConverter.GetBytes((float) points[i].x);
-                byte[] yArr = System.BitConverter.GetBytes((float) points[i].y);
-                byte[] zArr = System.BitConverter.GetBytes((float) points[i].z);
+                for (int j = 0; j < points.GetLength(1); j++)
+                {
+                    byte[] xArr = System.BitConverter.GetBytes((float) points[i,j].x);
+                    byte[] yArr = System.BitConverter.GetBytes((float) points[i,j].y);
+                    byte[] zArr = System.BitConverter.GetBytes((float) points[i,j].z);
 
-                Message.data = Message.data
-                    .Concat(xArr)
-                    .Concat(zArr)
-                    .Concat(yArr)
-                    .ToArray();
+                    Message.data = Message.data
+                        .Concat(xArr)
+                        .Concat(zArr)
+                        .Concat(yArr)
+                        .ToArray();
+                }
             }
 
             Publish(Message);
         }
 
-        protected void TransformGlobalPointsToLocal(Vector3[] points)
+        protected void TransformGlobalPointsToLocal(Vector3[,] points)
         {
-            for (int i = 0; i < points.Length; i++)
+            for (int i = 0; i < points.GetLength(0); i++)
             {
-                points[i] = transform.parent.InverseTransformPoint(points[i]);
+                for (int j = 0; j < points.GetLength(1); j++)
+                {
+                    points[i,j] = transform.parent.InverseTransformPoint(points[i,j]);
+                }
             }
         }
 
