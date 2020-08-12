@@ -32,7 +32,6 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
             this.LowerAngleBound = LowerAngleBound;
             this.VerticalViewSpan = Mathf.Abs(UpperAngleBound - LowerAngleBound);
             this.AngleDifferenceVertical = VerticalViewSpan / numberOfLasersVertically;
-            Debug.Log(AngleDifferenceVertical);
         }
 
 
