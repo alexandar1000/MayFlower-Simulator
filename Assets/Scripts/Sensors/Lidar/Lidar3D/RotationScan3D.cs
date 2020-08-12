@@ -10,7 +10,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
     {
         protected int NumberOfLasersHorizontally;
         protected int NumberOfLasersVertically;
-        protected bool ShowLaser;
+        protected bool ShowLasers;
         protected float LaserLength;
         protected Laser Laser;
         protected float AngleDifferenceHorizontal;
@@ -20,10 +20,10 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
         protected float VerticalViewSpan;
         protected Vector3  CurrDir;
 
-        public RotationScan3D(int numberOfLasersHorizontally, int numberOfLasersVertically, float laserLength, float upperAngleBound, float LowerAngleBound, bool showLaser=true) 
+        public RotationScan3D(int numberOfLasersHorizontally, int numberOfLasersVertically, float laserLength, float upperAngleBound, float LowerAngleBound, bool showLaser=false) 
         {
             this.NumberOfLasersHorizontally = numberOfLasersHorizontally;
-            this.ShowLaser = showLaser;
+            this.ShowLasers = showLaser;
             this.LaserLength = laserLength;
             this.Laser = new Laser(laserLength);
             this.AngleDifferenceHorizontal = 360f / numberOfLasersHorizontally;
@@ -53,7 +53,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                         
                 for (int j = 0; j < NumberOfLasersHorizontally; j++)
                 {
-                    Vector3 globalPoint = Laser.ShootLaserForPoint(startPosition, CurrDir, true);
+                    Vector3 globalPoint = Laser.ShootLaserForPoint(localTransform, CurrDir, ShowLasers);
                     points[i, j] = globalPoint;
                     Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifferenceHorizontal, localTransform.up);
                     CurrDir =  offsetAngle * CurrDir;
@@ -63,5 +63,5 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
             return points;
             
         }
-}
+    }
 }

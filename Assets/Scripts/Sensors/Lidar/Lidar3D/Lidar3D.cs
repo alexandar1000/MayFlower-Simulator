@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/* 
+Implementation of the 3D Lidar which is to be attached to an object above the main vessel
+ */
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,51 +14,57 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
     public class Lidar3D : UnityPublisher<SensorMessages::PointCloud2>
     
     {
-        public int LaserLength;
-        public float RotationPerMinute;
+        public float RotationsPerMinute;
         public int ScanningFrequency;
         public int ScansPerColumn;
         public float UpperAngleBound;
         public float LowerAngleBound;
+        public int LaserLength;
         public string FrameId = "Unity";
-        protected float RotationStep;
+        public bool ShowLasers;
+        protected float RotationsPerSecond;
         protected float RotationDuratuion;
         protected Vector3 RotationAxis;
         protected int ScansPerRotation;
-        public bool ShowLasers = true;
         protected Vector3 BoatDirection;
-        protected Vector3 InitialAngle;
-        private RotationScan3D _rotationScan;
+        protected RotationScan3D RotationScan;
         protected SensorMessages.PointCloud2 Message;
+
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            RotationStep = RotationPerMinute / 60;
-            RotationDuratuion = 1 / RotationStep;
+
+            // Inititalise class needed constants
+            RotationsPerSecond = RotationsPerMinute / 60;
+            RotationDuratuion = 1 / RotationsPerSecond;
             RotationAxis = transform.up;
             ScansPerRotation = (int) (RotationDuratuion * ScanningFrequency);
-            InitialAngle = transform.forward;
-            BoatDirection = transform.parent.forward;
-            _rotationScan = new RotationScan3D(ScansPerRotation, ScansPerColumn, LaserLength, UpperAngleBound, LowerAngleBound, ShowLasers);
+            
+            // Initialise the Lidar's rotating scanner
+            RotationScan = new RotationScan3D(ScansPerRotation, ScansPerColumn, LaserLength, UpperAngleBound, LowerAngleBound, ShowLasers);
+
+            // Initialise the message and set the update message method to be called on an interval equal to the duration of the rotation
             InitialiseMessage();
-            InvokeRepeating("UpdateMessage", 1f, 1f);
+            InvokeRepeating("UpdateMessage", 1f, RotationDuratuion);
         }
 
         void Update()
         {
-            transform.Rotate(0, RotationStep * 360 * Time.deltaTime, 0);
+            // Animate the rotation of the lidar and  update the direction it is facing
+            transform.Rotate(0, RotationsPerSecond * 360 * Time.deltaTime, 0);
             BoatDirection = transform.parent.forward;
         }
 
+        /* 
+        Initialise the PointCloud2 message initially
+         */
         protected void InitialiseMessage()
         {
             Message = new SensorMessages::PointCloud2();
-            Message.height = 1;//(uint) ScansPerColumn;
+            Message.header.frame_id = FrameId;
+
             Message.fields = new SensorMessages.PointField[3];
-            StdMessages::Header header = new StdMessages.Header();
-            header.frame_id = FrameId;
-            Message.header = header;
 
             // PointFields attributes in order
             string[] pfNames = new string[3] {
@@ -90,23 +99,30 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                 );
             }
 
+            // Update the remaining message fields as per the PointCloud2 documentation
             Message.is_bigendian = false;
-            int pointFieldsSize = pfSizes.Sum();
+            int sizeOfAllPointFields = pfSizes.Sum();
             Message.width = (uint) ScansPerRotation * (uint) ScansPerColumn;
-            Message.point_step = (uint) pointFieldsSize;
-            Message.row_step = (uint) pointFieldsSize * (uint) ScansPerRotation * (uint) ScansPerColumn;
+            Message.height = 1;
+            Message.point_step = (uint) sizeOfAllPointFields;
+            Message.row_step = (uint) sizeOfAllPointFields * (uint) ScansPerRotation * (uint) ScansPerColumn;
             Message.is_dense = false;
         }
 
+
+        /* 
+        Update the PointCloud2 message with the points scanned by the RotationScanner3D before sending it to ROS
+        */
         protected void UpdateMessage()
         {
+            // Update the two changing elements - header and data
             Message.header.Update();
             Message.data = new byte[0];
 
-            Vector3[ , ] points = _rotationScan.Scan(transform);
+            // Scan the environment
+            Vector3[ , ] points = RotationScan.Scan(transform);
 
-            TransformGlobalPointsToLocal(points);
-
+            // Pack all the points into an byte array
             for (int i = 0; i < points.GetLength(0); i++)
             {
                 for (int j = 0; j < points.GetLength(1); j++)
@@ -115,6 +131,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                     byte[] yArr = System.BitConverter.GetBytes((float) points[i,j].y);
                     byte[] zArr = System.BitConverter.GetBytes((float) points[i,j].z);
 
+                    // TODO: Make a more efficient way of concatenating these
                     Message.data = Message.data
                         .Concat(xArr)
                         .Concat(zArr)
@@ -123,20 +140,11 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar3D
                 }
             }
 
-
+            // Publish the message to ROS
             Publish(Message);
         }
 
-        protected void TransformGlobalPointsToLocal(Vector3[,] points)
-        {
-            for (int i = 0; i < points.GetLength(0); i++)
-            {
-                for (int j = 0; j < points.GetLength(1); j++)
-                {
-                    points[i,j] = transform.parent.InverseTransformPoint(points[i,j]);
-                }
-            }
-        }
+
 
     }
 }

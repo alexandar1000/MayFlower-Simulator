@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/* 
+Implementation of the 3D Lidar which is to be attached to an object above the main vessel
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
@@ -8,45 +11,54 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
 {
     public class Lidar2D : UnityPublisher<SensorMessages::LaserScan>
     {
-         public float LaserLength;
-        public float RotationPerMinute;
+        public float RotationsPerMinute;
         public int ScanningFrequency;
-        protected float RotationStep;
+        public float LaserLength;
+        public string FrameId = "Unity";
+        public bool ShowLasers = true;
+        protected float RotationsPerSecond;
         protected float RotationDuratuion;
         protected Vector3 RotationAxis;
         protected int ScansPerRotation;
-        public bool ShowLasers = true;
-        public string FrameId = "Unity";
         protected Vector3 BoatDirection;
         protected Vector3 InitialAngle;
-        private RotationScan2D _rotationScan;
+        protected RotationScan2D RotationScan;
         protected SensorMessages.LaserScan Message;
 
 
         // Start is called before the first frame update
         protected override void Start()
         {
-
             base.Start();
-            RotationStep = RotationPerMinute / 60;
-            RotationDuratuion = 1 / RotationStep;
+                        
+            // Inititalise class needed constants
+            RotationsPerSecond = RotationsPerMinute / 60;
+            RotationDuratuion = 1 / RotationsPerSecond;
             RotationAxis = transform.up;
             ScansPerRotation = (int) (RotationDuratuion * ScanningFrequency);
-            InitialAngle = transform.forward;
             BoatDirection = transform.parent.forward;
-            _rotationScan = new RotationScan2D(ScansPerRotation, LaserLength, ShowLasers);
+            
+            // Initialise the Lidar's rotating scanner
+            RotationScan = new RotationScan2D(ScansPerRotation, LaserLength, ShowLasers);
+
+            // Initialise the message and set the update message method to be called on an interval equal to the duration of the rotation
             InitialiseMessage();
-            InvokeRepeating("UpdateMessage", 1f, 1f);
+            InvokeRepeating("UpdateMessage", 1f, RotationDuratuion);
         }
 
         void Update()
         {
-            transform.Rotate(0, RotationStep * 360 * Time.deltaTime, 0);
+            // Animate the rotation of the lidar and  update the direction it is facing
+            transform.Rotate(0, RotationsPerSecond * 360 * Time.deltaTime, 0);
             BoatDirection = transform.parent.forward;
         }
 
+        /* 
+        Initialise the LaserScan message initially
+        */
         protected void InitialiseMessage()
         {
+            // Initialise the message fields as per the LaserScan documentation
             Message = new SensorMessages::LaserScan();
             Message.header.frame_id = FrameId;
             Message.angle_min = 0f;
@@ -59,12 +71,15 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             Message.ranges = new float[ScansPerRotation];
         }
 
+        /* 
+        Update the LaserScan message with the points scanned by the RotationScanner2D before sending it to ROS
+        */
         protected void UpdateMessage()
         {
             Vector3 startPosition = transform.position;
             Vector3 direction = transform.forward;
 
-            // Update the header
+            // Update the header before sending the message
             Message.header.Update();
 
             // Update the starting angle
@@ -74,9 +89,10 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
             Message.angle_max = 6.28f - offsetAngleRadians;
 
             // Scan the points and create the point cloud
-            float[] pointsCloud =_rotationScan.Scan(transform);
+            float[] pointsCloud =RotationScan.Scan(transform);
             Message.ranges = pointsCloud;
 
+            // Publish the message to ROS
             Publish(Message);
         }
     }

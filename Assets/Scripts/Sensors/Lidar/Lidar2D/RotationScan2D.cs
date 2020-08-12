@@ -8,16 +8,16 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
     public class RotationScan2D
     {
         protected int NumberOfLasers;
-        protected bool ShowLaser;
+        protected bool ShowLasers;
         protected float LaserLength;
         protected Laser Laser;
         protected float AngleDifference;
         protected Vector3  CurrDir;
 
-        public RotationScan2D(int numberOfLasers, float laserLength, bool showLaser=true) 
+        public RotationScan2D(int numberOfLasers, float laserLength, bool showLasers = false) 
         {
             this.NumberOfLasers = numberOfLasers;
-            this.ShowLaser = showLaser;
+            this.ShowLasers = showLasers;
             this.LaserLength = laserLength;
             this.Laser = new Laser(laserLength);
             this.AngleDifference = 360f / numberOfLasers;
@@ -31,7 +31,7 @@ namespace MayflowerSimulator.Sensors.Lidar.Lidar2D
 
             for (int i = 0; i < NumberOfLasers; i++)
             {
-                distances[i] = Laser.ShootLaserForDistance(localTransform, CurrDir, true);
+                distances[i] = Laser.ShootLaserForDistance(localTransform, CurrDir, ShowLasers);
                 Quaternion offsetAngle = Quaternion.AngleAxis(AngleDifference, localTransform.up);
                 CurrDir =  offsetAngle * CurrDir;
             }
