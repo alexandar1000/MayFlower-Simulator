@@ -79,16 +79,12 @@ namespace RosSharp.RosBridgeClient
 
             }
 
-            Debug.Log("distance" + distance);
             Publish(PrepareMessage(distance));
-            //Publish(Util.PrepareMessage(distance));
-
         }
         private MessageTypes.Std.Float64 PrepareMessage(float laser)
         {
             MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
             message.data = laser;
-
             return message;
         }
     }
