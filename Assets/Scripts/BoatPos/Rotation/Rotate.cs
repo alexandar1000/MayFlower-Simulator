@@ -17,7 +17,8 @@ public class Rotate : MonoBehaviour
     //public float speed = 5f;
     public static float roll; //roll left (<0); roll right (>0).
     public static float pitch; //bow dive (<0); bow upturned (>0).
-    public static float yaw; //left (<0); right(>0).
+    public static float yaw; //to boat right is 0; clockwise to 360(=0)
+    public float orientation; //The Rotate_Y where the boat is currently facing at. 
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,8 @@ public class Rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //boat.transform.Rotate(0, speed, 0);
+        /*boat.transform.Rotate(0, speed, 0);*/
+        orientation = 270;  //SHOULD BE READ FROM COMPASS
         eulerAngles = boat.transform.rotation.eulerAngles;
         Rotate_X = Convert.ToSingle(Math.Round(eulerAngles.x, 3));
         Rotate_Y = Convert.ToSingle(Math.Round(eulerAngles.y, 3));
@@ -72,14 +74,8 @@ public class Rotate : MonoBehaviour
         }
 
         //yaw
-        if (Rotate_Y > 180)
-        {
-            yaw = -(360 - Rotate_Y);
-        }
-        else
-        {
-            yaw = Rotate_Z;
-        }
+        yaw = (Rotate_Y + 360 - orientation) % 360;
+        
 
     }
 }

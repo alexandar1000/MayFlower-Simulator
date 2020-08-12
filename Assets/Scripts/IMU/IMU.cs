@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 
@@ -12,9 +14,7 @@ public class IMU : MonoBehaviour
     //Angular accelerations Ax (roll), Ay (yaw), Az (pitch). 
     //Should be related to the boat's local coordinate. 
 
-   
-
-    GameObject boat;
+    public Transform Boat;
     private int frame = 0;
     //For Linear
     //Use a queue PosQueue to store the position samples for 5 time segments 6 position points(1 segment = 10 frame = 0.2s each): 
@@ -27,42 +27,50 @@ public class IMU : MonoBehaviour
     public Vector3 currentV;
 
     //Decomposition world position vector to the boat's own x, y ,z direction
-    public Vector3 selfV;   //The velocity in self space
+    public Vector3 selfV;   //The velocity in self space: X,Y,Z = forward, up, left
  
     //Get Linear accelerations (accelerometer)
-    public Vector3 Accelerate_Linear;
+    public static Vector3 Accelerate_Linear; //X,Y,Z
 
 
     //For Angular: calculate the changing rate of roll, pitch and yaw every 1 second
     //Angle for roll, yaw and pitch
     //frame 0 ~ 50 => rollV1; frame 50 ~ 100 => rollV2; (rollV2 - rollV1) / 1 => angular acceleration roll
+
+    //For more accuracy, use queue AngQueue to maintain 6 value of roll, yaw, pitch in Vectors (every 10 frame = 0.2s each)
+    //And calculate the angular velocity using the last item and the first item in the queue.
+    private Queue<Vector3> AngQueue;
+
     private float roll1;
     private float roll2;
-    private float rollV1;
+    
     private float pitch1;
     private float pitch2;
-    private float pitchV1;
+    
     private float yaw1;
-    private float yaw2;
-    private float yawV1;
-    private Vector3 angularV1;
-    //current angular velocity
-    public Vector3 currentAngularVelocity;
-    //Get Angular accelerations (gyroscope)
-    public Vector3 Accelerate_Angular; //deltaAngle / deltaTime (roll, yaw, pitch)
+    private float yaw2;    
 
+    //current angular velocity
+    //Should be rad/s^2, rad = degree * Math.PI / 180
+    public Vector3 currentAngularVelocity;
+    //Get Angular accelerations (gyroscope)    
+    //public Vector3 Accelerate_Angular; //deltaAngle / deltaTime (roll, yaw, pitch)
+    
  
     // Start is called before the first frame update
     void Start()
     {
-        boat = GameObject.Find("Boat");
-        //startPos = boat.transform.position;
-        var pos = boat.transform.position;
+        var pos = Boat.position;
         PosQueue = new Queue<Vector3>();
         PosQueue.Enqueue(new Vector3(pos.x, pos.y, pos.z));
-        roll1 = Rotate.roll;
-        pitch1 = Rotate.pitch;
-        yaw1 = Rotate.yaw;
+        AngQueue = new Queue<Vector3>();
+        AngQueue.Enqueue(new Vector3(Rotate.roll, Rotate.yaw, Rotate.pitch));
+
+        //test
+        UnityEngine.Debug.Log(Boat.InverseTransformDirection(new Vector3(0, 0, 1))); //(0,0,1) =>(1, 0, 0): Self.x = forward; 
+        UnityEngine.Debug.Log(Boat.InverseTransformDirection(new Vector3(0, 1, 0))); //(0,1,0) =>(0, 1, 0): Self.y = up; 
+        UnityEngine.Debug.Log(Boat.InverseTransformDirection(new Vector3(1, 0, 0))); //(1,0,0) =>(0, 0, -1): Self.z = left; 
+        /*UnityEngine.Debug.Log(boat.transform.InverseTransformDirection(new Vector3(0, 1, 1)));*/
     }
 
     // Update is called once per frame (0.02 s)
@@ -76,28 +84,29 @@ public class IMU : MonoBehaviour
         frame++;
         if(frame == 10 || frame == 20 || frame == 30 || frame == 40 || frame == 50)
         {
-            var pos = boat.transform.position;
+            //Linear
+            var pos = Boat.position;
             Vector3 lastP = new Vector3(pos.x, pos.y, pos.z);
             PosQueue.Enqueue(lastP);
             if (frame == 50)
             {
                 currentV = (lastP - PosQueue.Peek()) / 1;
                 PosQueue.Dequeue();
-
                 //First velocity
-                selfV = boat.transform.InverseTransformDirection(currentV);
+                selfV = Boat.InverseTransformDirection(currentV);
                 VQueue = new Queue<Vector3>();
-                VQueue.Enqueue(selfV);
+                VQueue.Enqueue(selfV);      
+
             }
         }
         else if(frame % 10 == 0)
         {            
-            var pos = boat.transform.position;
+            var pos = Boat.position;
             Vector3 last = new Vector3(pos.x, pos.y, pos.z);
             PosQueue.Enqueue(last);           
             Vector3 start = PosQueue.Dequeue();
             currentV = (last - start) / 1;
-            selfV = boat.transform.InverseTransformDirection(currentV);
+            selfV = Boat.InverseTransformDirection(currentV);
            // UnityEngine.Debug.Log(VQueue.Count);
             if (frame == 60 || frame == 70 || frame == 80 || frame == 90)
             {
@@ -109,42 +118,59 @@ public class IMU : MonoBehaviour
             }
         }
 
-        
 
-
-
-       //For gyroscope (Angular_acceleration) 1s = 50 frame
-       //angularV1 = estimated velocity at the 25th frame 
-       //angularV2 = estimated velocity at the 75th frame
-        if (frame % 100 == 50)
+        //Angular
+        //For gyroscope (Angular_acceleration) 1s = 50 frame
+        //For the first 50 frames sample the roll, yaw, pitch as Vectors and stored in AngQueue
+        //Then for every 10 frames, get the new angular vector to be enqueue, and dequeue the first sample in the AngQueue to calculate the angular velocity
+        if (frame == 10 || frame == 20 || frame == 30 || frame == 40)
         {
+            AngQueue.Enqueue(new Vector3(Rotate.roll, Rotate.yaw, Rotate.pitch));
+
+        }else if(frame % 10 == 0) {
+            Vector3 first = AngQueue.Dequeue();
+            roll1 = first[0];
+            yaw1 = first[1];
+            pitch1 = first[2];
+
             roll2 = Rotate.roll;
             pitch2 = Rotate.pitch;
             yaw2 = Rotate.yaw;
-            rollV1 = roll2 - roll1;
-            yawV1 = yaw2 - yaw1;
-            pitchV1 = pitch2 - pitch1;
-            roll1 = roll2;
-            pitch1 = pitch2;
-            yaw1 = yaw2;
-            angularV1 = new Vector3(rollV1, yawV1, pitchV1);
-            currentAngularVelocity = angularV1;
-        }else if (frame % 100 == 0)
-        {
-            roll2 = Rotate.roll;
-            pitch2 = Rotate.pitch;
-            yaw2 = Rotate.yaw;
-            currentAngularVelocity = new Vector3(roll2-roll1, yaw2-yaw1, pitch2-pitch1);
-            Accelerate_Angular = currentAngularVelocity - angularV1; //deltaV / 1(s)
-            roll1 = roll2;
-            pitch1 = pitch2;
-            yaw1 = yaw2;
+            AngQueue.Enqueue(new Vector3(roll2, yaw2, pitch2));
+
+            //Check if yaw1 and yaw2 cross 360
+            float angl;
+            float angs;
+            if (yaw1 > yaw2)
+            {
+                angl = yaw1;
+                angs = yaw2;
+            }
+            else if(yaw1 < yaw2)
+            {
+                angl = yaw2;
+                angs = yaw1;
+            }
+            else
+            {
+                angl = yaw1;
+                angs = yaw1;
+            }
+
+            if (angl > 180 && angs < 180)
+            {
+                currentAngularVelocity = new Vector3(Convert.ToSingle((roll2 - roll1) * Math.PI / 180), Convert.ToSingle((360 - angl + angs) * Math.PI / 180), Convert.ToSingle((pitch2 - pitch1) * Math.PI / 180));
+            }
+            else
+            {
+                currentAngularVelocity = new Vector3(Convert.ToSingle((roll2 - roll1) * Math.PI / 180), Convert.ToSingle((yaw2 - yaw1) * Math.PI / 180), Convert.ToSingle((pitch2 - pitch1) * Math.PI / 180));
+            }
         }
     }
 
 
     //Same function as transform.InverseTransformDirection() does.
-    Vector3 Decomposition (Vector3 deltaV)
+    /*Vector3 Decomposition (Vector3 deltaV)
     {
         //UnityEngine.Debug.Log(deltaPos);
         //cosTheta = v1 Dot v2 / |v1|*|v2|;
@@ -156,5 +182,5 @@ public class IMU : MonoBehaviour
         float deltaY = deltaV.magnitude * (Vector3.Dot(deltaV, up)) / deltaV.magnitude;
         float deltaZ = deltaV.magnitude * (Vector3.Dot(deltaV, forward)) / deltaV.magnitude;
         return new Vector3(deltaX, deltaY, deltaZ);
-    }
+    }*/
 }

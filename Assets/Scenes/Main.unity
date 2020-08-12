@@ -164,8 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1566f8c8a0d764da7ea7146ba67db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Accelerate_Linear: {x: 0, y: 0, z: 0}
-  Accelerate_Angular: {x: 0, y: 0, z: 0}
+  Boat: {fileID: 1584761756}
+  currentV: {x: 0, y: 0, z: 0}
+  selfV: {x: 0, y: 0, z: 0}
+  currentAngularVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &172842723
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.73
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 036bff0db5f85c248ae183e93c0a4e57, type: 3}
       propertyPath: m_LocalRotation.x
@@ -889,6 +891,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1368178509}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1584761756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 036bff0db5f85c248ae183e93c0a4e57,
+    type: 3}
+  m_PrefabInstance: {fileID: 1368178509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1584761757
 Animator:
   serializedVersion: 3
@@ -923,6 +931,7 @@ MonoBehaviour:
   Rotate_X: 0
   Rotate_Y: 0
   Rotate_Z: 0
+  orientation: 0
 --- !u!114 &1584761761
 MonoBehaviour:
   m_ObjectHideFlags: 0
