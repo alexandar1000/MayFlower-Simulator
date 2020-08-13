@@ -26,7 +26,7 @@ namespace RosSharp.RosBridgeClient
         private void MeasurePower()
         {
             power = Battery.power;
-            UnityEngine.Debug.Log(power);
+            //UnityEngine.Debug.Log(power);
             Publish(PrepareMessage(power));
         }
 

@@ -2181,7 +2181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b133824570250404b84a847c1ea6dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeRate: 20
+  consumeRate: 2
   powerBar: {fileID: 1893679376}
   powerText: {fileID: 2093505586}
   atHomeArea: 0
@@ -3465,7 +3465,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 985613208}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1040310778
+--- !u!84 &1000966169
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
