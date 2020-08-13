@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
 {
-    public class DistanceLaserSensors : UnityPublisher<MessageTypes.Std.Float64>
+    public class DistanceLaserSensors : UnityPublisher<MessageTypes.Std.Int64MultiArray>
     {
 
         public GameObject boat;
@@ -19,72 +19,81 @@ namespace RosSharp.RosBridgeClient
         public float frontSensorAngle = 30;
         public float backSensorPosition = 0.2f;
 
+        private float nextActionTime = 0.0f;
+        public float period = 0.1f;
+
 
         // Update is called once per frame
         void Update()
         {
             distance = Vector3.Distance(boat.transform.position, env.transform.position);
-            if (distance < 3.5)
-            {
-                Debug.Log("ALERT: BOAT CLOSER TO ENVIRONMENT");
-            }
-            laserSensors();
+                if (distance < 3.5)
+                {
+                    Debug.Log("ALERT: BOAT CLOSER TO ENVIRONMENT");
+                }
+                laserSensors();
         }
 
-        private void laserSensors()
-        {
+      private void laserSensors(){
             RaycastHit hit;
-            Vector3 sensorStartPos = transform.position + frontSensorPosition;
+            Vector3 sensorStartPos = transform.position;
+            sensorStartPos += transform.forward * frontSensorPosition.z;
+            sensorStartPos += transform.up * frontSensorPosition.y;
 
-
+            long[] sensors = {0,0,0,0,0,0};
+            
             //Front Centre Sensor
-            if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
-
+            if(Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[0] = 1;
             }
 
             //Front Right Side Sensor
-            sensorStartPos.x += frontSideSensorPosition;
-            if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
+            sensorStartPos += transform.right * frontSideSensorPosition;
+            if(Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[1] = 1;
             }
-
+            
 
             //Front Right Angle Sensor
-            if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
+            if(Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[2] = 1;
             }
 
             //Front Left Side Sensor
-            sensorStartPos.x -= 2 * frontSideSensorPosition;
-            if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
+            sensorStartPos -= transform.right * frontSideSensorPosition * 2;
+            if(Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[3] = 1;
             }
 
             //Front Left Angle Sensor
-            if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(-frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
+            if(Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(-frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[4] = 1;
             }
 
             //Back Sensor
             sensorStartPos.y += backSensorPosition;
-            if (Physics.Raycast(sensorStartPos, transform.forward * -1, out hit, sensorLength))
-            {
-                Debug.DrawLine(sensorStartPos, hit.point);
+            if(Physics.Raycast(sensorStartPos, transform.forward * -1, out hit, sensorLength)){
+               Debug.DrawLine(sensorStartPos, hit.point);
+               sensors[5] = 1;
 
             }
-
-            Publish(PrepareMessage(distance));
-        }
-        private MessageTypes.Std.Float64 PrepareMessage(float laser)
+            
+            if (Time.time > nextActionTime ) {
+               nextActionTime += period;
+               Publish(PrepareMessage(sensors));  
+            }
+            
+      }
+        private MessageTypes.Std.Int64MultiArray PrepareMessage(long[] msg)
         {
-            MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
-            message.data = laser;
+            MessageTypes.Std.Int64MultiArray message = new MessageTypes.Std.Int64MultiArray();
+            message.data = msg;
+
             return message;
         }
     }
