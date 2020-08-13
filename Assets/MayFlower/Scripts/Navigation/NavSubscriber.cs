@@ -19,8 +19,6 @@ namespace RosSharp.RosBridgeClient
 {
     public class NavSubscriber : UnitySubscriber<MessageTypes.Geometry.Pose>
     {
-        //public Transform PublishedTransform;
-
         public Vector3 position;
         public Quaternion rotation;
         private bool isMessageReceived;
@@ -45,8 +43,7 @@ namespace RosSharp.RosBridgeClient
 
         private void ProcessMessage()
         {
-            //PublishedTransform.position = position;
-            //PublishedTransform.rotation = rotation;
+
         }
 
         private Vector3 GetPosition(MessageTypes.Geometry.Pose message)
