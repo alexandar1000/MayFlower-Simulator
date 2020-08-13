@@ -140,6 +140,22 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.simulation.capture": {
+      "version": "0.0.10-preview.8",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.simulation.core": "0.0.10-preview.12"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.simulation.core": {
+      "version": "0.0.10-preview.12",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.terrain-tools": {
       "version": "3.0.1-preview",
       "depth": 0,
