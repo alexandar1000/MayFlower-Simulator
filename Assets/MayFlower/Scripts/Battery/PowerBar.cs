@@ -10,7 +10,7 @@ public class PowerBar : MonoBehaviour
     public Slider slider;
     public Gradient gradient;
     public Image fill;
-    public Text powerText;
+    //public Text powerText;
 
     public void setMaxPower(float power)
     {

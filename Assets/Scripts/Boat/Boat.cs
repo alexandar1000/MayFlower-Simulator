@@ -19,28 +19,18 @@ namespace BoatAttack
         public Renderer engineRenderer; // The renderer for the boat mesh
         public Engine engine;
         private Matrix4x4 _spawnPosition;
-
-        // RaceStats
-        [NonSerialized] public int Place = 0;
-        [NonSerialized] public float LapPercentage;
-        [NonSerialized] public int LapCount;
-        [NonSerialized] public bool MatchComplete;
-        private int _wpCount = -1;
-        private WaypointGroup.Waypoint _lastCheckpoint;
-        private WaypointGroup.Waypoint _nextCheckpoint;
-
-        [NonSerialized] public readonly List<float> SplitTimes = new List<float>();
+        
+        private Rigidbody rb;
 
         public CinemachineVirtualCamera cam;
         private float _camFovVel;
-        [NonSerialized] public RaceUI RaceUi;
         private Object _controller;
         private int _playerIndex;
         
         // Modified Content
         // Wind
         public bool inWindZone = false;
-        public GameObject windZone;
+        [NonSerialized] public GameObject windZone;
         // Shader Props
         private static readonly int LiveryPrimary = Shader.PropertyToID("_Color1");
         private static readonly int LiveryTrim = Shader.PropertyToID("_Color2");
@@ -48,7 +38,8 @@ namespace BoatAttack
         
         private void Awake()
 		{
-            _spawnPosition = transform.localToWorldMatrix;
+            //Matrix that transforms a point from local space into world space(Read Only)
+           _spawnPosition = transform.localToWorldMatrix;
             TryGetComponent(out engine.RB);
         }
 
@@ -79,18 +70,15 @@ namespace BoatAttack
             rb = GetComponent<Rigidbody >();
 
         }
-
         private void Update()
         {
-            // UpdateLaps();
-
-            if (RaceUi)
+            if (Battery.boatStatus == 1)
             {
-                RaceUi.UpdatePlaceCounter(Place);
-                RaceUi.UpdateSpeed(engine.VelocityMag);
+                ResetPosition();
             }
-            
+
         }
+
 
         private void FixedUpdate() {
             if(inWindZone){
@@ -111,14 +99,22 @@ namespace BoatAttack
 
         private void OnTriggerEnter(Collider coll)
         {
-            if(coll.gameObject.tag == "WindArea"){
+            if(coll.gameObject.CompareTag("RespawnPoint"))
+            {
+                ResetPosition();
+            }
+
+            if (coll.gameObject.CompareTag("WindArea"))
+            {
                 windZone = coll.gameObject;
                 inWindZone = true;
             }
+
         }
 
         private void OnTriggerExit(Collider coll) {
-            if(coll.gameObject.tag == "WindArea"){
+            if(coll.gameObject.CompareTag("WindArea"))
+            {
                 inWindZone = false;
             }
             
@@ -149,6 +145,19 @@ namespace BoatAttack
             engineRenderer?.material?.SetColor(LiveryPrimary, livery.primaryColor);
             boatRenderer?.material?.SetColor(LiveryTrim, livery.trimColor);
             engineRenderer?.material?.SetColor(LiveryTrim, livery.trimColor);
+        }
+        public void ResetPosition()
+        {
+
+            engine.RB.velocity = Vector3.zero;
+            engine.RB.angularVelocity = Vector3.zero;
+            engine.RB.position = _spawnPosition.GetColumn(3);
+            Battery.power = 100;
+            Battery.boatStatus = 0;
+
+
+            //engine.RB.rotation = resetMatrix.rotation;
+
         }
 
     }
