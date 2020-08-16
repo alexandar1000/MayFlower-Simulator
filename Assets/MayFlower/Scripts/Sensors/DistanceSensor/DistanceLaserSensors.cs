@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RosSharp.RosBridgeClient;
+using StdMessages = RosSharp.RosBridgeClient.MessageTypes.Std;
 
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.DistanceSensor
 {
-    public class DistanceLaserSensors : UnityPublisher<MessageTypes.Std.Int64MultiArray>
+    public class DistanceLaserSensors : UnityPublisher<StdMessages.Int64MultiArray>
     {
 
         public GameObject boat;
@@ -89,9 +91,9 @@ namespace RosSharp.RosBridgeClient
             }
             
       }
-        private MessageTypes.Std.Int64MultiArray PrepareMessage(long[] msg)
+        private StdMessages.Int64MultiArray PrepareMessage(long[] msg)
         {
-            MessageTypes.Std.Int64MultiArray message = new MessageTypes.Std.Int64MultiArray();
+            StdMessages.Int64MultiArray message = new StdMessages.Int64MultiArray();
             message.data = msg;
 
             return message;
