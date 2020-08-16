@@ -2,88 +2,91 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RosSharp.RosBridgeClient;
+using StdMessages = RosSharp.RosBridgeClient.MessageTypes.Std;
 
 //linkt to ros http://docs.ros.org/melodic/api/sensor_msgs/html/msg/MagneticField.html
 
-namespace RosSharp.RosBridgeClient
+
+namespace MayflowerSimulator.Sensors.Compass
 {
-  public class CompassSensor : UnityPublisher<MessageTypes.Std.Float64>
-{
-    public Vector3 NorthDirection;
-    public Transform Player;
-    public static Quaternion MissionDirection;
-
-    public RectTransform Northlayer;
-    public RectTransform MissionLayer;
-
-    public Transform missionplace;
-
-    float sensorReading;
-
-    // Update is called once per frame
-    void Update()
+    public class CompassSensor : UnityPublisher<StdMessages.Float64>
     {
-        ChangeNorthDirection();
-        ChangeMissionDirection();
-    }
+        public Vector3 NorthDirection;
+        public Transform Player;
+        public static Quaternion MissionDirection;
 
-    public void ChangeNorthDirection()
-    {
-        NorthDirection.z = Player.eulerAngles.y;
+        public RectTransform Northlayer;
+        public RectTransform MissionLayer;
 
-        Northlayer.localEulerAngles = NorthDirection;
-    }
+        public Transform missionplace;
 
-    public void ChangeMissionDirection()
-    
-    {
+        float sensorReading;
 
-
-        Vector3 dir = transform.position - missionplace.position;
-
-        MissionDirection = Quaternion.LookRotation(dir);
-
-        MissionDirection.z = -MissionDirection.y;
-
-        MissionDirection.x = 0;
-
-        MissionDirection.y = 0;
-
-        MissionLayer.localRotation = MissionDirection * Quaternion.Euler(NorthDirection);
-
-
-        if (MissionDirection.y > 0)
+        // Update is called once per frame
+        void Update()
         {
-            sensorReading = 0;
+            ChangeNorthDirection();
+            ChangeMissionDirection();
         }
-       else
+
+        public void ChangeNorthDirection()
         {
-          sensorReading = 180;
+            NorthDirection.z = Player.eulerAngles.y;
+
+            Northlayer.localEulerAngles = NorthDirection;
         }
-        if (MissionDirection.x > 0)
+
+        public void ChangeMissionDirection()
+        
         {
-           sensorReading = 270;
-        }
+
+
+            Vector3 dir = transform.position - missionplace.position;
+
+            MissionDirection = Quaternion.LookRotation(dir);
+
+            MissionDirection.z = -MissionDirection.y;
+
+            MissionDirection.x = 0;
+
+            MissionDirection.y = 0;
+
+            MissionLayer.localRotation = MissionDirection * Quaternion.Euler(NorthDirection);
+
+
+            if (MissionDirection.y > 0)
+            {
+                sensorReading = 0;
+            }
         else
-        {
-           sensorReading = 90;
+            {
+            sensorReading = 180;
+            }
+            if (MissionDirection.x > 0)
+            {
+            sensorReading = 270;
+            }
+            else
+            {
+            sensorReading = 90;
+            }
+
+
+            Debug.Log("compass"+sensorReading);
+            Publish(PrepareMessage(sensorReading));
+
         }
 
 
-        Debug.Log("compass"+sensorReading);
-        Publish(PrepareMessage(sensorReading));
 
+        private StdMessages::Float64 PrepareMessage(float compass)
+        {
+            StdMessages.Float64 message = new StdMessages::Float64();
+            message.data = compass;
+
+            return message;
+        }
     }
-
-
-
-private MessageTypes.Std.Float64 PrepareMessage(float compass)
-{
-    MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
-    message.data = compass;
-
-    return message;
-}
-}
 
 }
