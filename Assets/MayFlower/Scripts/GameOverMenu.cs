@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BoatAttack;
+using MayflowerSimulator.Sensors.Battery;
 
 public class GameOverMenu : MonoBehaviour
 {
