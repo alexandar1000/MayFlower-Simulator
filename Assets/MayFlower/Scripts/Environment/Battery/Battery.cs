@@ -6,19 +6,19 @@ namespace MayflowerSimulator.Environment.Temperature
 {
     public class Battery : MonoBehaviour
     {
-        public float BatteryChargeDuration;
-        public float BatteryDischargeDuration;
+        public float BatteryChargeMinutesDuration;
+        public float BatteryDischargeMinutesDuration;
         public float InitialBatteryChargePercentage;
-        protected float charge;
-        protected bool isCharging;
+        protected float Charge;
+        protected bool IsCharging;
 
         // Start is called before the first frame update
         void Start()
         {
-            float batteryChargePercentDuration = BatteryChargeDuration / 100f;
+            float batteryChargePercentDuration = (BatteryChargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("ChargeBattery", batteryChargePercentDuration, batteryChargePercentDuration);
 
-            float batteryDischargePercentDuration = BatteryDischargeDuration / 100f;
+            float batteryDischargePercentDuration = (BatteryDischargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("DischargeBattery", batteryDischargePercentDuration, batteryDischargePercentDuration);
             
         }
@@ -32,24 +32,24 @@ namespace MayflowerSimulator.Environment.Temperature
         // Update the battery state when the Battery is Discharging
         protected void DischargeBattery()
         {
-            if (!isCharging)
+            if (!IsCharging)
             {
-                charge -= 1;
+                Charge -= 1;
             }
         }
 
         // Update the battery state when the Battery is Charging
         protected void ChargeBattery()
         {
-            if (isCharging)
+            if (IsCharging)
             {
-                charge += 1;
+                Charge += 1;
             }
         }
 
         public float GetCurrentCharge()
         {
-            return charge;
+            return Charge;
         }
     }
 }
