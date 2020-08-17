@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//linkt to ros http://docs.ros.org/melodic/api/sensor_msgs/html/msg/MagneticField.html
 
 namespace RosSharp.RosBridgeClient
 {
@@ -11,7 +12,6 @@ namespace RosSharp.RosBridgeClient
     public Vector3 NorthDirection;
     public Transform Player;
     public static Quaternion MissionDirection;
-
 
     public RectTransform Northlayer;
     public RectTransform MissionLayer;
@@ -70,7 +70,7 @@ namespace RosSharp.RosBridgeClient
         }
 
 
-        Debug.Log(sensorReading);
+        Debug.Log("compass"+sensorReading);
         Publish(PrepareMessage(sensorReading));
 
     }
