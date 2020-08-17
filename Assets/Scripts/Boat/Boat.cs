@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using Cinemachine;
 using BoatAttack.UI;
 using Object = UnityEngine.Object;
+using MayflowerSimulator.Sensors.Battery;
 
 namespace BoatAttack
 {

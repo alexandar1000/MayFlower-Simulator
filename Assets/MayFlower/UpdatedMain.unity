@@ -898,7 +898,7 @@ MonoBehaviour:
   Northlayer: {fileID: 1397756418}
   MissionLayer: {fileID: 450401522}
   missionplace: {fileID: 985613209}
---- !u!84 &384875992
+--- !u!84 &365875582
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6288,7 +6288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1878234331
 Transform:
   m_ObjectHideFlags: 0
