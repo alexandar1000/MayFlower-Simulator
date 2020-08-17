@@ -13,18 +13,16 @@ public class Rotate : MonoBehaviour
     public float Rotate_Z;
     public static float roll; //roll left (<0); roll right (>0).
     public static float pitch; //bow dive (<0); bow upturned (>0).
-    public static float yaw; //clockwise 0 to 360(=0)
+    public static float yaw; //0 clockwise to 360(=0)
    
 
-
-    // Update is called once per frame
     void Update()
     {
         eulerAngles = Boat.rotation.eulerAngles;
         Rotate_X = Convert.ToSingle(Math.Round(eulerAngles.x, 3));
         Rotate_Y = Convert.ToSingle(Math.Round(eulerAngles.y, 3));
         Rotate_Z = Convert.ToSingle(Math.Round(eulerAngles.z, 3));
-        //roll
+        
         if(Rotate_X < 90)
         {
             roll = Rotate_X * (-1);
@@ -34,7 +32,7 @@ public class Rotate : MonoBehaviour
             roll = 360 - Rotate_X;
         }
 
-        //pitch
+        
         if (Rotate_Z > 180)
         {
             pitch = -(360 - Rotate_Z);
@@ -43,8 +41,7 @@ public class Rotate : MonoBehaviour
             pitch = Rotate_Z;
         }
 
-        //yaw
-        //yaw = (Rotate_Y + 360 - orientation) % 360;
+        
         yaw = Rotate_Y;
     }
 }

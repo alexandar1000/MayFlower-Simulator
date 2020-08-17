@@ -11,21 +11,16 @@ namespace RosSharp.RosBridgeClient
     {
         private MessageTypes.Sensor.Imu ImuMessage;
         public string FrameId = "IMU_Sensor";
-       /* private static Quaternion MissionDirection;
-        private static Vector3 Accelerate_Linear;
-        private static Vector3 currentAngularVelocity;    */
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         void Start()
         {
-            base.Start();
-
             UnityEngine.Debug.Log("IMUSensor Start");
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
 
-        //create MessageTypes object
+        //Create MessageTypes object
         MessageTypes.Geometry.Quaternion quaterObj(Quaternion quaternion)
         {
             return new MessageTypes.Geometry.Quaternion(Math.Round(quaternion.x, 4), Math.Round(quaternion.y, 4), Math.Round(quaternion.z, 4), Math.Round(quaternion.w, 4));
@@ -54,13 +49,8 @@ namespace RosSharp.RosBridgeClient
             ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
-            //UnityEngine.Debug.Log("IMU Message: " + ImuMessage.linear_acceleration.x + ", " + ImuMessage.linear_acceleration.y + ", " + ImuMessage.linear_acceleration.z + ")"); 
+           
             Publish(ImuMessage);            
         }
-
-       /* private MessageTypes.Sensor.Imu PrepareMessage(MessageTypes.Sensor.Imu message)
-        { 
-            return message;
-        }*/
     }
 }
