@@ -13,14 +13,15 @@ public class GameOverMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Battery.boatStatus == 1)
-        {
-            EndPause();
-        }
-        else
-        {
-            Live();
-        }
+        // TODO: Depending on the battery solution, update this segment commented-out bellow
+        // if (Battery.boatStatus == 1)
+        // {
+        //     EndPause();
+        // }
+        // else
+        // {
+        //     Live();
+        // }
 
     }
 

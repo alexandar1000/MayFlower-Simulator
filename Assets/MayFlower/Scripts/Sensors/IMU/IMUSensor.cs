@@ -19,14 +19,12 @@ namespace MayflowerSimulator.Sensors.IMU
 
         protected override void Start()
         {
-            base.Start();
-
             UnityEngine.Debug.Log("IMUSensor Start");
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
         }
 
-        // Create MessageTypes object
+        //Create MessageTypes object
         GeometryMessages.Quaternion quaterObj(Quaternion quaternion)
         {
             return new GeometryMessages.Quaternion(Math.Round(quaternion.x, 4), Math.Round(quaternion.y, 4), Math.Round(quaternion.z, 4), Math.Round(quaternion.w, 4));
@@ -55,6 +53,7 @@ namespace MayflowerSimulator.Sensors.IMU
             ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
+           
             Publish(ImuMessage);            
         }
     }
