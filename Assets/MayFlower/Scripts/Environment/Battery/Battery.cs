@@ -32,6 +32,7 @@ namespace MayflowerSimulator.Environment.Temperature
         // Update the battery state when the Battery is Discharging
         protected void DischargeBattery()
         {
+            // TODO: Adjust discharging and make sure not going bellow 0
             if (!IsCharging)
             {
                 Charge -= 1;
@@ -41,15 +42,17 @@ namespace MayflowerSimulator.Environment.Temperature
         // Update the battery state when the Battery is Charging
         protected void ChargeBattery()
         {
+            // TODO: Adjust charging and make sure not going above 100
             if (IsCharging)
             {
                 Charge += 1;
             }
         }
 
+        // Get current charge returns the battery percentage normalised to the scale of 0 to 1
         public float GetCurrentCharge()
         {
-            return Charge;
+            return Charge / 100f;
         }
     }
 }
