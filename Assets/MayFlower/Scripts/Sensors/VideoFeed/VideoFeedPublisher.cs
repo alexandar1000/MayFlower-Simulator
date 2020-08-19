@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using RosSharp.RosBridgeClient;
+using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.Temperature
 {
-    public class VideoFeedPublisher : UnityPublisher<MessageTypes.Sensor.CompressedImage>
+    public class VideoFeedPublisher : UnityPublisher<SensorMessages.CompressedImage>
     {
         public Camera videoCamera;
         private Material mat;
@@ -17,7 +19,7 @@ namespace RosSharp.RosBridgeClient
         private Texture2D texture2D;
         private Rect rect;
 
-        private MessageTypes.Sensor.CompressedImage message;
+        private SensorMessages.CompressedImage message;
 
         protected override void Start()
         {
@@ -28,7 +30,7 @@ namespace RosSharp.RosBridgeClient
             texture2D = new Texture2D(resolutionWidth, resolutionHeight, TextureFormat.RGB24, false);
             rect = new Rect(0, 0, resolutionWidth, resolutionHeight);
 
-            message = new MessageTypes.Sensor.CompressedImage();
+            message = new SensorMessages.CompressedImage();
             message.header.frame_id = "VideoCamera";
             message.format = "jpeg";
 

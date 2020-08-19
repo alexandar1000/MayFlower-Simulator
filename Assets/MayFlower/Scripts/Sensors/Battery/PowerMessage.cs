@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using StdMessages = RosSharp.RosBridgeClient.MessageTypes.Std;
+using RosSharp.RosBridgeClient;
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.Battery
 {
-    public class PowerMessage : UnityPublisher<MessageTypes.Std.Float64>
+    public class PowerMessage : UnityPublisher<StdMessages::Float64>
     {
         public float MeasurementFrequency = 2f;
         private static float power;
@@ -19,13 +21,14 @@ namespace RosSharp.RosBridgeClient
         // Get the current battery power
         private void MeasurePower()
         {
-            power = Battery.power;
+            // TODO: As this file is getting removed, for purposes of solving conflicts, the Battery.power is temporarily being replaced by a constant
+            power = 100; //Battery.power;
             Publish(PrepareMessage(power));
         }
 
-        private MessageTypes.Std.Float64 PrepareMessage(float batteryPower)
+        private StdMessages::Float64 PrepareMessage(float batteryPower)
         {
-            MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
+            StdMessages::Float64 message = new StdMessages::Float64();
             message.data = batteryPower;
 
             return message;

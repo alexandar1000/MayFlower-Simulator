@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class TemperatureAnomaly : MonoBehaviour
+namespace MayflowerSimulator.Environment.Temperature
 {
-    public float Temperature;
-    public bool IsConstant;
-    // Start is called before the first frame update
-    void Start()
+    public class TemperatureAnomaly : MonoBehaviour
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(!IsConstant) 
+        public float Temperature;
+        public bool IsConstant;
+        // Start is called before the first frame update
+        void Start()
         {
-            // Update so that the temperature adjusts to the surroundings
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if(!IsConstant) 
+            {
+                // Update so that the temperature adjusts to the surroundings
+            }
         }
     }
 }
