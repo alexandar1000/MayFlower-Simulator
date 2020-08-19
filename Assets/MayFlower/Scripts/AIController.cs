@@ -26,7 +26,7 @@ namespace BoatAttack
 
         private void Start()
         {
-            destination = GameObject.Find("DesinationHouse").transform.position;
+            destination = GameObject.Find("DestinationHouse").transform.position;
             InvokeRepeating(nameof(CalculatePath), 1f, 1f);
         }
 

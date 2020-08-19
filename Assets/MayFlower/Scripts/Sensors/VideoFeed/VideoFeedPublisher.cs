@@ -45,7 +45,7 @@ namespace MayflowerSimulator.Sensors.Temperature
             Array.Copy(texture2D.GetRawTextureData(), rawByteData, rawByteData.Length);
             message.header.Update();
             message.data = texture2D.EncodeToJPG(qualityLevel);
-            Debug.Log("Sending image: " + message.data);
+            //Debug.Log("Sending image: " + message.data);
             Publish(message);
         }
     }

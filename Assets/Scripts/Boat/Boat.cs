@@ -30,8 +30,8 @@ namespace BoatAttack
         
         // Modified Content
         // Wind
-        public bool inWindZone = false;
-        [NonSerialized] public GameObject windZone;
+        //public bool inWindZone = false;
+        //[NonSerialized] public GameObject windZone;
         // Shader Props
         private static readonly int LiveryPrimary = Shader.PropertyToID("_Color1");
         private static readonly int LiveryTrim = Shader.PropertyToID("_Color2");
@@ -71,22 +71,22 @@ namespace BoatAttack
             rb = GetComponent<Rigidbody >();
 
         }
-        private void Update()
-        {
-            if (Battery.boatStatus == 1)
-            {
-                ResetPosition();
-            }
+        //private void Update()
+        //{
+        //    if (Battery.boatStatus == 1)
+        //    {
+        //        ResetPosition();
+        //    }
 
-        }
+        //}
 
 
-        private void FixedUpdate() {
-            if(inWindZone){
-                rb.AddForce(windZone.GetComponent<WindArea>().direction * windZone.GetComponent<WindArea>().strength);
-            }
+        //private void FixedUpdate() {
+        //    if(inWindZone){
+        //        rb.AddForce(windZone.GetComponent<WindArea>().direction * windZone.GetComponent<WindArea>().strength);
+        //    }
             
-        }
+        //}
 
 
         private void LateUpdate()
@@ -98,28 +98,28 @@ namespace BoatAttack
             }
         }
 
-        private void OnTriggerEnter(Collider coll)
-        {
-            if(coll.gameObject.CompareTag("RespawnPoint"))
-            {
-                ResetPosition();
-            }
+        //private void OnTriggerEnter(Collider coll)
+        //{
+        //    if(coll.gameObject.CompareTag("RespawnPoint"))
+        //    {
+        //        ResetPosition();
+        //    }
 
-            if (coll.gameObject.CompareTag("WindArea"))
-            {
-                windZone = coll.gameObject;
-                inWindZone = true;
-            }
+        //    if (coll.gameObject.CompareTag("WindArea"))
+        //    {
+        //        windZone = coll.gameObject;
+        //        inWindZone = true;
+        //    }
 
-        }
+        //}
 
-        private void OnTriggerExit(Collider coll) {
-            if(coll.gameObject.CompareTag("WindArea"))
-            {
-                inWindZone = false;
-            }
+        //private void OnTriggerExit(Collider coll) {
+        //    if(coll.gameObject.CompareTag("WindArea"))
+        //    {
+        //        inWindZone = false;
+        //    }
             
-        }
+        //}
 
         [ContextMenu("Randomize")]
         private void ColorizeInvoke()
