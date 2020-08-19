@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using RosSharp.RosBridgeClient;
+using StdMessages = RosSharp.RosBridgeClient.MessageTypes.Std;
+using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
+using MayflowerSimulator.Environment.Temperature;
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.Temperature
 {
-    public class TemperatureSensor : UnityPublisher<MessageTypes.Std.Float64>
+    public class TemperatureSensor : UnityPublisher<StdMessages.Float64>
     {
         public float MeasurementFrequency = 2f;
         public GameObject[] TemperatureAnomalies;
@@ -57,9 +61,9 @@ namespace RosSharp.RosBridgeClient
             Publish(PrepareMessage(temperatureReading));
         }
 
-        private MessageTypes.Std.Float64 PrepareMessage(float temperature)
+        private StdMessages.Float64 PrepareMessage(float temperature)
         {
-            MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
+            StdMessages.Float64 message = new StdMessages.Float64();
             message.data = temperature;
             
             return message;
