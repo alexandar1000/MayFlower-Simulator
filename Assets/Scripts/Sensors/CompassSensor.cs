@@ -11,7 +11,8 @@ namespace RosSharp.RosBridgeClient
 {
     public Vector3 NorthDirection;
     public Transform Player;
-    public Quaternion MissionDirection;
+    public static Quaternion MissionDirection;
+
     public RectTransform Northlayer;
     public RectTransform MissionLayer;
 
