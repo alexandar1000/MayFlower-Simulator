@@ -788,8 +788,6 @@ GameObject:
   - component: {fileID: 284812970}
   - component: {fileID: 284812969}
   - component: {fileID: 284812972}
-  - component: {fileID: 284812974}
-  - component: {fileID: 284812973}
   m_Layer: 0
   m_Name: RosConnectors
   m_TagString: Untagged
@@ -858,46 +856,6 @@ MonoBehaviour:
   resolutionWidth: 640
   resolutionHeight: 480
   qualityLevel: 69
---- !u!114 &284812973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284812968}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ad6c9ba13614f8493e808ca9aa6fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Topic: /DistanceReader
-  boat: {fileID: 1173002065}
-  env: {fileID: 1593834269}
-  distance: 50
-  sensorLength: 5
-  frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
-  frontSideSensorPosition: 0.2
-  frontSensorAngle: 30
-  backSensorPosition: 0.2
---- !u!114 &284812974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284812968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fb461163ed54feb8371b5963018d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Topic: /compassReader
-  NorthDirection: {x: 0, y: 0, z: 0}
-  Player: {fileID: 985613209}
-  MissionDirection: {x: 0, y: 0, z: 0, w: 0}
-  Northlayer: {fileID: 0}
-  MissionLayer: {fileID: 0}
-  missionplace: {fileID: 0}
 --- !u!1 &400417702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,41 +1263,6 @@ Transform:
   m_Father: {fileID: 1174719752}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &546135068
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &551335603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,7 +3414,7 @@ PrefabInstance:
     - target: {fileID: 4099162261785901016, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4099162261785901016, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -3784,6 +3707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47387b38c339a4c5985bc9aff68264c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPilot: 0
+  navSubscriber: {fileID: 0}
 --- !u!1 &1174719751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,7 +3758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849cd6092ba0246b09088eb07e98d7bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  env: {fileID: 0}
   frontCenterLaser: {fileID: 1004464517}
   frontRightLaser: {fileID: 483614583}
   frontLeftLaser: {fileID: 994525280}

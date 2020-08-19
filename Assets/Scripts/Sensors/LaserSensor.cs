@@ -42,7 +42,7 @@ public class LaserSensor : MonoBehaviour
         //Front Right Side Sensor
         if (Physics.Raycast(frontRightLaser.transform.position, frontRightLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("front right laser" + hit.transform.name);
+            Debug.Log("front right laser" + hit.transform.name + "distance is  " + hit.distance);
         }
         Debug.DrawLine(frontRightLaser.transform.position, hit.point);
 
@@ -50,21 +50,23 @@ public class LaserSensor : MonoBehaviour
         //Front Left side Sensor
         if (Physics.Raycast(frontLeftLaser.transform.position, frontLeftLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("front left laser" + hit.transform.name);
+            Debug.Log("front left laser" + hit.transform.name + "distance is  " + hit.distance);
         }
         Debug.DrawLine(frontLeftLaser.transform.position, hit.point);
 
         //Right Angle Sensor
         if (Physics.Raycast(rightLaser.transform.position, Quaternion.AngleAxis(frontSensorAngle, rightLaser.transform.up) * rightLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("right angle laser" + hit.transform.name);
+            Debug.Log("right angle laser" + hit.transform.name + "distance is  " + hit.distance);
         }
+        Debug.DrawLine(frontLeftLaser.transform.position, hit.point);
 
         //Left Angle Sensor
         if (Physics.Raycast(leftLaser.transform.position, Quaternion.AngleAxis(-frontSensorAngle, leftLaser.transform.up) * leftLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("left angle laser" + hit.transform.name);
+            Debug.Log("left angle laser" + hit.transform.name + "distance is  " + hit.distance);
         }
+        Debug.DrawLine(frontLeftLaser.transform.position, hit.point);
 
     }
 
