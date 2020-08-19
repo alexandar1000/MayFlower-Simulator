@@ -10,8 +10,10 @@ namespace MayflowerSimulator.Environment.Battery
         public float BatteryDischargeMinutesDuration;
         public float InitialBatteryChargePercentage;
         public float Voltage { get; } = 3f;
-        protected float Charge;
-        protected bool IsCharging;
+        public float consumeRate = 0.5f;
+        public float Charge;
+        protected bool IsCharging = false;
+        private GameObject homeZone;
 
         protected const byte POWER_SUPPLY_STATUS_UNKNOWN = 0;
         protected const byte POWER_SUPPLY_STATUS_CHARGING = 1;
@@ -35,26 +37,57 @@ namespace MayflowerSimulator.Environment.Battery
         // Update is called once per frame
         void Update()
         {
-            
+            if (IsCharging)
+            {
+                Charge += Time.deltaTime * consumeRate;
+                Charge = Mathf.Min(100, Charge);                
+            }
+
+            else
+            {
+                //update boat status
+                if (Charge > 0)
+                {
+                    Charge -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game       
+
+                }
+                else
+                {
+                    Debug.Log("The battery runs out off power, boat stopped.");
+                }
+
+
+            }
+
         }
 
-        // Update the battery state when the Battery is Discharging
-        protected void DischargeBattery()
+        private void OnTriggerEnter(Collider coll)
         {
-            if (!IsCharging && Charge > 0f)
+            if (coll.gameObject.CompareTag("HomeArea"))
             {
-                Charge = Mathf.Max(0, Charge-1);
+                homeZone = coll.gameObject;
+                IsCharging = true;
             }
         }
 
-        // Update the battery state when the Battery is Charging
-        protected void ChargeBattery()
+        private void OnTriggerExit(Collider coll)
         {
-            if (IsCharging && Charge < 100)
+            if (coll.gameObject.CompareTag("HomeArea"))
             {
-                Charge = Mathf.Min(100, Charge+1);
+                IsCharging = false;
             }
+
         }
+
+        //// Update the battery state when the Battery is Discharging
+        //protected void DischargeBattery()
+        //{
+        //    if (!IsCharging && Charge > 0f)
+        //    {
+        //        Charge = Mathf.Max(0, Charge-1);
+        //    }
+        //}
+
 
         // Get current charge returns the battery percentage normalised to the scale of 0 to 1
         public float GetCurrentCharge()
