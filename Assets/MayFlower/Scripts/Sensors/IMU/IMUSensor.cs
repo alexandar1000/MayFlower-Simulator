@@ -13,8 +13,10 @@ namespace RosSharp.RosBridgeClient
         public string FrameId = "IMU_Sensor";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             UnityEngine.Debug.Log("IMUSensor Start");
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
@@ -49,7 +51,7 @@ namespace RosSharp.RosBridgeClient
             ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
-           
+            //UnityEngine.Debug.Log("IMU Linear Acceleration: (" + ImuMessage.linear_acceleration.x + ", " + ImuMessage.linear_acceleration.y + ", " + ImuMessage.linear_acceleration.z +")");
             Publish(ImuMessage);            
         }
     }
