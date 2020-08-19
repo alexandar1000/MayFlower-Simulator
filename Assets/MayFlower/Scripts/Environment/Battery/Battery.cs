@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MayflowerSimulator.Environment.Temperature
+namespace MayflowerSimulator.Environment.Battery
 {
     public class Battery : MonoBehaviour
     {
         public float BatteryChargeMinutesDuration;
         public float BatteryDischargeMinutesDuration;
         public float InitialBatteryChargePercentage;
+        public float Voltage { get; } = 3f;
         protected float Charge;
         protected bool IsCharging;
+
+        protected const byte POWER_SUPPLY_STATUS_UNKNOWN = 0;
+        protected const byte POWER_SUPPLY_STATUS_CHARGING = 1;
+        protected const byte POWER_SUPPLY_STATUS_DISCHARGING = 2;
+        protected const byte POWER_SUPPLY_STATUS_NOT_CHARGING = 3;
+        protected const byte POWER_SUPPLY_STATUS_FULL = 4;
 
         // Start is called before the first frame update
         void Start()
         {
+            Charge = InitialBatteryChargePercentage;
+            
             float batteryChargePercentDuration = (BatteryChargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("ChargeBattery", batteryChargePercentDuration, batteryChargePercentDuration);
 
@@ -32,20 +41,18 @@ namespace MayflowerSimulator.Environment.Temperature
         // Update the battery state when the Battery is Discharging
         protected void DischargeBattery()
         {
-            // TODO: Adjust discharging and make sure not going bellow 0
-            if (!IsCharging)
+            if (!IsCharging && Charge > 0f)
             {
-                Charge -= 1;
+                Charge = Mathf.Max(0, Charge-1);
             }
         }
 
         // Update the battery state when the Battery is Charging
         protected void ChargeBattery()
         {
-            // TODO: Adjust charging and make sure not going above 100
-            if (IsCharging)
+            if (IsCharging && Charge < 100)
             {
-                Charge += 1;
+                Charge = Mathf.Min(100, Charge+1);
             }
         }
 
@@ -53,6 +60,27 @@ namespace MayflowerSimulator.Environment.Temperature
         public float GetCurrentCharge()
         {
             return Charge / 100f;
+        }
+
+        public byte GetCurrentChargingStatus()
+        {
+            if (IsCharging)
+            {
+                if (Charge == 100f)
+                {
+                    return POWER_SUPPLY_STATUS_FULL;
+                }
+
+                return POWER_SUPPLY_STATUS_CHARGING;
+            } else 
+            {
+                if (Charge == 0f)
+                {
+                    return POWER_SUPPLY_STATUS_NOT_CHARGING;
+                }
+
+                return POWER_SUPPLY_STATUS_DISCHARGING;
+            }
         }
     }
 }
