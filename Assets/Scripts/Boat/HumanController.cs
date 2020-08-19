@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using RosSharp.RosBridgeClient;
 
 namespace BoatAttack
 {
@@ -9,6 +10,10 @@ namespace BoatAttack
     public class HumanController : BaseController
     {
         private InputControls _controls;
+
+        public bool autoPilot = false;
+
+        public NavSubscriber navSubscriber;
 
         private float _throttle;
         private float _steering;
@@ -69,8 +74,14 @@ namespace BoatAttack
 
         void FixedUpdate()
         {
-            engine.Accelerate(_throttle);
-            engine.Turn(_steering);
+            if(!autoPilot){
+                engine.Accelerate(_throttle);
+                engine.Turn(_steering);
+            }
+            else{
+                engine.Accelerate((float)0.2);
+                engine.Turn(navSubscriber.position.z);
+            }
         }
     }
 }

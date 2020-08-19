@@ -9,7 +9,7 @@ public class Battery : MonoBehaviour
 {
     private const float MAX_POWER = 100;
     public static float power;
-    public float consumeRate = 1f;
+    public float consumeRate = 0.5f;
     public static int boatStatus = 0;
 
     public PowerBar powerBar;
@@ -47,7 +47,8 @@ public class Battery : MonoBehaviour
             //update boat status
             if (power > 0) {
                 boatStatus = 0;
-                power -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game                
+                power -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game       
+
             }
             else{
                 boatStatus = 1;
