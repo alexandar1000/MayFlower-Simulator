@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
+using RosSharp.RosBridgeClient;
+using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
+using GeometryMessages = RosSharp.RosBridgeClient.MessageTypes.Geometry;
+using MayflowerSimulator.Sensors.Compass;
 
-namespace RosSharp.RosBridgeClient
+namespace MayflowerSimulator.Sensors.IMU
 {
-    public class IMUSensor : UnityPublisher<MessageTypes.Sensor.Imu>
+    public class IMUSensor : UnityPublisher<SensorMessages.Imu>
     {
-        private MessageTypes.Sensor.Imu ImuMessage;
+        private SensorMessages.Imu ImuMessage;
         public string FrameId = "IMU_Sensor";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        void Start()
+        protected override void Start()
         {
             UnityEngine.Debug.Log("IMUSensor Start");
             InitialiseMessage();
@@ -21,18 +25,18 @@ namespace RosSharp.RosBridgeClient
         }
 
         //Create MessageTypes object
-        MessageTypes.Geometry.Quaternion quaterObj(Quaternion quaternion)
+        GeometryMessages.Quaternion quaterObj(Quaternion quaternion)
         {
-            return new MessageTypes.Geometry.Quaternion(Math.Round(quaternion.x, 4), Math.Round(quaternion.y, 4), Math.Round(quaternion.z, 4), Math.Round(quaternion.w, 4));
+            return new GeometryMessages.Quaternion(Math.Round(quaternion.x, 4), Math.Round(quaternion.y, 4), Math.Round(quaternion.z, 4), Math.Round(quaternion.w, 4));
         }
-        MessageTypes.Geometry.Vector3 vector3Obj(Vector3 vector3)
+        GeometryMessages.Vector3 vector3Obj(Vector3 vector3)
         {
-            return new MessageTypes.Geometry.Vector3(Math.Round(vector3.x, 4), Math.Round(vector3.y, 4), Math.Round(vector3.z, 4));
+            return new GeometryMessages.Vector3(Math.Round(vector3.x, 4), Math.Round(vector3.y, 4), Math.Round(vector3.z, 4));
         }
 
         void InitialiseMessage()
         {
-            ImuMessage = new MessageTypes.Sensor.Imu();
+            ImuMessage = new SensorMessages.Imu();
             ImuMessage.header.frame_id = FrameId;
             ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
