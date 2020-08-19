@@ -73,10 +73,11 @@ namespace BoatAttack
         }
         private void Update()
         {
-            if (Battery.boatStatus == 1)
-            {
-                ResetPosition();
-            }
+            // TODO: Update the following if statement due to the changed battery scripts
+            // if (Battery.boatStatus == 1)
+            // {
+            //     ResetPosition();
+            // }
 
         }
 
@@ -153,8 +154,9 @@ namespace BoatAttack
             engine.RB.velocity = Vector3.zero;
             engine.RB.angularVelocity = Vector3.zero;
             engine.RB.position = _spawnPosition.GetColumn(3);
-            Battery.power = 100;
-            Battery.boatStatus = 0;
+            // TODO: Update the following two lines due to the changed battery script
+            // Battery.power = 100;
+            // Battery.boatStatus = 0;
 
 
             //engine.RB.rotation = resetMatrix.rotation;

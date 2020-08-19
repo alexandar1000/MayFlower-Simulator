@@ -21,7 +21,8 @@ namespace MayflowerSimulator.Sensors.Battery
         // Get the current battery power
         private void MeasurePower()
         {
-            power = Battery.power;
+            // TODO: As this file is getting removed, for purposes of solving conflicts, the Battery.power is temporarily being replaced by a constant
+            power = 100; //Battery.power;
             Publish(PrepareMessage(power));
         }
 
