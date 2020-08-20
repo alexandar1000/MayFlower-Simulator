@@ -1910,12 +1910,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 576590652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed784a126ec1c4d40b7d56f5e7312f3d, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /frontCenterLaser_
-  FrameId: Front Center Laser
-  frontCenterLaser: {fileID: 576590652}
+  FrameId: Front Center  Laser
+  laser: {fileID: 576590652}
+  laserType: straight
   sensorLength: 5
   frontSensorAngle: 30
   period: 0.1
@@ -3640,41 +3641,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001649310}
   m_CullTransparentMesh: 0
---- !u!84 &1004080787
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1105584691
 GameObject:
   m_ObjectHideFlags: 0
@@ -3977,12 +3943,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1290887127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae75bf84cf1cea4b996a0721e919861, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /frontLeftLaser_
   FrameId: Front Left Laser
-  frontLeftLaser: {fileID: 1290887127}
+  laser: {fileID: 1290887127}
+  laserType: straight
   sensorLength: 5
   frontSensorAngle: 30
   period: 0.1
@@ -4932,12 +4899,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1535569804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974b5342b8c3d0142b7606c84d03c9ef, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: leftAngleLaser_
+  Topic: /leftAngleLaser_
   FrameId: Left Angle Laser
-  leftAngleLaser: {fileID: 1535569804}
+  laser: {fileID: 1535569804}
+  laserType: leftAngle
   sensorLength: 5
   frontSensorAngle: 30
   period: 0.1
@@ -7078,6 +7046,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086179678}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &2090714513
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &2107574171
 GameObject:
   m_ObjectHideFlags: 0
@@ -7135,12 +7138,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2107574171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5664aba71f3e02b4596d9b0638371d25, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /frontRightLaser_
   FrameId: Front Right Laser
-  frontRightLaser: {fileID: 2107574171}
+  laser: {fileID: 2107574171}
+  laserType: straight
   sensorLength: 5
   frontSensorAngle: 30
   period: 0.1
@@ -7153,7 +7157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109384416}
-  - component: {fileID: 2109384419}
+  - component: {fileID: 2109384418}
   - component: {fileID: 2109384417}
   m_Layer: 11
   m_Name: RightAngleLaser
@@ -7192,7 +7196,7 @@ MonoBehaviour:
   Serializer: 0
   protocol: 0
   RosBridgeServerUrl: ws://192.168.56.101:9090
---- !u!114 &2109384419
+--- !u!114 &2109384418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7201,12 +7205,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2109384415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61028236d02c60d499913579f385d2a7, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: rightAngleLaser_
+  Topic: /rightAngleLaser_
   FrameId: Right Angle Laser
-  rightAngleLaser: {fileID: 2109384415}
+  laser: {fileID: 2109384415}
+  laserType: rightAngle
   sensorLength: 5
   frontSensorAngle: 30
   period: 0.1
