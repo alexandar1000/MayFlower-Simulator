@@ -64,13 +64,13 @@ namespace RosSharp.RosBridgeClient
             currentX = (currentWorldPos.z - StartingPoint.z) * GPSUnits.x + StartingGPS.x;
             currentY = (currentWorldPos.x - StartingPoint.x) * GPSUnits.y + StartingGPS.y;
             currentZ = (currentWorldPos.y - StartingPoint.y) * GPSUnits.z + StartingGPS.z;
-            UnityEngine.Debug.Log("StartingGPS.y = "+ StartingGPS.y);
+            
             gpsMessage.header.Update();
             gpsMessage.latitude = Math.Round(currentX, 8);
             gpsMessage.longitude = Math.Round(currentY, 8);
             gpsMessage.altitude = Math.Round(currentZ, 8);
 
-            UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
+            //UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
             Publish(gpsMessage);
         }
 

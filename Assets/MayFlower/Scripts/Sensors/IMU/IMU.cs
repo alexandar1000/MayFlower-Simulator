@@ -46,6 +46,8 @@ namespace MayflowerSimulator.Sensors.IMU
         //current angular velocity (rad/s^2), rad = degree * Math.PI / 180
         public static Vector3 currentAngularVelocity;
 
+        public static Quaternion orientation;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -54,6 +56,7 @@ namespace MayflowerSimulator.Sensors.IMU
             PosQueue.Enqueue(new Vector3(pos.x, pos.y, pos.z));
             AngQueue = new Queue<Vector3>();
             AngQueue.Enqueue(new Vector3(Rotate.roll, Rotate.yaw, Rotate.pitch));
+            orientation = Quaternion.Euler(Boat.forward);
         }
 
         // Update is called once per frame (0.02 s)
@@ -132,7 +135,7 @@ namespace MayflowerSimulator.Sensors.IMU
                     currentAngularVelocity = new Vector3(Convert.ToSingle((roll2 - roll1) * Math.PI / 180), Convert.ToSingle((yaw2 - yaw1) * Math.PI / 180), Convert.ToSingle((pitch2 - pitch1) * Math.PI / 180));
                 }            
             }
-
+            orientation = Quaternion.Euler(Boat.forward);
         }
     }
 }

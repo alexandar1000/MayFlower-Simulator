@@ -7,10 +7,10 @@ using UnityEngine;
 using RosSharp.RosBridgeClient;
 using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
 using GeometryMessages = RosSharp.RosBridgeClient.MessageTypes.Geometry;
-using MayflowerSimulator.Sensors.Compass;
+using Compass = MayflowerSimulator.Sensors.Compass;
 
 namespace MayflowerSimulator.Sensors.IMU
-{
+{   
     public class IMUSensor : UnityPublisher<SensorMessages.Imu>
     {
         private SensorMessages.Imu ImuMessage;
@@ -39,24 +39,24 @@ namespace MayflowerSimulator.Sensors.IMU
         {
             ImuMessage = new SensorMessages.Imu();
             ImuMessage.header.frame_id = FrameId;
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            ImuMessage.orientation = quaterObj(IMU.orientation);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
             ImuMessage.orientation_covariance = zeroArr;
             ImuMessage.linear_acceleration_covariance = zeroArr;
             ImuMessage.angular_velocity_covariance = zeroArr;
         }
-        
+
 
         void UpdateMessage()
         {
             ImuMessage.header.Update();
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            ImuMessage.orientation = quaterObj(IMU.orientation);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
             //UnityEngine.Debug.Log("IMU Linear Acceleration: (" + ImuMessage.linear_acceleration.x + ", " + ImuMessage.linear_acceleration.y + ", " + ImuMessage.linear_acceleration.z +")");
-
-            Publish(ImuMessage);            
+            //UnityEngine.Debug.Log("IMU orientation: (" + ImuMessage.orientation.x + ", " + ImuMessage.orientation.y + ", " + ImuMessage.orientation.z + "," + ImuMessage.orientation.w + ")");
+            Publish(ImuMessage);
         }
-    }
+    }    
 }
