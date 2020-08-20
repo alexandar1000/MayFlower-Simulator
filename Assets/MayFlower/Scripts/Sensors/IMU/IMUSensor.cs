@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -7,18 +7,19 @@ using UnityEngine;
 using RosSharp.RosBridgeClient;
 using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
 using GeometryMessages = RosSharp.RosBridgeClient.MessageTypes.Geometry;
-using MayflowerSimulator.Sensors.Compass;
+using Compass = MayflowerSimulator.Sensors.Compass;
 
 namespace MayflowerSimulator.Sensors.IMU
-{
+{   
     public class IMUSensor : UnityPublisher<SensorMessages.Imu>
     {
         private SensorMessages.Imu ImuMessage;
-        public string FrameId = "IMU_Sensor";
+        private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         protected override void Start()
         {
+            base.Start();
             UnityEngine.Debug.Log("IMUSensor Start");
             InitialiseMessage();
             InvokeRepeating("UpdateMessage", 1f, 1f);
@@ -38,23 +39,23 @@ namespace MayflowerSimulator.Sensors.IMU
         {
             ImuMessage = new SensorMessages.Imu();
             ImuMessage.header.frame_id = FrameId;
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            ImuMessage.orientation = quaterObj(IMU.orientation);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
             ImuMessage.orientation_covariance = zeroArr;
             ImuMessage.linear_acceleration_covariance = zeroArr;
             ImuMessage.angular_velocity_covariance = zeroArr;
         }
-        
+
 
         void UpdateMessage()
         {
             ImuMessage.header.Update();
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            ImuMessage.orientation = quaterObj(IMU.orientation);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
-           
-            Publish(ImuMessage);            
+            
+            Publish(ImuMessage);
         }
-    }
+    }    
 }
