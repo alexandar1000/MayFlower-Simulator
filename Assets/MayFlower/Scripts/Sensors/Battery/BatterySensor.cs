@@ -10,10 +10,9 @@ namespace MayflowerSimulator.Sensors.Battery
     public class BatterySensor : UnityPublisher<SensorMessages::BatteryState>
     {
         public float MeasurementFrequency = 1f;
-        public Environment.Battery.Battery Battery;
+        public Environment.Battery.Battery battery;
         public string FrameId;
-        protected static float power;
-        protected SensorMessages.BatteryState Message;
+        protected SensorMessages.BatteryState message;
 
         // Start is called before the first frame update
         protected override void Start()
@@ -32,8 +31,8 @@ namespace MayflowerSimulator.Sensors.Battery
         protected void InitialiseMessage()
         {
             // Initialise the message fields as per the Battery State documentation
-            Message = new SensorMessages::BatteryState();
-            Message.header.frame_id = FrameId;
+            message = new SensorMessages::BatteryState();
+            message.header.frame_id = FrameId;
         }
 
         /* 
@@ -42,14 +41,14 @@ namespace MayflowerSimulator.Sensors.Battery
         protected void UpdateMessage()
         {
             // Update the header before sending the message
-            Message.header.Update();
+            message.header.Update();
 
             // Update the remaining fields
-            Message.power_supply_status = Battery.GetCurrentChargingStatus();
-            Message.percentage = Battery.GetCurrentCharge();
+            message.power_supply_status = battery.GetCurrentChargingStatus();
+            message.percentage = battery.GetCurrentCharge();
 
             // Publish the message to ROS
-            Publish(Message);
+            Publish(message);
         }
     }
 }
