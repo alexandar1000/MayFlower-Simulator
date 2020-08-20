@@ -27,7 +27,7 @@ public class LeftAngleLaser : UnityPublisher<MessageTypes.Sensor.Range>
         //Left Angle Sensor
         if (Physics.Raycast(leftAngleLaser.transform.position, Quaternion.AngleAxis(-frontSensorAngle, leftAngleLaser.transform.up) * leftAngleLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("left angle laser" + hit.transform.name + "distance is  " + hit.distance);
+            //Debug.Log("left angle laser" + hit.transform.name + "distance is  " + hit.distance);
         }
         Debug.DrawLine(leftAngleLaser.transform.position, hit.point);
 

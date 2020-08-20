@@ -27,7 +27,7 @@ public class FrontLeftLaser : UnityPublisher<MessageTypes.Sensor.Range>
         //Front Left side Sensor
         if (Physics.Raycast(frontLeftLaser.transform.position, frontLeftLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("front left laser" + hit.transform.name + "distance is  " + hit.distance);
+            //Debug.Log("front left laser" + hit.transform.name + "distance is  " + hit.distance);
         }
         Debug.DrawLine(frontLeftLaser.transform.position, hit.point);
 

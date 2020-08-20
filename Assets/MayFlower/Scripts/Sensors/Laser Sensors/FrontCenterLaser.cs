@@ -27,7 +27,7 @@ public class FrontCenterLaser : UnityPublisher<MessageTypes.Sensor.Range>
         //Front Centre Sensor
         if (Physics.Raycast(frontCenterLaser.transform.position, frontCenterLaser.transform.forward, out hit, sensorLength))
         {
-            Debug.Log("front center laser: "+ hit.transform.name + " distance is "+ hit.distance);    
+            //Debug.Log("front center laser: "+ hit.transform.name + " distance is "+ hit.distance);    
         }
 
         Debug.DrawLine(frontCenterLaser.transform.position, hit.point);
