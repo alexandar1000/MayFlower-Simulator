@@ -16,7 +16,6 @@ namespace MayflowerSimulator.Sensors.Compass
         {
             //new Rect(player.eulerAngles.y / 360f, 0f, 1f, 1f);
             currentRotation = this.transform.forward;
-            Debug.Log("x"+currentRotation.x);
         }
     }
 }

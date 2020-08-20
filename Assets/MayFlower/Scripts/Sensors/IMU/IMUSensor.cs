@@ -38,7 +38,7 @@ namespace MayflowerSimulator.Sensors.IMU
         {
             ImuMessage = new SensorMessages.Imu();
             ImuMessage.header.frame_id = FrameId;
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            //ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
             ImuMessage.orientation_covariance = zeroArr;
@@ -50,7 +50,7 @@ namespace MayflowerSimulator.Sensors.IMU
         void UpdateMessage()
         {
             ImuMessage.header.Update();
-            ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
+            //ImuMessage.orientation = quaterObj(CompassSensor.MissionDirection);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
            

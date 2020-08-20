@@ -10,10 +10,9 @@ namespace MayflowerSimulator.Environment.Battery
         public float BatteryDischargeMinutesDuration;
         public float InitialBatteryChargePercentage;
         public float Voltage { get; } = 3f;
-        public float consumeRate = 0.5f;
-        public float Charge;
-        protected bool IsCharging = false;
-        private GameObject homeZone;
+        protected float Charge;
+        protected bool isCharging;
+        protected GameObject homeZone;
 
         protected const byte POWER_SUPPLY_STATUS_UNKNOWN = 0;
         protected const byte POWER_SUPPLY_STATUS_CHARGING = 1;
@@ -25,40 +24,37 @@ namespace MayflowerSimulator.Environment.Battery
         void Start()
         {
             Charge = InitialBatteryChargePercentage;
-            
+
             float batteryChargePercentDuration = (BatteryChargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("ChargeBattery", batteryChargePercentDuration, batteryChargePercentDuration);
 
             float batteryDischargePercentDuration = (BatteryDischargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("DischargeBattery", batteryDischargePercentDuration, batteryDischargePercentDuration);
-            
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (IsCharging)
+
+        }
+
+        // Update the battery state when the Battery is Discharging
+        protected void DischargeBattery()
+        {
+            if (!isCharging && Charge > 0f)
             {
-                Charge += Time.deltaTime * consumeRate;
-                Charge = Mathf.Min(100, Charge);                
+                Charge = Mathf.Max(0, Charge - 1);
             }
+        }
 
-            else
+        // Update the battery state when the Battery is Charging
+        protected void ChargeBattery()
+        {
+            if (isCharging && Charge < 100)
             {
-                //update boat status
-                if (Charge > 0)
-                {
-                    Charge -= Time.deltaTime * consumeRate; //Time.time: number of seconds from the start of game       
-
-                }
-                else
-                {
-                    Debug.Log("The battery runs out off power, boat stopped.");
-                }
-
-
+                Charge = Mathf.Min(100, Charge + 1);
             }
-
         }
 
         private void OnTriggerEnter(Collider coll)
@@ -66,7 +62,7 @@ namespace MayflowerSimulator.Environment.Battery
             if (coll.gameObject.CompareTag("HomeArea"))
             {
                 homeZone = coll.gameObject;
-                IsCharging = true;
+                isCharging = true;
             }
         }
 
@@ -74,20 +70,10 @@ namespace MayflowerSimulator.Environment.Battery
         {
             if (coll.gameObject.CompareTag("HomeArea"))
             {
-                IsCharging = false;
+                isCharging = false;
             }
 
         }
-
-        //// Update the battery state when the Battery is Discharging
-        //protected void DischargeBattery()
-        //{
-        //    if (!IsCharging && Charge > 0f)
-        //    {
-        //        Charge = Mathf.Max(0, Charge-1);
-        //    }
-        //}
-
 
         // Get current charge returns the battery percentage normalised to the scale of 0 to 1
         public float GetCurrentCharge()
@@ -97,7 +83,7 @@ namespace MayflowerSimulator.Environment.Battery
 
         public byte GetCurrentChargingStatus()
         {
-            if (IsCharging)
+            if (isCharging)
             {
                 if (Charge == 100f)
                 {
@@ -105,7 +91,8 @@ namespace MayflowerSimulator.Environment.Battery
                 }
 
                 return POWER_SUPPLY_STATUS_CHARGING;
-            } else 
+            }
+            else
             {
                 if (Charge == 0f)
                 {
