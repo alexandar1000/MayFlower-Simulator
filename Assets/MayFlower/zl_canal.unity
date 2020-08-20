@@ -1026,6 +1026,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.1399951
       objectReference: {fileID: 0}
+    - target: {fileID: 5566958750610191849, guid: 70d78230a0527e74dabc4f14906eef98,
+        type: 3}
+      propertyPath: steeringTorque
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566958750610191849, guid: 70d78230a0527e74dabc4f14906eef98,
+        type: 3}
+      propertyPath: horsePower
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -1064,7 +1074,7 @@ PrefabInstance:
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 423
+      value: 423.03
       objectReference: {fileID: 0}
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1074,7 +1084,7 @@ PrefabInstance:
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 179
+      value: 175.79
       objectReference: {fileID: 0}
     - target: {fileID: 8566904049637110506, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1125,6 +1135,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603238620720130158, guid: 70d78230a0527e74dabc4f14906eef98,
+        type: 3}
+      propertyPath: centerOfMass.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603238620720130158, guid: 70d78230a0527e74dabc4f14906eef98,
+        type: 3}
+      propertyPath: centerOfMass.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8930379933164696083, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1602,7 +1622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791394733}
   m_LocalRotation: {x: 0, y: -0.710113, z: 0, w: 0.70408773}
-  m_LocalPosition: {x: 421.86005, y: 0.298, z: 178.99028}
+  m_LocalPosition: {x: 421.89005, y: 0.298, z: 175.78027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2967,7 +2987,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332970917}
   m_LocalRotation: {x: 0.08124576, y: -0.7053704, z: 0.0804963, w: 0.69955134}
-  m_LocalPosition: {x: 425.99988, y: 1.4100001, z: 179.02556}
+  m_LocalPosition: {x: 426.02988, y: 1.4100001, z: 175.81555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3854,41 +3874,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575305712}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!84 &1579624538
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1600734735
 GameObject:
   m_ObjectHideFlags: 0
