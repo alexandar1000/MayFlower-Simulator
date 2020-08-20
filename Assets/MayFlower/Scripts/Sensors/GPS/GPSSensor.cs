@@ -17,7 +17,7 @@ namespace RosSharp.RosBridgeClient
 
         //GPS: x: lat(upper larger), y: lon(right larger), z: alt
         //Point: z(upper smaller), x(right smaller), y
-        //Approximately, the altitude goes up from 53m to 60m at P1, and down to 47m at the end point
+        //To simulate the real map, the altitude goes up from 53m at StartP to 60m at P1, and down to 47m at EndP
         public Transform StartP;
         private Vector3 StartingGPS;
         public Transform P1;
@@ -26,15 +26,16 @@ namespace RosSharp.RosBridgeClient
 
         private Vector3 currentWorldPos;
         private Vector3 GPSUnits;
+
         //For GPS
         private double currentX; //latitude
         private double currentY; //longitude
         private double currentZ; //altitude
-        protected MessageTypes.Sensor.NavSatFix gpsMessage;
+    
         private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        protected MessageTypes.Sensor.NavSatFix gpsMessage;
 
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
