@@ -20,7 +20,6 @@ namespace MayflowerSimulator.Environment.Battery
         protected const byte POWER_SUPPLY_STATUS_NOT_CHARGING = 3;
         protected const byte POWER_SUPPLY_STATUS_FULL = 4;
 
-        // Start is called before the first frame update
         void Start()
         {
             Charge = InitialBatteryChargePercentage;
@@ -30,12 +29,6 @@ namespace MayflowerSimulator.Environment.Battery
 
             float batteryDischargePercentDuration = (BatteryDischargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("DischargeBattery", batteryDischargePercentDuration, batteryDischargePercentDuration);
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
 
         }
 

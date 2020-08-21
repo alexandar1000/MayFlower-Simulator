@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 54863e0c2b6814b6bac9687f2ff01ea4
+=======
+guid: 4e0752144b3ea70418b01bf83a5f8c50
+>>>>>>> asj_incorporateBoatAttack
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

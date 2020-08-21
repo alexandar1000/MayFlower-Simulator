@@ -27,10 +27,18 @@ namespace MayflowerSimulator.Sensors.Compass
 
         private void InitialiseMessage()
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> asj_incorporateBoatAttack
             message = new SensorMessages::MagneticField();
             message.header.frame_id = FrameId;
             message.magnetic_field = new RosMessages.Geometry.Vector3();
             message.magnetic_field_covariance = new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> asj_incorporateBoatAttack
         }
 
 
@@ -41,6 +49,10 @@ namespace MayflowerSimulator.Sensors.Compass
             message.magnetic_field = GetGeometryVector3(heading.Unity2Ros());
             Publish(message);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> asj_incorporateBoatAttack
         private static RosMessages.Geometry.Vector3 GetGeometryVector3(Vector3 vector3)
         {
             RosMessages.Geometry.Vector3 geometryVector3 = new RosMessages.Geometry.Vector3();
@@ -50,4 +62,8 @@ namespace MayflowerSimulator.Sensors.Compass
             return geometryVector3;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> asj_incorporateBoatAttack

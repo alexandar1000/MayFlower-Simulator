@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Security.Cryptography;
@@ -47,8 +47,8 @@ namespace MayflowerSimulator.Sensors.IMU
             }
 
             //yaw
-            //yaw = (Rotate_Y + 360 - orientation) % 360;
             yaw = Rotate_Y;
         }
+
     }
 }
