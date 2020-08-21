@@ -27,13 +27,10 @@ namespace MayflowerSimulator.Sensors.Compass
 
         private void InitialiseMessage()
         {
-
             message = new SensorMessages::MagneticField();
             message.header.frame_id = FrameId;
             message.magnetic_field = new RosMessages.Geometry.Vector3();
             message.magnetic_field_covariance = new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-
         }
 
 
