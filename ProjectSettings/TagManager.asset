@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - boat
+  - ground
+  - target
+  - waypoint
+  - introCameras
+  - volume_manager
+  - WindArea
+  - HomeArea
+  - RespawnPoint
   layers:
   - Default
   - TransparentFX
@@ -13,6 +22,15 @@ TagManager:
   - UI
   - 
   - 
+  - Clouds
+  - WaterFX
+  - Terrain
+  - Boat
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - VideoSensor
   - 
   - 
   - 
@@ -27,16 +45,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Blocker
   m_SortingLayers:
   - name: Default
     uniqueID: 0
