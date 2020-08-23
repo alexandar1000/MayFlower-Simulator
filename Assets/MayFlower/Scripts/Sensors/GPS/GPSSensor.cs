@@ -31,6 +31,7 @@ namespace RosSharp.RosBridgeClient
         private double currentX; //latitude
         private double currentY; //longitude
         private double currentZ; //altitude
+        public Vector3 GPS;
     
         private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -56,6 +57,8 @@ namespace RosSharp.RosBridgeClient
             gpsMessage.latitude = StartingGPS.x;
             gpsMessage.longitude = StartingGPS.y;
             gpsMessage.altitude = StartingGPS.z;
+
+            GPS = new Vector3(53.38455702f, -1.45955086f, 54.0f);
         }
 
         void UpdateMessage()
@@ -77,6 +80,8 @@ namespace RosSharp.RosBridgeClient
             {
                 currentZ = 47;
             }
+
+            GPS = new Vector3(Convert.ToSingle(Math.Round(currentX, 8)), Convert.ToSingle(Math.Round(currentY, 8)), Convert.ToSingle(Math.Round(currentZ, 8)));
 
             gpsMessage.header.Update();
             gpsMessage.latitude = Math.Round(currentX, 8);
