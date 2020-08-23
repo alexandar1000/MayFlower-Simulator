@@ -11,7 +11,8 @@ namespace MayflowerSimulator.Environment.Battery
         public float InitialBatteryChargePercentage;
         public float Voltage { get; } = 3f;
         protected float Charge;
-        protected bool IsCharging;
+        protected bool isCharging;
+        protected GameObject homeZone;
 
         protected const byte POWER_SUPPLY_STATUS_UNKNOWN = 0;
         protected const byte POWER_SUPPLY_STATUS_CHARGING = 1;
@@ -22,31 +23,49 @@ namespace MayflowerSimulator.Environment.Battery
         void Start()
         {
             Charge = InitialBatteryChargePercentage;
-            
+
             float batteryChargePercentDuration = (BatteryChargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("ChargeBattery", batteryChargePercentDuration, batteryChargePercentDuration);
 
             float batteryDischargePercentDuration = (BatteryDischargeMinutesDuration * 60f) / 100f;
             InvokeRepeating("DischargeBattery", batteryDischargePercentDuration, batteryDischargePercentDuration);
-            
+
         }
 
         // Update the battery state when the Battery is Discharging
         protected void DischargeBattery()
         {
-            if (!IsCharging && Charge > 0f)
+            if (!isCharging && Charge > 0f)
             {
-                Charge = Mathf.Max(0, Charge-1);
+                Charge = Mathf.Max(0, Charge - 1);
             }
         }
 
         // Update the battery state when the Battery is Charging
         protected void ChargeBattery()
         {
-            if (IsCharging && Charge < 100)
+            if (isCharging && Charge < 100)
             {
-                Charge = Mathf.Min(100, Charge+1);
+                Charge = Mathf.Min(100, Charge + 1);
             }
+        }
+
+        private void OnTriggerEnter(Collider coll)
+        {
+            if (coll.gameObject.CompareTag("HomeArea"))
+            {
+                homeZone = coll.gameObject;
+                isCharging = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider coll)
+        {
+            if (coll.gameObject.CompareTag("HomeArea"))
+            {
+                isCharging = false;
+            }
+
         }
 
         // Get current charge returns the battery percentage normalised to the scale of 0 to 1
@@ -57,7 +76,7 @@ namespace MayflowerSimulator.Environment.Battery
 
         public byte GetCurrentChargingStatus()
         {
-            if (IsCharging)
+            if (isCharging)
             {
                 if (Charge == 100f)
                 {
@@ -65,7 +84,8 @@ namespace MayflowerSimulator.Environment.Battery
                 }
 
                 return POWER_SUPPLY_STATUS_CHARGING;
-            } else 
+            }
+            else
             {
                 if (Charge == 0f)
                 {
