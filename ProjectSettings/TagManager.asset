@@ -11,6 +11,8 @@ TagManager:
   - introCameras
   - volume_manager
   - WindArea
+  - HomeArea
+  - RespawnPoint
   layers:
   - Default
   - TransparentFX
