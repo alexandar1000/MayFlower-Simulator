@@ -17,7 +17,7 @@ namespace RosSharp.RosBridgeClient
 
         //GPS: x: lat(upper larger), y: lon(right larger), z: alt
         //Point: z(upper smaller), x(right smaller), y
-        //Approximately, the altitude goes up from 53m to 60m at P1, and down to 47m at the end point
+        //To simulate the real map, the altitude goes up from 53m at StartP to 60m at P1, and down to 47m at EndP
         public Transform StartP;
         private Vector3 StartingGPS;
         public Transform P1;
@@ -26,15 +26,17 @@ namespace RosSharp.RosBridgeClient
 
         private Vector3 currentWorldPos;
         private Vector3 GPSUnits;
+
         //For GPS
         private double currentX; //latitude
         private double currentY; //longitude
         private double currentZ; //altitude
-        protected MessageTypes.Sensor.NavSatFix gpsMessage;
+        public Vector3 GPS;
+    
         private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        protected MessageTypes.Sensor.NavSatFix gpsMessage;
 
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
@@ -55,35 +57,47 @@ namespace RosSharp.RosBridgeClient
             gpsMessage.latitude = StartingGPS.x;
             gpsMessage.longitude = StartingGPS.y;
             gpsMessage.altitude = StartingGPS.z;
+
+            GPS = new Vector3(53.38455702f, -1.45955086f, 54.0f);
         }
 
         void UpdateMessage()
         {
             currentWorldPos = new Vector3(Boat.position.x, Boat.position.y, Boat.position.z);
-     
-            currentX = (currentWorldPos.z - StartP.position.z) * GPSUnits.x + StartingGPS.x;
-            currentY = (currentWorldPos.x - StartP.position.x) * GPSUnits.y + StartingGPS.y;
 
-            if (currentWorldPos.x > P1.position.x)
+            GPS = getGPSFromUnityPos(currentWorldPos);
+
+            gpsMessage.header.Update();
+            gpsMessage.latitude = Convert.ToDouble(GPS.x);
+            gpsMessage.longitude = Convert.ToDouble(GPS.y);
+            gpsMessage.altitude = Convert.ToDouble(GPS.z);
+
+            UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
+            Publish(gpsMessage);
+        }
+
+
+        //Use "GameObject.Find("RosConnectors").GetComponent<GPSSensor>().getGPSFromUnityPos(some unity point)" to call in other scripts.
+        public Vector3 getGPSFromUnityPos(Vector3 UnityPos)
+        {
+            float X = (UnityPos.z - StartP.position.z) * GPSUnits.x + StartingGPS.x;
+            float Y = (UnityPos.x - StartP.position.x) * GPSUnits.y + StartingGPS.y;
+            float Z;
+
+            if (UnityPos.x > P1.position.x)
             {
-                currentZ = (currentWorldPos.x - StartP.position.x) / (P1.position.x - StartP.position.x) * (60 - 53) + 53;
+                Z = (UnityPos.x - StartP.position.x) / (P1.position.x - StartP.position.x) * (60 - 53) + 53;
             }
-            else if(currentWorldPos.x <= P1.position.x)
+            else if (UnityPos.x <= P1.position.x)
             {
-                currentZ = (EndP.position.x - currentWorldPos.x) / (EndP.position.x - P1.position.x) * (60 - 47) + 47;
+                Z = (EndP.position.x - UnityPos.x) / (EndP.position.x - P1.position.x) * (60 - 47) + 47;
             }
             else
             {
-                currentZ = 47;
+                Z = 47;
             }
 
-            gpsMessage.header.Update();
-            gpsMessage.latitude = Math.Round(currentX, 8);
-            gpsMessage.longitude = Math.Round(currentY, 8);
-            gpsMessage.altitude = Math.Round(currentZ, 8);
-
-            //UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
-            Publish(gpsMessage);
+            return new Vector3(Convert.ToSingle(Math.Round(X, 8)), Convert.ToSingle(Math.Round(Y, 8)), Convert.ToSingle(Math.Round(Z, 8)));
         }
 
     }

@@ -11,7 +11,7 @@ namespace MayflowerSimulator.Sensors.Battery
     {
         public float MeasurementFrequency = 2f;
         private static float power;
-        // Start is called before the first frame update
+        
         protected override void Start()
         {
             base.Start();

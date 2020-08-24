@@ -21,7 +21,6 @@ namespace MayflowerSimulator.Sensors.Battery
         public bool atHomeArea = false;
         [NonSerialized] public GameObject homeZone;
 
-        // Start is called before the first frame update
         void Start()
         {
             GameObject battery = GameObject.Find("Battery");
@@ -30,12 +29,10 @@ namespace MayflowerSimulator.Sensors.Battery
             powerText.text = Math.Round(power).ToString() + "%";
         }
 
-        // Update is called once per frame
         void Update()
         {
             powerBar.setPower(power);
             powerText.text = Math.Round(power).ToString() + "%";
-
             if (atHomeArea){
                 boatStatus = 0;
                 power += Time.deltaTime * consumeRate;
