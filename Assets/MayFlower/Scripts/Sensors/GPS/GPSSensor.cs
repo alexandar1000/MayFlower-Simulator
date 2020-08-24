@@ -96,8 +96,8 @@ namespace RosSharp.RosBridgeClient
             {
                 Z = 47;
             }
-
             return new Vector3(Convert.ToSingle(Math.Round(X, 8)), Convert.ToSingle(Math.Round(Y, 8)), Convert.ToSingle(Math.Round(Z, 8)));
+
         }
 
     }
