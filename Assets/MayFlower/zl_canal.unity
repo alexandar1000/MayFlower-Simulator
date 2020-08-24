@@ -528,6 +528,51 @@ Transform:
   m_Father: {fileID: 275484180}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &189119417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 189119418}
+  - component: {fileID: 189119419}
+  m_Layer: 0
+  m_Name: GPS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &189119418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189119417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2037372219}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189119419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189119417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c44ccefc8eb1348845d0911ce9208c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GPS_P1: {x: 0, y: 0, z: 0}
+  P1: {fileID: 1440752136}
 --- !u!1 &199808932
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,13 +975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849cd6092ba0246b09088eb07e98d7bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontCenterLaser: {fileID: 2121127878}
-  frontRightLaser: {fileID: 102842420}
-  frontLeftLaser: {fileID: 1160147154}
-  rightLaser: {fileID: 1638184125}
-  leftLaser: {fileID: 450689067}
-  sensorLength: 10
-  frontSensorAngle: 30
 --- !u!1 &315964338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,16 +1180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ad6c9ba13614f8493e808ca9aa6fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: /DistanceReader
-  boat: {fileID: 1325577031}
-  env: {fileID: 2037372218}
-  distance: 50
-  sensorLength: 5
-  frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
-  frontSideSensorPosition: 0.2
-  frontSensorAngle: 30
-  backSensorPosition: 0.2
-  period: 0.1
 --- !u!114 &370814512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /imuData
-  FrameId: IMU_Sensor
 --- !u!114 &370814517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,9 +1271,7 @@ MonoBehaviour:
   StartP: {fileID: 1440752136}
   P1: {fileID: 1879143420}
   EndP: {fileID: 958578775}
-  currentWorldPos: {x: 0, y: 0, z: 0}
-  GPSUnits: {x: 0, y: 0, z: 0}
-  FrameId: GPS_Sensor
+  GPS: {x: 0, y: 0, z: 0}
 --- !u!114 &370814518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,9 +1284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a67d53ed4b4b5408140fee34e76b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: 
-  compass: {fileID: 1472714893}
-  FrameId: Unity
 --- !u!1 &450689067
 GameObject:
   m_ObjectHideFlags: 0
@@ -5549,6 +5571,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442105765}
   m_CullTransparentMesh: 0
+--- !u!84 &1458022068
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1472714892
 GameObject:
   m_ObjectHideFlags: 0
@@ -5578,8 +5635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc7a54808f7b6b4a87ce7a009c7ee65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRotation: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1472714894
 Transform:
   m_ObjectHideFlags: 0
@@ -7265,6 +7320,7 @@ Transform:
   - {fileID: 530884689}
   - {fileID: 655484186}
   - {fileID: 2068744029}
+  - {fileID: 189119418}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7723,38 +7779,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136050325}
   m_CullTransparentMesh: 0
---- !u!84 &2146352039
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
