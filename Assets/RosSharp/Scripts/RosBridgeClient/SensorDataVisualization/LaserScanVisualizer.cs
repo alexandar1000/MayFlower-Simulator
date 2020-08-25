@@ -53,6 +53,7 @@ namespace RosSharp.RosBridgeClient
             range_min = _range_min;
             range_max = _range_max;
             IsNewSensorDataReceived = true;
+            Visualize();
         }
 
         protected Color GetColor(float distance)
