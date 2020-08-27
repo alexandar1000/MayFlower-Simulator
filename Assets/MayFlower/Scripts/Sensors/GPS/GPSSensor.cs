@@ -64,32 +64,40 @@ namespace RosSharp.RosBridgeClient
         void UpdateMessage()
         {
             currentWorldPos = new Vector3(Boat.position.x, Boat.position.y, Boat.position.z);
-     
-            currentX = (currentWorldPos.z - StartP.position.z) * GPSUnits.x + StartingGPS.x;
-            currentY = (currentWorldPos.x - StartP.position.x) * GPSUnits.y + StartingGPS.y;
 
-            if (currentWorldPos.x > P1.position.x)
+            GPS = getGPSFromUnityPos(currentWorldPos);
+
+            gpsMessage.header.Update();
+            gpsMessage.latitude = Convert.ToDouble(GPS.x);
+            gpsMessage.longitude = Convert.ToDouble(GPS.y);
+            gpsMessage.altitude = Convert.ToDouble(GPS.z);
+
+            UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
+            Publish(gpsMessage);
+        }
+
+
+        //Use "GameObject.Find("RosConnectors").GetComponent<GPSSensor>().getGPSFromUnityPos(some unity point)" to call in other scripts.
+        public Vector3 getGPSFromUnityPos(Vector3 UnityPos)
+        {
+            float X = (UnityPos.z - StartP.position.z) * GPSUnits.x + StartingGPS.x;
+            float Y = (UnityPos.x - StartP.position.x) * GPSUnits.y + StartingGPS.y;
+            float Z;
+
+            if (UnityPos.x > P1.position.x)
             {
-                currentZ = (currentWorldPos.x - StartP.position.x) / (P1.position.x - StartP.position.x) * (60 - 53) + 53;
+                Z = (UnityPos.x - StartP.position.x) / (P1.position.x - StartP.position.x) * (60 - 53) + 53;
             }
-            else if(currentWorldPos.x <= P1.position.x)
+            else if (UnityPos.x <= P1.position.x)
             {
-                currentZ = (EndP.position.x - currentWorldPos.x) / (EndP.position.x - P1.position.x) * (60 - 47) + 47;
+                Z = (EndP.position.x - UnityPos.x) / (EndP.position.x - P1.position.x) * (60 - 47) + 47;
             }
             else
             {
-                currentZ = 47;
+                Z = 47;
             }
+            return new Vector3(Convert.ToSingle(Math.Round(X, 8)), Convert.ToSingle(Math.Round(Y, 8)), Convert.ToSingle(Math.Round(Z, 8)));
 
-            GPS = new Vector3(Convert.ToSingle(Math.Round(currentX, 8)), Convert.ToSingle(Math.Round(currentY, 8)), Convert.ToSingle(Math.Round(currentZ, 8)));
-
-            gpsMessage.header.Update();
-            gpsMessage.latitude = Math.Round(currentX, 8);
-            gpsMessage.longitude = Math.Round(currentY, 8);
-            gpsMessage.altitude = Math.Round(currentZ, 8);
-
-            //UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
-            Publish(gpsMessage);
         }
 
     }
