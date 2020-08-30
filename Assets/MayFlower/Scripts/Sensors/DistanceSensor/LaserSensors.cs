@@ -14,7 +14,7 @@ namespace RosSharp.RosBridgeClient
 
         [Header("Laser Settings")]
         public string laserType = "straight";
-        public float sensorLength = 5f;
+        public float sensorLength = 10f;
         public float frontSensorAngle = 30;
 
         private float nextActionTime = 0.0f;
@@ -32,14 +32,14 @@ namespace RosSharp.RosBridgeClient
 
         void InitialiseMessage()
         {
-            message = new MessageTypes.Sensor.Range
-            {
-                header = new MessageTypes.Std.Header { frame_id = FrameId },
-                radiation_type = 1, //infrared
-                field_of_view = 0,
-                min_range = 0,
-                max_range = 2,
-            };
+            message = new MessageTypes.Sensor.Range();
+            message.header = new MessageTypes.Std.Header();
+            message.header.frame_id = FrameId;
+            message.radiation_type = 1; //infrared
+            message.field_of_view = 0;
+            message.min_range = 0;
+            message.max_range = 2;
+            message.range = 11;
         }
 
         // Update is called once per frame
@@ -76,7 +76,7 @@ namespace RosSharp.RosBridgeClient
                 nextActionTime += period;
                 message.header.Update();
                 message.range = hit.distance;
-                //Debug.Log("header stamp secs: "+ message.header.stamp.secs);
+                Debug.Log("header stamp secs: "+ message.header.stamp.secs + " distance: "+ message.range);
                 //Publish(PrepareMessage(hit.distance));  
                 Publish(message);
             }

@@ -576,7 +576,7 @@ MonoBehaviour:
   FrameId: Front Right Laser
   laser: {fileID: 102842420}
   laserType: straight
-  sensorLength: 5
+  sensorLength: 10
   frontSensorAngle: 30
   period: 0.1
 --- !u!114 &102842423
@@ -1078,7 +1078,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 275484180}
-  - component: {fileID: 275484181}
   m_Layer: 11
   m_Name: Lasers
   m_TagString: Untagged
@@ -1106,18 +1105,6 @@ Transform:
   m_Father: {fileID: 1372627739}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &275484181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275484179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 849cd6092ba0246b09088eb07e98d7bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &279924093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9789aac28d6a86f078af7595f18172e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: \battery
+  Topic: /battery
   MeasurementFrequency: 1
   Battery: {fileID: 267998527}
   FrameId: Unity_battery
@@ -1598,7 +1585,7 @@ MonoBehaviour:
   FrameId: Left Angle Laser
   laser: {fileID: 450689067}
   laserType: leftAngle
-  sensorLength: 5
+  sensorLength: 10
   frontSensorAngle: 30
   period: 0.1
 --- !u!114 &450689070
@@ -2173,6 +2160,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570869231}
   m_CullTransparentMesh: 0
+--- !u!84 &598909363
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &613545971
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,7 +4346,7 @@ MonoBehaviour:
   FrameId: Front Left Laser
   laser: {fileID: 1160147154}
   laserType: straight
-  sensorLength: 5
+  sensorLength: 10
   frontSensorAngle: 30
   period: 0.1
 --- !u!114 &1160147157
@@ -6415,7 +6437,7 @@ MonoBehaviour:
   FrameId: Right Angle Laser
   laser: {fileID: 1638184125}
   laserType: rightAngle
-  sensorLength: 5
+  sensorLength: 10
   frontSensorAngle: 30
   period: 0.1
 --- !u!114 &1638184128
@@ -7485,41 +7507,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &2048661699
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &2068744028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7803,7 +7790,7 @@ MonoBehaviour:
   FrameId: Front Center Laser
   laser: {fileID: 2121127878}
   laserType: straight
-  sensorLength: 5
+  sensorLength: 10
   frontSensorAngle: 30
   period: 0.1
 --- !u!114 &2121127881

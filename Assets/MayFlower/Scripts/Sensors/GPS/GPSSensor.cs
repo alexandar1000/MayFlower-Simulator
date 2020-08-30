@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RosSharp.RosBridgeClient;
-using System.Diagnostics;
 using System.Security.Cryptography;
 
 namespace RosSharp.RosBridgeClient
@@ -72,7 +71,7 @@ namespace RosSharp.RosBridgeClient
             gpsMessage.longitude = Convert.ToDouble(GPS.y);
             gpsMessage.altitude = Convert.ToDouble(GPS.z);
 
-            //UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
+            //Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
             Publish(gpsMessage);
         }
 
