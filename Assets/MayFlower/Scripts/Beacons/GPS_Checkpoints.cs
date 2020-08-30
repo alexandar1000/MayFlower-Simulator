@@ -1,22 +1,26 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 namespace RosSharp.RosBridgeClient
 {
-    public class GPS_Checkpoints : UnityPublisher<MessageTypes.Std.String>
+    public class GPS_Checkpoints : UnityPublisher<MessageTypes.Std.Float64>
 
     {
         public GameObject[] Beacons;
         private Animator anim;
         public float rotSpeed = 0.8f;
         public float Speed = 4f;
+        public float degree = 0;
         private float accuracyBeacon = 2.0f;
         private int currentBeacon = 0;
         public Transform _destination;
         List<Transform> path = new List<Transform>();
         private GameObject next_beac;
+
+        private float nextActionTime = 0.0f;
+        public float period = 0.1f;
        
         protected MessageTypes.Sensor.NavSatFix nextBeaconMessage;
 
@@ -83,7 +87,7 @@ namespace RosSharp.RosBridgeClient
                             
                             Debug.Log("The next beacon ID:" + nxtBeac.nextBeacon  + "," + "  Type:" +  nxtBeac.beacontype + ","  + "  Location:" +
                                       nxtBeac.location);
-                            Publish(PrepareMessage(json));
+                            //Publish(PrepareMessage(json));
                             
                         }
                     }
@@ -92,23 +96,29 @@ namespace RosSharp.RosBridgeClient
             return closest;
         }
         
-      
         void Update()
         {
-        
             Vector3 direction = path[currentBeacon].position - transform.position;
-            this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
-                rotSpeed * Time.deltaTime);
-            this.transform.Translate(0, 0, Time.deltaTime * Speed);
+            //this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
+            //    rotSpeed * Time.deltaTime);
+            //this.transform.Translate(0, 0, Time.deltaTime * Speed);
             if (direction.magnitude < accuracyBeacon)
             {
                 path.Remove(path[currentBeacon]);
                 currentBeacon = FindNextBeacon();
             }
-        
+
+            //Get the beacons angle
+            Vector3 dir = path[currentBeacon].transform.position - this.transform.position;
+            dir = path[currentBeacon].transform.InverseTransformDirection(dir);
+            degree = (float)(Mathf.Atan2(dir.z, -dir.x) * Mathf.Rad2Deg);
+
+            if (Time.time > nextActionTime ) 
+            {
+                nextActionTime += period;
+                //Publish(PrepareMessage(degree));
+            }
         }
-        
-        
         
         private void setDestination()
         {
@@ -118,10 +128,20 @@ namespace RosSharp.RosBridgeClient
             }
         }
         
+        /*
         private MessageTypes.Std.String PrepareMessage(string NextBeaconInfo)
         {
             MessageTypes.Std.String message = new MessageTypes.Std.String();
             message.data = NextBeaconInfo;
+
+            return message;
+        }      
+        */
+        
+        private MessageTypes.Std.Float64 PrepareMessage(float angle)
+        {
+            MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
+            message.data = angle;
 
             return message;
         }

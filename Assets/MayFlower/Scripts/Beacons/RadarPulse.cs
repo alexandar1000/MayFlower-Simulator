@@ -27,7 +27,7 @@ public class RadarPulse : MonoBehaviour
 
         pulseTransform.localScale = new Vector3(range, range);
         RaycastHit2D raycastHit2D = Physics2D.CircleCast(transform.position, range / 2f, Vector2.zero);
-        Debug.Log("Beacon Sending Signal");
+        //Debug.Log("Beacon Sending Signal");
 
         // if (raycastHit2D.collider != null)
         // {
