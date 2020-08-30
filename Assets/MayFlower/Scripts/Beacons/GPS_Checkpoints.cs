@@ -11,15 +11,14 @@ namespace RosSharp.RosBridgeClient
         public GameObject[] Beacons;
         private Animator anim;
         public float rotSpeed = 0.8f;
-        public float Speed = 4f;
+        public float Speed = 10f;
         private float accuracyBeacon = 2.0f;
         private int currentBeacon = 0;
         public Transform _destination;
-        List<Transform> path = new List<Transform>();
-        private GameObject next_beac;
-       
-        protected MessageTypes.Sensor.NavSatFix nextBeaconMessage;
+        protected int currentBeaconCheckpoint;
 
+        List<Transform> path = new List<Transform>();
+        
         [System.Serializable]
         public class next_Beacon
         {
@@ -30,7 +29,7 @@ namespace RosSharp.RosBridgeClient
         
         [SerializeField]
         next_Beacon nxtBeac = new next_Beacon();
-        
+
         
         // Start is called before the first frame update
         void Start()
@@ -40,62 +39,14 @@ namespace RosSharp.RosBridgeClient
             {
                 path.Add(go.transform);
             }
-            nextBeaconMessage = new MessageTypes.Sensor.NavSatFix();
-            currentBeacon = FindNextBeacon();
             anim.SetBool("isWalking", true);
+            currentBeacon = FindNextBeacon();
+            currentBeaconCheckpoint = 0;
         }
         
         // Update is called once per frame
-        int FindNextBeacon()
-        {
-            if (path.Count == 0) return -1;
-            int closest = 0;
-            float lastDist = Vector3.Distance(this.transform.position, path[0].position);
-            for (int i = 1; i < path.Count; i++)
-            {
-                float thisDist = Vector3.Distance(this.transform.position, path[i].position);
-                if (lastDist > thisDist && i != currentBeacon)
-                {
-                    closest = i;
-
-                    float BeaconInfoReading;
-
-                    if (i == 0)
-                    {
-                        Debug.LogError("The component is not attached to " + gameObject.name);
-                    }
-                    else
-                    {
-                        if (currentBeacon == closest)
-                        {
-                            setDestination();
-                            Debug.Log("The boat has arrived to the destination" + gameObject.name);
-                        }
-                        else
-                        {
-                            string json = JsonUtility.ToJson(nxtBeac);
-
-                            nxtBeac.nextBeacon = i + 1;
-                            nxtBeac.beacontype  = next_beac.GetComponent<GPS_Checkpoint>().gameObject.name;
-                            nxtBeac.location = next_beac.GetComponent<GPS_Checkpoint>().GPS_P1;
-                            
-                            
-                            
-                            Debug.Log("The next beacon ID:" + nxtBeac.nextBeacon  + "," + "  Type:" +  nxtBeac.beacontype + ","  + "  Location:" +
-                                      nxtBeac.location);
-                            Publish(PrepareMessage(json));
-                            
-                        }
-                    }
-                }
-            }
-            return closest;
-        }
-        
-      
         void Update()
         {
-        
             Vector3 direction = path[currentBeacon].position - transform.position;
             this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
                 rotSpeed * Time.deltaTime);
@@ -107,9 +58,38 @@ namespace RosSharp.RosBridgeClient
             }
         
         }
-        
-        
-        
+        int FindNextBeacon()
+        {
+
+            if (Beacons.Length == 0)
+            {
+                Debug.LogError("The component is not attached to " + gameObject.name);
+            }
+            else
+            {
+                if (currentBeaconCheckpoint == Beacons.Length)
+                {
+                    setDestination();
+                    Debug.Log("The boat has arrived to the destination" + gameObject.name);
+                }
+                else
+                {
+                    currentBeaconCheckpoint += 1;
+                    nxtBeac.nextBeacon = 1 + currentBeaconCheckpoint;
+                    nxtBeac.beacontype  = Beacons[currentBeaconCheckpoint].GetComponent<GPS_Checkpoint>().gameObject.name;
+                    nxtBeac.location = Beacons[currentBeaconCheckpoint].GetComponent<GPS_Checkpoint>().GPS_P1;
+                    
+                    string json = JsonUtility.ToJson(nxtBeac);
+                    
+                    Debug.Log("The next beacon ID:" + nxtBeac.nextBeacon  + "," + "  Type:" +  nxtBeac.beacontype + ","  + "  Location:" +
+                              nxtBeac.location);
+                    Publish(PrepareMessage(json));
+                    
+                }
+            }
+            return currentBeacon;
+        }
+
         private void setDestination()
         {
             if (_destination != null)
