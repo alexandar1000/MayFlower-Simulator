@@ -20,6 +20,7 @@ namespace MayflowerSimulator.Environment.Battery
         protected const byte POWER_SUPPLY_STATUS_NOT_CHARGING = 3;
         protected const byte POWER_SUPPLY_STATUS_FULL = 4;
 
+
         void Start()
         {
             Charge = InitialBatteryChargePercentage;

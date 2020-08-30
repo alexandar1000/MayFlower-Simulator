@@ -33,7 +33,7 @@ namespace RosSharp.RosBridgeClient
         private double currentZ; //altitude
         public Vector3 GPS;
     
-        private string FrameId = "Unity";
+        private string FrameId = "Unity_boatGPS";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         protected MessageTypes.Sensor.NavSatFix gpsMessage;
 
@@ -72,7 +72,7 @@ namespace RosSharp.RosBridgeClient
             gpsMessage.longitude = Convert.ToDouble(GPS.y);
             gpsMessage.altitude = Convert.ToDouble(GPS.z);
 
-            UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
+            //UnityEngine.Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
             Publish(gpsMessage);
         }
 

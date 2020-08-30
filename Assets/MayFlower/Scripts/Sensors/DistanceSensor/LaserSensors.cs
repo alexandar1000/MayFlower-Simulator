@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Policy;
 using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
@@ -19,8 +20,30 @@ namespace RosSharp.RosBridgeClient
         private float nextActionTime = 0.0f;
         public float period = 0.1f;
 
+        private MessageTypes.Sensor.Range message;
+
+        protected override void Start()
+        {
+            base.Start();
+            InitialiseMessage();
+            InvokeRepeating("UpdateMessage", 1f, 1f);
+        }
+
+
+        void InitialiseMessage()
+        {
+            message = new MessageTypes.Sensor.Range
+            {
+                header = new MessageTypes.Std.Header { frame_id = FrameId },
+                radiation_type = 1, //infrared
+                field_of_view = 0,
+                min_range = 0,
+                max_range = 2,
+            };
+        }
+
         // Update is called once per frame
-        void Update()
+        void UpdateMessage()
         {
             RaycastHit hit;
 
@@ -51,12 +74,16 @@ namespace RosSharp.RosBridgeClient
             if (Time.time > nextActionTime ) 
             {
                 nextActionTime += period;
-                Publish(PrepareMessage(hit.distance));  
+                message.header.Update();
+                message.range = hit.distance;
+                //Debug.Log("header stamp secs: "+ message.header.stamp.secs);
+                //Publish(PrepareMessage(hit.distance));  
+                Publish(message);
             }
             
         }
 
-        private MessageTypes.Sensor.Range PrepareMessage(float distance)
+        /*private MessageTypes.Sensor.Range PrepareMessage(float distance)
         {
             MessageTypes.Sensor.Range message = new MessageTypes.Sensor.Range
             {
@@ -67,9 +94,8 @@ namespace RosSharp.RosBridgeClient
                 max_range       = 2,
                 range           = distance
             };
-
             return message;
-        }
+        }*/
 
     }
 }
