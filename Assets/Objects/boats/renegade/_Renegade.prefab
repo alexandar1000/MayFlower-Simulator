@@ -294,7 +294,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2548896236474660249}
-  - component: {fileID: 905180531493087801}
   m_Layer: 11
   m_Name: Lasers
   m_TagString: Untagged
@@ -322,25 +321,6 @@ Transform:
   m_Father: {fileID: 1838966110995585612}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &905180531493087801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7360644769848372182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 849cd6092ba0246b09088eb07e98d7bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frontCenterLaser: {fileID: 2145286303848100506}
-  frontRightLaser: {fileID: 91488934206394019}
-  frontLeftLaser: {fileID: 1230867049502444248}
-  rightLaser: {fileID: 8626790928423765441}
-  leftLaser: {fileID: 1377367718963955659}
-  sensorLength: 10
-  frontSensorAngle: 30
 --- !u!1 &7675311123379682761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4836,6 +4816,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 437f011fedad9694dba179244c6f6f12, type: 2}
+    - target: {fileID: 3721585285862263189, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 4301521246144889673, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
         type: 3}
       propertyPath: enginePosition.y
@@ -4850,6 +4835,46 @@ PrefabInstance:
         type: 3}
       propertyPath: horsePower
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498186254504619881, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148427639910363798, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354589601417483710, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_Name
+      value: unity_boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522132068522823781, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522132068522823781, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522132068522823781, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522132068522823781, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197809555947626360, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: FilePath
+      value: /Users/aunroel/Documents/diss/MayFlower/MayFlower-RobotSystem/catkin_ws/src/control_utils/urdf/unity_boat.urdf
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114129291822198474, guid: fc3ffb83d6eafb1489a5b23bc82d25b6, type: 3}
