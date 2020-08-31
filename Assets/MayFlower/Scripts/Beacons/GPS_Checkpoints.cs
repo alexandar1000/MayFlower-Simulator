@@ -116,7 +116,7 @@ namespace RosSharp.RosBridgeClient
             if (Time.time > nextActionTime ) 
             {
                 nextActionTime += period;
-                //Publish(PrepareMessage(degree));
+                Publish(PrepareMessage(degree));
             }
         }
         

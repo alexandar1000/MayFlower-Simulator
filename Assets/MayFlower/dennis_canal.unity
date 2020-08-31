@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21861952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 21861953}
+  m_Layer: 0
+  m_Name: Beacon4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &21861953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21861952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -174.2, y: -13.68, z: -280.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 620647281}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32304858
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +264,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32304858}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &38271445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38271446}
+  m_Layer: 0
+  m_Name: Beacon2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &38271446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38271445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.3, y: -13.68, z: -46.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 620647281}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &51938232
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +556,47 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 450801465}
+--- !u!1 &233695865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1377367718963955659, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &233695867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233695865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  FrameId: Unity
+  laser: {fileID: 233695865}
+  laserType: leftAngle
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &233695868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233695865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.0.1:9090
 --- !u!1 &370814509
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /imuData
-  FrameId: IMU_Sensor
 --- !u!1 &375183629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9083998436884223129, guid: 405c4bc591de844a3a100e1538790229,
@@ -962,6 +1062,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613545971}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &620647280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 620647281}
+  m_Layer: 0
+  m_Name: Beacons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &620647281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620647280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 307.32715, y: 13.311529, z: 175.00671}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1670753265}
+  - {fileID: 38271446}
+  - {fileID: 1230889109}
+  - {fileID: 21861953}
+  - {fileID: 1240411314}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &633047405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1007,7 +1142,7 @@ PrefabInstance:
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000020887292
+      value: 0.00002083773
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1022,7 +1157,7 @@ PrefabInstance:
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00018122606
+      value: 0.00018122034
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1457,6 +1592,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692062028}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &694188523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230867049502444248, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &694188525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694188523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  FrameId: Unity
+  laser: {fileID: 694188523}
+  laserType: straight
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &694188526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694188523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.0.1:9090
 --- !u!1 &747418199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8073649028109790030, guid: 70d78230a0527e74dabc4f14906eef98,
@@ -2783,6 +2959,66 @@ MonoBehaviour:
   m_VoxelSize: 1
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 08ffd922977f047069e63af70a5efc8f, type: 2}
+--- !u!1 &1230889108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230889109}
+  m_Layer: 0
+  m_Name: Beacon3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1230889109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230889108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -74.3, y: -13.68, z: -176.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 620647281}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1240411313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240411314}
+  m_Layer: 0
+  m_Name: Beacon5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240411314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240411313}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -434.6, y: -13.68, z: -276.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 620647281}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1318662649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4933349709312262, guid: b89c4a1e685b24b578c71a10101cc37c,
@@ -2977,7 +3213,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332970917}
-  m_LocalRotation: {x: 0.000020887292, y: -0.11436521, z: 0.9934388, w: 0.00018122606}
+  m_LocalRotation: {x: 0.00002083773, y: -0.11436521, z: 0.9934388, w: 0.00018122034}
   m_LocalPosition: {x: 410, y: 1.4100001, z: 172.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3458,6 +3694,42 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 633047405}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1458203840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458203839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ddf49b9fc8f32b40896a971c1710199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /navigator_
+  TimeStep: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1458203841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458203839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c68dbdaf694539408cd1151b0ff226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /beaconDirection2_
+  boat: {fileID: 1458203839}
+  beacons:
+  - {fileID: 1670753264}
+  - {fileID: 38271445}
+  - {fileID: 1230889108}
+  period: 0.1
+  currentBeacon: 0
 --- !u!114 &1458203845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3471,7 +3743,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPilot: 0
-  navSubscriber: {fileID: 0}
+  navSubscriber: {fileID: 1458203840}
+--- !u!114 &1458203846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458203839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906fb0ca98d844a81b88a537925a7d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /direction_
+  currentRotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  degree: 0
+  period: 0.1
+--- !u!114 &1458203847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458203839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.56.101:9090
 --- !u!1 &1520129973
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,6 +4403,36 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
+--- !u!1 &1670753264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1670753265}
+  m_Layer: 0
+  m_Name: Beacon1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1670753265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670753264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.32, y: -13.68, z: 12.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 620647281}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1675874598 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1838966110995585612, guid: 70d78230a0527e74dabc4f14906eef98,
@@ -4856,6 +5191,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975779069}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &2001426277
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &2011306074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4865,7 +5235,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011306075}
-  - component: {fileID: 2011306076}
   m_Layer: 11
   m_Name: Magnetometer
   m_TagString: Untagged
@@ -4887,19 +5256,47 @@ Transform:
   m_Father: {fileID: 1675874598}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2011306076
+--- !u!1 &2037098476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2145286303848100506, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037098478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011306074}
+  m_GameObject: {fileID: 2037098476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906fb0ca98d844a81b88a537925a7d6b, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRotation: {x: 0, y: 0, z: 0}
+  Topic: 
+  FrameId: Unity
+  laser: {fileID: 2037098476}
+  laserType: straight
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &2037098479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037098476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.0.1:9090
 --- !u!1 &2037372218
 GameObject:
   m_ObjectHideFlags: 0
@@ -5393,3 +5790,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125930733}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2131680334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8626790928423765441, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2131680336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131680334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  FrameId: Unity
+  laser: {fileID: 2131680334}
+  laserType: rightAngle
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &2131680337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131680334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.0.1:9090
+--- !u!1 &2140680891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 91488934206394019, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2140680893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140680891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: 
+  FrameId: Unity
+  laser: {fileID: 2140680891}
+  laserType: straight
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &2140680894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140680891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.0.1:9090

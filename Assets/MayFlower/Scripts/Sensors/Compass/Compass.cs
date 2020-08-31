@@ -29,7 +29,7 @@ namespace MayflowerSimulator.Sensors.Compass
             if (Time.time > nextActionTime ) 
             {
                 nextActionTime += period;
-                Publish(PrepareMessage(degree));  
+                Publish(PrepareMessage(degree));
             }
         }
 

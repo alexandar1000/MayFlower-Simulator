@@ -79,7 +79,7 @@ namespace BoatAttack
                 engine.Turn(_steering);
             }
             else{
-                engine.Accelerate((float)0.2);
+                engine.Accelerate((float)0.5);
                 engine.Turn(navSubscriber.position.z);
             }
         }
