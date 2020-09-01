@@ -8,7 +8,7 @@ using RosSharp.RosBridgeClient;
 
 namespace MayflowerSimulator.Sensors.Beacons
 {
-    public class Beacons : UnityPublisher<MessageTypes.Std.Float64>
+    public class Beacons : UnityPublisher<MessageTypes.Std.String>
     {
         public GameObject boat;
         public GameObject[] beacons;
@@ -18,14 +18,9 @@ namespace MayflowerSimulator.Sensors.Beacons
         private float nextActionTime = 0.0f;
         public float period = 0.1f;
 
-        public float degree;
-        public float distance;
-
         private string json;
 
         public int currentBeacon = 0;
-
-        /*
 
         [Serializable]
         public class BeaconJson
@@ -65,19 +60,18 @@ namespace MayflowerSimulator.Sensors.Beacons
                 public T[] Items;
             }
         }
-        */
 
         void Update()
         {
             if (Time.time > nextActionTime ) 
             {
-                /*
                 for(int i = 0; i < beacons.Length; i++)
                 {
                     Vector3 dir = beacons[i].transform.position - boat.transform.position;
                     dir = beacons[i].transform.InverseTransformDirection(dir);
                     float degree = (float)(Mathf.Atan2(dir.z, -dir.x) * Mathf.Rad2Deg);
                     float distance = Vector3.Distance (beacons[i].transform.position, boat.transform.position);
+                    if(degree < 0) degree += 360f;
 
                     beaconInstance[i] = new BeaconJson();
                     beaconInstance[i].id = i;
@@ -87,37 +81,14 @@ namespace MayflowerSimulator.Sensors.Beacons
 
                 string json = JsonHelper.ToJson(beaconInstance, true);
 
-                Debug.Log(json);
-                */
-
-                Vector3 dir = beacons[currentBeacon].transform.position - boat.transform.position;
-                dir = beacons[currentBeacon].transform.InverseTransformDirection(dir);
-                degree = (float)(Mathf.Atan2(dir.z, -dir.x) * Mathf.Rad2Deg);
-                distance = Vector3.Distance (beacons[currentBeacon].transform.position, boat.transform.position);
-
-                if(distance < 5){
-                    currentBeacon++;
-                }
-
-                if(degree < 0) degree += 360f;
-
                 nextActionTime += period;
-                Publish(PrepareMessage(degree));
+                Publish(PrepareMessage(json));
             }  
         }
-/*
         private MessageTypes.Std.String PrepareMessage(string json)
         {
             MessageTypes.Std.String message = new MessageTypes.Std.String();
             message.data = json;
-
-            return message;
-        }
-*/
-        private MessageTypes.Std.Float64 PrepareMessage(float deg)
-        {
-            MessageTypes.Std.Float64 message = new MessageTypes.Std.Float64();
-            message.data = deg;
 
             return message;
         }

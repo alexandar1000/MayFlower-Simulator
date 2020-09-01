@@ -691,41 +691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /imuData
---- !u!84 &373277890
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WaterDepthMap
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 2
-  m_ColorFormat: 142
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &375183629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9083998436884223129, guid: 405c4bc591de844a3a100e1538790229,
@@ -1177,12 +1142,12 @@ PrefabInstance:
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000020856114
+      value: 0.000020861435
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.11436519
+      value: -0.1143652
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1192,7 +1157,7 @@ PrefabInstance:
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00018122247
+      value: 0.00018122308
       objectReference: {fileID: 0}
     - target: {fileID: 6822964578908374406, guid: 70d78230a0527e74dabc4f14906eef98,
         type: 3}
@@ -1401,6 +1366,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 655484185}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &667480840
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &679160919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,7 +3248,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332970917}
-  m_LocalRotation: {x: 0.000020856114, y: -0.11436519, z: 0.9934388, w: 0.00018122247}
+  m_LocalRotation: {x: 0.000020861435, y: -0.1143652, z: 0.9934388, w: 0.00018122308}
   m_LocalPosition: {x: 410, y: 1.4100001, z: 172.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3757,7 +3757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c68dbdaf694539408cd1151b0ff226f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: /beaconDirection_
+  Topic: /beacons_
   boat: {fileID: 1458203839}
   beacons:
   - {fileID: 1670753264}
@@ -3766,9 +3766,24 @@ MonoBehaviour:
   - {fileID: 21861952}
   - {fileID: 1240411313}
   period: 0.1
-  degree: 0
-  distance: 0
+  firstDeg: 0
+  firstDist: 0
   currentBeacon: 0
+--- !u!114 &1458203842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458203839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b034cceee53fb714a8b94099871634e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /boatPosition_
+  FrameId: Unity
+  pos_boat: {x: 0, y: 0, z: 0}
 --- !u!114 &1458203845
 MonoBehaviour:
   m_ObjectHideFlags: 0
