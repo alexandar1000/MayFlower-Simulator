@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Policy;
 using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
@@ -14,36 +13,14 @@ namespace RosSharp.RosBridgeClient
 
         [Header("Laser Settings")]
         public string laserType = "straight";
-        public float sensorLength = 10f;
+        public float sensorLength = 5f;
         public float frontSensorAngle = 30;
 
         private float nextActionTime = 0.0f;
         public float period = 0.1f;
 
-        private MessageTypes.Sensor.Range message;
-
-        protected override void Start()
-        {
-            base.Start();
-            InitialiseMessage();
-            InvokeRepeating("UpdateMessage", 1f, 1f);
-        }
-
-
-        void InitialiseMessage()
-        {
-            message = new MessageTypes.Sensor.Range();
-            message.header = new MessageTypes.Std.Header();
-            message.header.frame_id = FrameId;
-            message.radiation_type = 1; //infrared
-            message.field_of_view = 0;
-            message.min_range = 0;
-            message.max_range = 2;
-            message.range = 11;
-        }
-
         // Update is called once per frame
-        void UpdateMessage()
+        void Update()
         {
             RaycastHit hit;
 
@@ -74,16 +51,12 @@ namespace RosSharp.RosBridgeClient
             if (Time.time > nextActionTime ) 
             {
                 nextActionTime += period;
-                message.header.Update();
-                message.range = hit.distance;
-                Debug.Log("header stamp secs: "+ message.header.stamp.secs + " distance: "+ message.range);
-                //Publish(PrepareMessage(hit.distance));  
-                Publish(message);
+                Publish(PrepareMessage(hit.distance));  
             }
             
         }
 
-        /*private MessageTypes.Sensor.Range PrepareMessage(float distance)
+        private MessageTypes.Sensor.Range PrepareMessage(float distance)
         {
             MessageTypes.Sensor.Range message = new MessageTypes.Sensor.Range
             {
@@ -94,8 +67,9 @@ namespace RosSharp.RosBridgeClient
                 max_range       = 2,
                 range           = distance
             };
+
             return message;
-        }*/
+        }
 
     }
 }

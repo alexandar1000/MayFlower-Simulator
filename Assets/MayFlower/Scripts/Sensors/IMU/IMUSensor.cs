@@ -14,7 +14,7 @@ namespace MayflowerSimulator.Sensors.IMU
     public class IMUSensor : UnityPublisher<SensorMessages.Imu>
     {
         private SensorMessages.Imu ImuMessage;
-        private string FrameId = "Unity_IMU";
+        private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         protected override void Start()
@@ -51,7 +51,6 @@ namespace MayflowerSimulator.Sensors.IMU
         void UpdateMessage()
         {
             ImuMessage.header.Update();
-            UnityEngine.Debug.Log("IMU Header timestamp: "+ ImuMessage.header.stamp);
             ImuMessage.orientation = quaterObj(IMU.orientation);
             ImuMessage.linear_acceleration = vector3Obj(IMU.Accelerate_Linear);
             ImuMessage.angular_velocity = vector3Obj(IMU.currentAngularVelocity);
