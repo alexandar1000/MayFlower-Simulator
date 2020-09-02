@@ -632,6 +632,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 450801465}
+
 --- !u!1 &169192867
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,11 +652,13 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &169192868
+
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+
   m_GameObject: {fileID: 169192867}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -667,11 +670,13 @@ MonoBehaviour:
   Rotate_Y: 0
   Rotate_Z: 0
 --- !u!114 &169192869
+
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+
   m_GameObject: {fileID: 169192867}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -695,6 +700,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
 --- !u!1 &370814509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,6 +1384,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613545971}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+
 --- !u!84 &614987059
 RenderTexture:
   m_ObjectHideFlags: 0
@@ -1413,6 +1420,7 @@ RenderTexture:
     m_WrapW: 1
   m_Dimension: 2
   m_VolumeDepth: 1
+
 --- !u!1 &620647280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,6 +1454,7 @@ Transform:
   - {fileID: 21861953}
   - {fileID: 1240411314}
   m_Father: {fileID: 0}
+
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &633047405
@@ -1745,6 +1754,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 655484185}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &667480840
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WaterDepthMap
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1024
+  m_Height: 1024
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 2
+  m_ColorFormat: 142
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &679160919
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,7 +5564,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011306075}
-  - component: {fileID: 2011306076}
   m_Layer: 11
   m_Name: Magnetometer
   m_TagString: Untagged
@@ -5542,16 +5585,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2011306076
+--- !u!1 &2037098476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2145286303848100506, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037098478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011306074}
+  m_GameObject: {fileID: 2037098476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906fb0ca98d844a81b88a537925a7d6b, type: 3}
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentRotation: {x: 0, y: 0, z: 0}
@@ -5943,3 +5992,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125930733}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2131680334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8626790928423765441, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2131680336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131680334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /rightAngleLaser_
+  FrameId: Unity
+  laser: {fileID: 2131680334}
+  laserType: rightAngle
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &2131680337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131680334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.56.101:9090
+--- !u!1 &2140680891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 91488934206394019, guid: 70d78230a0527e74dabc4f14906eef98,
+    type: 3}
+  m_PrefabInstance: {fileID: 633047405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2140680893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140680891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea79f6d7589db24e86c160bd7b78474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /frontRightLaser_
+  FrameId: Unity
+  laser: {fileID: 2140680891}
+  laserType: straight
+  sensorLength: 5
+  frontSensorAngle: 30
+  period: 0.1
+--- !u!114 &2140680894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140680891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://192.168.56.101:9090
