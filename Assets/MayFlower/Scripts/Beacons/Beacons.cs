@@ -13,7 +13,7 @@ namespace MayflowerSimulator.Sensors.Beacons
         public GameObject boat;
         public GameObject[] beacons;
 
-        private static int beaconCount = 6;
+        private static int beaconCount = 5;
 
         private float nextActionTime = 0.0f;
         public float period = 0.1f;
