@@ -17,6 +17,7 @@ limitations under the License.
 // UoK , 2019, Odysseas Doumas (od79@kent.ac.uk / odydoum@gmail.com)
 
 using UnityEngine;
+using System;
 
 namespace RosSharp.RosBridgeClient
 {
@@ -55,6 +56,7 @@ namespace RosSharp.RosBridgeClient
             GetGeometryPoint(PublishedTransform.position.Unity2Ros(), message.pose.position);
             GetGeometryQuaternion(PublishedTransform.rotation.Unity2Ros(), message.pose.orientation);
 
+            Debug.Log(message.pose.position);
             Publish(message);
         }
 

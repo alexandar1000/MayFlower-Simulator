@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using GeoMessages = RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using NavMessages = RosSharp.RosBridgeClient.MessageTypes.Nav;
 using RosSharp.RosBridgeClient;
@@ -12,12 +9,10 @@ namespace MayflowerSimulator.Sensors.Odometry
     public class OdometryPublisher : UnityPublisher<NavMessages.Odometry>
     {
         public Transform PublishedTransform;
-        public string FrameId = "Unity";
-        public string ChildId = "UnityChild";
+        public string FrameId = "odom";
+        public string ChildId = "base_link";
 
         private NavMessages.Odometry message;
-        private GeoMessages.PoseWithCovariance pose;
-        private GeoMessages.TwistWithCovariance twist;
         private float previousRealTime;
         private Vector3 previousPosition = Vector3.zero;
         private Quaternion previousRotation = Quaternion.identity;
@@ -38,25 +33,31 @@ namespace MayflowerSimulator.Sensors.Odometry
             message = new NavMessages.Odometry();
             message.header.frame_id = FrameId;
             message.child_frame_id = ChildId;
-            message.pose = new GeoMessages.PoseWithCovariance();
-            message.twist = new GeoMessages.TwistWithCovariance();
-            message.twist.twist.linear = new GeoMessages.Vector3();
-            message.twist.twist.angular = new GeoMessages.Vector3();
+           
         }
         private void UpdateMessage()
         {
-          
+            message.header.Update();
+            double[] cov = {0.01, 0.0, 0.0, 0.0, 0.0, 0.0,
+                         0.0, 0.01, 0.0, 0.0, 0.0, 0.0,
+                         0.0, 0.0, 0.01, 0.0, 0.0, 0.0,
+                         0.0, 0.0, 0.0, 0.0001, 0.0, 0.0,
+                         0.0, 0.0, 0.0, 0.0, 0.0001, 0.0,
+                         0.0, 0.0, 0.0, 0.0, 0.0, 0.0001};
+
 
             GetGeometryPoint(PublishedTransform.position.Unity2Ros(), message.pose.pose.position);
             GetGeometryQuaternion(PublishedTransform.rotation.Unity2Ros(), message.pose.pose.orientation);
+            message.pose.covariance = cov;
 
             float deltaTime = Time.realtimeSinceStartup - previousRealTime;
 
             Vector3 linearVelocity = (PublishedTransform.position - previousPosition) / deltaTime;
             Vector3 angularVelocity = (PublishedTransform.rotation.eulerAngles - previousRotation.eulerAngles) / deltaTime;
 
-            message.twist.twist.linear = GetGeometryVector3(linearVelocity.Unity2Ros()); ;
+            message.twist.twist.linear = GetGeometryVector3(linearVelocity.Unity2Ros()); 
             message.twist.twist.angular = GetGeometryVector3(-angularVelocity.Unity2Ros());
+            message.twist.covariance = cov;
 
             previousRealTime = Time.realtimeSinceStartup;
             previousPosition = PublishedTransform.position;
@@ -89,3 +90,6 @@ namespace MayflowerSimulator.Sensors.Odometry
         }
     }
 }
+
+
+
