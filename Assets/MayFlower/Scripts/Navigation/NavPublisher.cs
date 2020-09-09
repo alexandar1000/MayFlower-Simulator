@@ -47,9 +47,9 @@ namespace RosSharp.RosBridgeClient
 
         private void UpdateMessage()
         {
-            pos_boat.x = GameObject.Find("Boat").transform.position.x;
-            pos_boat.y = GameObject.Find("Boat").transform.position.y;
-            pos_boat.z = GameObject.Find("Boat").transform.position.z;
+            pos_boat.x = this.transform.position.x;
+            pos_boat.y = this.transform.position.y;
+            pos_boat.z = this.transform.position.z;
 
             message.position = GetGeometryPoint(pos_boat);
 

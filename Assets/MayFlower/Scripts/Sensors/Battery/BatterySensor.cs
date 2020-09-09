@@ -5,14 +5,14 @@ using SensorMessages = RosSharp.RosBridgeClient.MessageTypes.Sensor;
 using RosSharp.RosBridgeClient;
 using MayflowerSimulator.Environment.Battery;
 
-
 namespace MayflowerSimulator.Sensors.Battery
 {
     public class BatterySensor : UnityPublisher<SensorMessages::BatteryState>
     {
         public float MeasurementFrequency = 1f;
         public Environment.Battery.Battery Battery;
-        public string FrameId = "Unity";
+        public string FrameId;
+        protected static float power;
         protected SensorMessages.BatteryState Message;
 
         protected override void Start()
@@ -35,7 +35,7 @@ namespace MayflowerSimulator.Sensors.Battery
 
             Message.power_supply_status = Battery.GetCurrentChargingStatus();
             Message.percentage = Battery.GetCurrentCharge();
-            //Debug.Log("Battery Message: " + Message.header.stamp.secs + ", " + Message.percentage + ", status: " + Message.power_supply_status);
+
             Publish(Message);
         }
     }

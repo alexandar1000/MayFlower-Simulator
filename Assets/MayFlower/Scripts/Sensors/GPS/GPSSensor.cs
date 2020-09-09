@@ -32,7 +32,7 @@ namespace RosSharp.RosBridgeClient
         private double currentZ; //altitude
         public Vector3 GPS;
     
-        private string FrameId = "Unity_boatGPS";
+        private string FrameId = "Unity";
         private double[] zeroArr = new double[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         protected MessageTypes.Sensor.NavSatFix gpsMessage;
 
