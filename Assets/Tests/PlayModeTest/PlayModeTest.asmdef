@@ -4,9 +4,9 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BatteryScript",
-        "OdomScripts",
-        "LaserScripts",
-        "ROSScripts"
+        "GPS",
+        "imu",
+        "Laser"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
