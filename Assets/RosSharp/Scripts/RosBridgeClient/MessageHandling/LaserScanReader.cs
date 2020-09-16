@@ -22,7 +22,7 @@ namespace RosSharp.RosBridgeClient
         private Ray[] rays;
         private RaycastHit[] raycastHits;
         private Vector3[] directions;
-        private LaserScanVisualizer[] laserScanVisualizers;
+        private LaserScanVisualizerLines[] laserScanVisualizers;
 
         public int samples = 360;
         public int update_rate = 1800;
@@ -49,11 +49,12 @@ namespace RosSharp.RosBridgeClient
         {
             MeasureDistance();
 
-            laserScanVisualizers = GetComponents<LaserScanVisualizer>();
+            laserScanVisualizers = GetComponents<LaserScanVisualizerLines>();
             if (laserScanVisualizers != null)
-                foreach (LaserScanVisualizer laserScanVisualizer in laserScanVisualizers)
+                foreach (LaserScanVisualizerLines laserScanVisualizer in laserScanVisualizers) {
                     laserScanVisualizer.SetSensorData(gameObject.transform, directions, ranges, range_min, range_max);
-
+                }
+            
             return ranges;
         }
 

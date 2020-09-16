@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackLaser : MonoBehaviour
+public class Compass : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

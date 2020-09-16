@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using RosSharp.RosBridgeClient;
 using MessageTypes = RosSharp.RosBridgeClient.MessageTypes;
-using RosSharp.RosBridgeClient;
 
 namespace MayflowerSimulator.Sensors.Compass
 {

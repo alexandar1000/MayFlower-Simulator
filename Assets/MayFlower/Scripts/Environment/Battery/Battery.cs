@@ -6,13 +6,14 @@ namespace MayflowerSimulator.Environment.Battery
 {
     public class Battery : MonoBehaviour
     {
-        public float BatteryChargeMinutesDuration;
-        public float BatteryDischargeMinutesDuration;
-        public float InitialBatteryChargePercentage;
+        public float BatteryChargeMinutesDuration = 1;
+        public float BatteryDischargeMinutesDuration = 1;
+        public float InitialBatteryChargePercentage = 100;
         public float Voltage { get; } = 3f;
         protected float Charge;
         protected bool isCharging;
         protected GameObject homeZone;
+        protected byte BatteryStatus = 0;
 
         protected const byte POWER_SUPPLY_STATUS_UNKNOWN = 0;
         protected const byte POWER_SUPPLY_STATUS_CHARGING = 1;
@@ -71,7 +72,17 @@ namespace MayflowerSimulator.Environment.Battery
         // Get current charge returns the battery percentage normalised to the scale of 0 to 1
         public float GetCurrentCharge()
         {
-            return Charge / 100f;
+            return Charge / 100;
+        }
+
+        public float GetCharge()
+        {
+            return Charge;
+        }
+
+        public void SetCurrentCharge(float ch)
+        {
+            Charge = ch;
         }
 
         public byte GetCurrentChargingStatus()
@@ -95,5 +106,11 @@ namespace MayflowerSimulator.Environment.Battery
                 return POWER_SUPPLY_STATUS_DISCHARGING;
             }
         }
+
+        public void SetChargingStatus(bool b)
+        {
+            isCharging = b;
+        }
+
     }
 }

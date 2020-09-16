@@ -51,23 +51,6 @@ Once the addressable assets are built you can continue to build a player as usua
 
 One thing to mention is not all controls and platforms have been tested, especially for the menu work. if you want to just see the project running on a device you can add the `scenes/demo_island.unity` scene to the build list and disable/remove the others.
 
-# Todo
-
-As this project is on going there is a lot more left that needs to be worked on, so I repeat this is not a resource for production ready workflow ideas or systems and lots of it was put together very quickly.
-
-Some of the things left to do:
- * Make water system more modular and improve UX
- * Improve boat AI
- * Add imposter rendering for vegetation
- * Cleanup menu system to switch between Demoing/Playing/Benchmarking
- * Implement Unity Physics
- * Optimize cross platform performance and stability
- * Continue code cleanup
- * Wiki explaining features/systems in more depth
- * Add more sizzle....
-
-![Sunny Island](https://gdurl.com/STO1)
-
 # Credits
 [Andre McGrail](http://www.andremcgrail.com) - Design, Programming, Modeling, Textures, SFX
 

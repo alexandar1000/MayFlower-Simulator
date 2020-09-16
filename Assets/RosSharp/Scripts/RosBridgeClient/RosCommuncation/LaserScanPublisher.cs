@@ -20,7 +20,7 @@ namespace RosSharp.RosBridgeClient
     public class LaserScanPublisher : UnityPublisher<MessageTypes.Sensor.LaserScan>
     {
         public LaserScanReader laserScanReader;
-        public string FrameId = "Unity";
+        public string FrameId = "base_laser";
 
         private MessageTypes.Sensor.LaserScan message;
         private float scanPeriod;

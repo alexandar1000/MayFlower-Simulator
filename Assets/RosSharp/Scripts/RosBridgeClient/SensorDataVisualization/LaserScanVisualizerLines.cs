@@ -20,8 +20,8 @@ namespace RosSharp.RosBridgeClient
     public class LaserScanVisualizerLines : LaserScanVisualizer
     {
         [Range(0.001f, 0.01f)]
-        public float objectWidth;
-        public Material material;
+        public float objectWidth = 1;
+        public Material material = new Material(Shader.Find("Diffuse"));
 
         private GameObject laserScanLines;
         private GameObject[] LaserScan;

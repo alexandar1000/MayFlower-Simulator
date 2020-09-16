@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<robot name="unity_boat">
+  <material name="Green1">
+    <color rgba="0 1 0 1" />
+  </material>
+  <material name="Cyan1">
+    <color rgba="0 0.9 0.9 1" />
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1" />
+  </material>
+  <material name="c1">
+    <color rgba="0 0.6 0.8 1" />
+  </material>
+  <material name="c2">
+    <color rgba="0.7 0.6 0.8 1" />
+  </material>
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="1 0.8 0.6" />
+      </geometry>
+      <material name="Green1" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="1 0.8 0.6" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_balancer">
+    <visual>
+      <origin xyz="0 0 -0.4" />
+      <geometry>
+        <box size="0.4 0.2 0.6" />
+      </geometry>
+      <material name="Cyan1" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.4 0.2 0.6" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_balancer">
+    <visual>
+      <origin xyz="0 0 -0.4" />
+      <geometry>
+        <box size="0.4 0.2 0.6" />
+      </geometry>
+      <material name="Cyan1" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.4 0.2 0.6" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="boat_rear">
+    <visual>
+      <geometry>
+        <box size="0.6 0.3 0.6" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.6 0.3 0.6" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="engine">
+    <visual>
+      <geometry>
+        <box size="0.3 0.2 0.6" />
+      </geometry>
+      <material name="c1" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.3 0.2 0.6" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="video_camera">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.05" />
+      </geometry>
+      <material name="c2" />
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.05" radius="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_link_left_balancer_joint" type="fixed">
+    <origin xyz="0.7 0.3 0.4" />
+    <parent link="base_link" />
+    <child link="left_balancer" />
+  </joint>
+  <joint name="base_link_right_balancer_joint" type="fixed">
+    <origin xyz="0.7 -0.3 0.4" />
+    <parent link="base_link" />
+    <child link="right_balancer" />
+  </joint>
+  <joint name="base_link_boat_rear_joint" type="fixed">
+    <origin xyz="-0.8 0 0" />
+    <parent link="base_link" />
+    <child link="boat_rear" />
+  </joint>
+  <joint name="boat_rear_engine_joint" type="fixed">
+    <origin xyz="-0.35 0 0" />
+    <parent link="boat_rear" />
+    <child link="engine" />
+  </joint>
+  <joint name="base_link_video_camera_joint" type="fixed">
+    <origin xyz="0.4 0 0.325" />
+    <parent link="base_link" />
+    <child link="video_camera" />
+  </joint>
+</robot>
