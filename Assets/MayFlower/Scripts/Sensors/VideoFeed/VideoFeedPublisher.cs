@@ -32,7 +32,7 @@ namespace MayflowerSimulator.Sensors.Temperature
 
             message = new SensorMessages.CompressedImage();
             message.header.frame_id = "VideoCamera";
-            message.format = "jpeg";
+            message.format = "png";
 
             InvokeRepeating("UpdateMessage", 1f , 1f);
 

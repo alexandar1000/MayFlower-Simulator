@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using RosSharp.RosBridgeClient;
 
@@ -11,9 +11,13 @@ namespace BoatAttack
     {
         private InputControls _controls;
 
-        public bool autoPilot = false;
+        public bool autoPilot = true;
+
+        public bool unityControls = false;
 
         public NavSubscriber navSubscriber;
+
+        public RemoteControlsSubscriber remoteControlsSubscriber;
 
         private float _throttle;
         private float _steering;
@@ -22,7 +26,9 @@ namespace BoatAttack
         
         private void Awake()
         {
+            
             _controls = new InputControls();
+            if (!unityControls) return;
             
             _controls.BoatControls.Trottle.performed += context => _throttle = context.ReadValue<float>();
             _controls.BoatControls.Trottle.canceled += context => _throttle = 0f;
@@ -39,11 +45,13 @@ namespace BoatAttack
         public override void OnEnable()
         {
             base.OnEnable();
+            if (!unityControls) return;
             _controls.BoatControls.Enable();
         }
 
         private void OnDisable()
         {
+            if (!unityControls) return;
             _controls.BoatControls.Disable();
         }
 
@@ -72,17 +80,79 @@ namespace BoatAttack
             DayNightController.SelectPreset(value);
         }
 
+        private bool manualOverride()
+        {
+            bool _override = false;
+
+            switch (remoteControlsSubscriber.position.z)
+            {
+                case 0:
+                case -1:
+                case 1: _override = true;
+                    break;
+                default: _override = false;
+                    break;
+            }
+            
+            switch (remoteControlsSubscriber.position.x)
+            {
+                case 0:
+                case 1: _override = true;
+                    break;
+                case -1: _override = false;
+                    break;
+                
+                default: _override = false;
+                    break;
+            }
+            
+            return _override;
+        }
+        
+        void remoteControl()
+        {
+            if (remoteControlsSubscriber.position.x == -1)
+            {
+                autoPilot = true;
+                return;
+            }
+            engine.Accelerate(remoteControlsSubscriber.position.x);
+            engine.Turn(remoteControlsSubscriber.position.z);
+        }
+
         void FixedUpdate()
         {
-            if(!autoPilot){
-                engine.Accelerate(_throttle);
-                engine.Turn(_steering);
+
+            if (autoPilot)
+            {
+                if (manualOverride())
+                {
+                    autoPilot = false;
+                    remoteControl();
+                }
+                else
+                {
+                    engine.Accelerate((float) 0.2);
+                    engine.Turn(navSubscriber.position.z);
+                }
             }
-            else{
-                engine.Accelerate((float)0.5);
-                engine.Turn(navSubscriber.position.z);
+            else if (unityControls)
+            {
+                if (manualOverride())
+                {
+                    unityControls = false;
+                    remoteControl();
+                }
+                else
+                {
+                    engine.Accelerate(_throttle);
+                    engine.Turn(_steering);
+                }
             }
+            else
+            {
+                remoteControl();
+            } 
         }
     }
 }
-

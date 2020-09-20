@@ -11,7 +11,7 @@ namespace MayflowerSimulator.Sensors.Temperature
 {
     public class TemperatureSensor : UnityPublisher<StdMessages.Float64>
     {
-        public float MeasurementFrequency = 2f;
+        public float MeasurementFrequency = 1f;
         public GameObject[] TemperatureAnomalies;
 
         public float GlobalTemperature = 25f;
