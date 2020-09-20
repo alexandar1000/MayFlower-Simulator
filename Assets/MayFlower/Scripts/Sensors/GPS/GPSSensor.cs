@@ -72,8 +72,8 @@ namespace RosSharp.RosBridgeClient
             gpsMessage.longitude = Convert.ToDouble(GPS.x);
             gpsMessage.latitude = Convert.ToDouble(GPS.y);
             gpsMessage.altitude = Convert.ToDouble(GPS.z);
-
             // Debug.Log("gpsMessage: (" + gpsMessage.longitude + "," + gpsMessage.latitude + ", "+ gpsMessage.altitude + ")");
+
             Publish(gpsMessage);
         }
 
