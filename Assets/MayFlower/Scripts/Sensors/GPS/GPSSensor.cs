@@ -14,11 +14,11 @@ namespace RosSharp.RosBridgeClient
     {
         public Transform Boat;
 
-        //GPS: x: lat(upper larger), y: lon(right larger), z: alt
-        //Point: z(upper smaller), x(right smaller), y
+        //GPS: x:lon(right larger),  y:lat(upper larger), z: alt
+        //Point: x(east smaller), z(north smaller), y
         //To simulate the real map, the altitude goes up from 53m at StartP to 60m at P1, and down to 47m at EndP
         public Transform StartP;
-        private Vector3 StartingGPS;
+        private Vector3 StartGPS;
         public Transform P1;
         public Transform EndP;
         private Vector3 EndGPS;
@@ -45,19 +45,21 @@ namespace RosSharp.RosBridgeClient
 
         void InitialiseMessage()
         {
-            StartingGPS = new Vector3(53.38455701638842f, -1.4595508575439455f, 54.0f); //latitude, longitude, elevation(m)
-            EndGPS = new Vector3(53.403750049393025f, -1.4112067222595215f, 47.0f);
+            StartGPS = new Vector3(-1.45955086f, 53.38455702f, 54.0f); //longitude, latitude, elevation(m)
+            EndGPS = new Vector3(-1.41120672f, 53.40375005f, 47.0f);
 
-            GPSUnits = new Vector3((EndGPS.x - StartingGPS.x) / (EndP.position.z - StartP.position.z), (EndGPS.y - StartingGPS.y) / (EndP.position.x - StartP.position.x), (EndGPS.z - StartingGPS.z) / (EndP.position.y - StartP.position.y));
+            //Unity X: left > right; Z: down > up
+            GPSUnits = new Vector3((EndGPS.x - StartGPS.x) / (StartP.position.x - EndP.position.x), (EndGPS.y - StartGPS.y) / (EndP.position.z - StartP.position.z), (EndGPS.z - StartGPS.z) / (EndP.position.y - StartP.position.y));
+            
 
             gpsMessage = new MessageTypes.Sensor.NavSatFix();
             gpsMessage.header.frame_id = FrameId;
             gpsMessage.position_covariance = zeroArr;
-            gpsMessage.latitude = StartingGPS.x;
-            gpsMessage.longitude = StartingGPS.y;
-            gpsMessage.altitude = StartingGPS.z;
+            gpsMessage.longitude = StartGPS.x;
+            gpsMessage.latitude = StartGPS.y;
+            gpsMessage.altitude = StartGPS.z;
 
-            GPS = new Vector3(53.38455702f, -1.45955086f, 54.0f);
+            GPS = new Vector3(-1.45955086f, 53.38455702f, 54.0f);
         }
 
         void UpdateMessage()
@@ -67,11 +69,11 @@ namespace RosSharp.RosBridgeClient
             GPS = getGPSFromUnityPos(currentWorldPos);
 
             gpsMessage.header.Update();
-            gpsMessage.latitude = Convert.ToDouble(GPS.x);
-            gpsMessage.longitude = Convert.ToDouble(GPS.y);
+            gpsMessage.longitude = Convert.ToDouble(GPS.x);
+            gpsMessage.latitude = Convert.ToDouble(GPS.y);
             gpsMessage.altitude = Convert.ToDouble(GPS.z);
+            // Debug.Log("gpsMessage: (" + gpsMessage.longitude + "," + gpsMessage.latitude + ", "+ gpsMessage.altitude + ")");
 
-            //Debug.Log("gpsMessage: (" + gpsMessage.latitude + "," + gpsMessage.longitude + ", "+ gpsMessage.altitude + ")");
             Publish(gpsMessage);
         }
 
@@ -79,8 +81,8 @@ namespace RosSharp.RosBridgeClient
         //Use "GameObject.Find("RosConnectors").GetComponent<GPSSensor>().getGPSFromUnityPos(some unity point)" to call in other scripts.
         public Vector3 getGPSFromUnityPos(Vector3 UnityPos)
         {
-            float X = (UnityPos.z - StartP.position.z) * GPSUnits.x + StartingGPS.x;
-            float Y = (UnityPos.x - StartP.position.x) * GPSUnits.y + StartingGPS.y;
+            float X = (StartP.position.x - UnityPos.x) * GPSUnits.x + StartGPS.x;
+            float Y = (StartP.position.z - UnityPos.z) * GPSUnits.y + StartGPS.y;            
             float Z;
 
             if (UnityPos.x > P1.position.x)
