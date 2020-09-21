@@ -702,6 +702,7 @@ Transform:
   - {fileID: 5581215838059383232}
   - {fileID: 317580535486368187}
   - {fileID: 5973008284685715441}
+  - {fileID: 1308545191236975925}
   m_Father: {fileID: 7299468081796291744}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2278,6 +2279,94 @@ MonoBehaviour:
   engine: {fileID: 5566958750610191849}
   cam: {fileID: 6207905718555126118}
   inWindZone: 0
+--- !u!1 &8576904080271158661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308545191236975925}
+  - component: {fileID: 2009516206854606411}
+  - component: {fileID: 148388616479068397}
+  - component: {fileID: 4559374400343995716}
+  m_Layer: 11
+  m_Name: Lidars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1308545191236975925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576904080271158661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.628, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8509142015350216082}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2009516206854606411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576904080271158661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://parallels:9090
+--- !u!114 &148388616479068397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576904080271158661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a219972eb4595a26eac21a54b8f334c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /scan
+  RotationsPerMinute: 60
+  ScanningFrequency: 2
+  LaserLength: 40
+  FrameId: base_link
+  ShowLasers: 0
+--- !u!114 &4559374400343995716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576904080271158661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ac56683e642b0b3a0946e31f122f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /pcl_scan
+  RotationsPerMinute: 60
+  ScanningFrequency: 2
+  ScansPerColumn: 20
+  UpperAngleBound: 15
+  LowerAngleBound: -15
+  LaserLength: 40
+  FrameId: base_link
+  ShowLasers: 0
 --- !u!1 &8626790928423765441
 GameObject:
   m_ObjectHideFlags: 0
