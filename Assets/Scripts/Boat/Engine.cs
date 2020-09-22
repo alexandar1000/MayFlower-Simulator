@@ -16,7 +16,7 @@ namespace BoatAttack
 
         //engine stats
         public float steeringTorque = 5f;
-        public float horsePower = 18f;
+        public float horsePower = 15f;
         private NativeArray<float3> _point; // engine submerged check
         private float3[] _heights = new float3[1]; // engine submerged check
         private float3[] _normals = new float3[1]; // engine submerged check
