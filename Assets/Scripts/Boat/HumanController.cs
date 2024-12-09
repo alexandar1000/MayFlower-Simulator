@@ -13,7 +13,11 @@ namespace BoatAttack
 
         public bool autoPilot = false;
 
+        public bool unityControls = true;
+
         public NavSubscriber navSubscriber;
+
+        public RemoteControlsSubscriber remoteControlsSubscriber;
 
         private float _throttle;
         private float _steering;
@@ -22,7 +26,9 @@ namespace BoatAttack
         
         private void Awake()
         {
+            
             _controls = new InputControls();
+            if (!unityControls) return;
             
             _controls.BoatControls.Trottle.performed += context => _throttle = context.ReadValue<float>();
             _controls.BoatControls.Trottle.canceled += context => _throttle = 0f;
@@ -39,11 +45,13 @@ namespace BoatAttack
         public override void OnEnable()
         {
             base.OnEnable();
+            if (!unityControls) return;
             _controls.BoatControls.Enable();
         }
 
         private void OnDisable()
         {
+            if (!unityControls) return;
             _controls.BoatControls.Disable();
         }
 
@@ -75,8 +83,16 @@ namespace BoatAttack
         void FixedUpdate()
         {
             if(!autoPilot){
-                engine.Accelerate(_throttle);
-                engine.Turn(_steering);
+                if (!unityControls)
+                {
+                    engine.Accelerate((remoteControlsSubscriber.position.x == null) ? 0 : remoteControlsSubscriber.position.x);
+                    engine.Turn((remoteControlsSubscriber.position.z == null) ? 0 : remoteControlsSubscriber.position.z);
+                }
+                else
+                {
+                    engine.Accelerate(_throttle);
+                    engine.Turn(_steering);
+                }
             }
             else{
                 engine.Accelerate((float)0.5);
